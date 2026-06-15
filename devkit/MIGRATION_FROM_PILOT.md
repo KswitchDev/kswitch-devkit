@@ -31,7 +31,7 @@ Source:
 | Area | Required change |
 | --- | --- |
 | Branding | Replace `pilot bundle` with `Developer Edition`. |
-| Licence | Remove the time-boxed renewal flow. Use no licence in dev mode, or a perpetual developer claim if the verifier still requires one. |
+| Entitlement | Remove the time-boxed renewal flow. Use the Developer Edition loader overlay and no customer licence file. |
 | Caps | Lower from pilot-sized limits to developer caps. |
 | Auth docs | Lead with PKCE for humans and SPIFFE/WIMSE for services. Client credentials are fallback only. |
 | Runtime text | Say local/non-production explicitly. Avoid implying managed fleet enforcement. |
@@ -48,6 +48,7 @@ Source:
 | `deploy/kubernetes/` | Same unless later published as paid/eval material. |
 | `RENEWAL.md` | Time-boxed trial posture conflicts with free forever. |
 | Customer-specific `licence/licence.jws` | Do not ship customer artefacts or expiring trial claims. |
+| `scripts/licence_info.py` | No licence file exists in Developer Edition. Use `make developer-limits`. |
 | Support-contact language | Free Developer Edition should route to docs/community channels, not customer support promises. |
 
 ## Preserve As Commercial Boundary

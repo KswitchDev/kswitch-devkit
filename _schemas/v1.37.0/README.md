@@ -2,7 +2,7 @@
 
 **Purpose.** This directory holds the pinned request/response schema fixtures
 for KSwitch server version **v1.37.0-pg**, the released server version
-immediately preceding the current v1.37.1-pg line. These fixtures back the
+immediately preceding the frozen v1.37.1-pg fixture pin. These fixtures back the
 per-SDK "one-version-back" contract tests that satisfy
 `docs/execution-packs/KS-EP-050-RUNTIME-RESILIENCE-AND-CONTROL-PLANE-STABILITY.md`
 §W4 acceptance criterion ("SDK contract tests pass against both current and

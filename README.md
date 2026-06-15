@@ -35,6 +35,7 @@ refactored for public developer use:
 - No cloud deployment templates in the free path.
 - No production SLA, support entitlement, or managed deployment rights.
 - Hard local caps instead of expiry.
+- No licence file or renewal flow in the free local path.
 - SPIFFE/workload identity as the preferred service-auth path.
 
 The intended developer loop is:

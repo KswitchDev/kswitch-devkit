@@ -1,0 +1,6 @@
+# Runtime state — never version-controlled. Contains the bundled-admin
+# password file and any future runtime-only secrets. The directory itself
+# is preserved via .gitkeep; everything else is ignored.
+*
+!.gitkeep
+!.gitignore

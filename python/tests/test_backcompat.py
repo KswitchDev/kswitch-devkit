@@ -11,8 +11,8 @@ Closes the EP-050 §W4 acceptance-criterion gap:
 
 This file is **scaffolding**. The original Wave 1 Agent F version targeted
 v1.32/v1.34, but that became stale after the product advanced to v1.37.1-pg.
-This refresh retargets the placeholders to the current release line:
-v1.37.1-pg current and v1.37.0-pg one-version-back. The real payload
+This refresh retargeted the placeholders to the frozen fixture line:
+v1.37.1-pg fixture pin and v1.37.0-pg one-version-back. The real payload
 assertions will be filled in by Round 2 once v1.37.0 schema fixtures under
 `sdks/_schemas/v1.37.0/` are populated from the v1.37.0 OpenAPI spec — see
 `sdks/_schemas/v1.37.0/README.md` for the retrieval plan. Until then, each
@@ -23,9 +23,9 @@ error.
 
 Version target note
 -------------------
-The current product version is ``1.37.1-pg`` (root ``VERSION``). The previous
-released tag is ``v1.37.0-pg``. The active "one-version-back" contract is
-therefore ``v1.37.0``.
+The platform may now be newer than these fixtures. The frozen fixture pin is
+``1.37.1-pg`` and the previous released tag is ``v1.37.0-pg``. The active
+historical "one-version-back" scaffold is therefore ``v1.37.0``.
 
 Vendor citations
 ----------------
@@ -42,7 +42,7 @@ Vendor citations
 Assumption class (CLAUDE.md engineering principle 3)
 ----------------------------------------------------
 The v1.37.0 and v1.37.1 release pins are **vendor-documented** by git tags
-and the root ``VERSION`` file. The concrete wire-contract payloads remain
+and their tagged root ``VERSION`` files. The concrete wire-contract payloads remain
 **inferred / untested** until Round 2 commits real schema exports into
 ``sdks/_schemas/v1.37.0/`` and ``sdks/_schemas/v1.37.1/``.
 """
@@ -55,7 +55,7 @@ import pytest
 
 # ---------------------------------------------------------------------------
 # Contract versions exercised by this test module.
-# v1.37.1 = current server (see root VERSION).
+# v1.37.1 = frozen fixture pin.
 # v1.37.0 = one-version-back (previous release tag).
 # ---------------------------------------------------------------------------
 SCHEMA_VERSIONS = ("v1.37.0", "v1.37.1")

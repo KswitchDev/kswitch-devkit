@@ -53,7 +53,6 @@ Use hard caps rather than expiry:
 | MCP servers | 10 |
 | Tools | 100 |
 | Skills | 100 |
-| Policy bundles | 10 |
 | Deployment target | Local/laptop only |
 
 That gives developers enough room to feel the product, while preventing the free

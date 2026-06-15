@@ -74,9 +74,9 @@ frameworks = [
 
 [project.urls]
 Homepage = "https://kswitch.ai"
-Documentation = "https://kswitch.io/sdk/python.html"
-Repository = "https://github.com/KswitchDev/kswitch-sdks/tree/main/python"
-Issues = "https://github.com/KswitchDev/kswitch-sdks/issues"
+Documentation = "https://docs.kswitch.ai/sdk/python"
+Repository = "https://github.com/kswitch-ai/kswitch-python-sdk"
+Issues = "https://github.com/kswitch-ai/kswitch-python-sdk/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["kswitch"]

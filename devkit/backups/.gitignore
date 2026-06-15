@@ -1,0 +1,5 @@
+# pg_dump tarballs from `make backup`. Contain customer data; not
+# version-controlled.
+*
+!.gitkeep
+!.gitignore

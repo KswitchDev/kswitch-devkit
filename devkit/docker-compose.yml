@@ -1,0 +1,844 @@
+# KSwitch Developer Edition — local docker-compose
+# ─────────────────────────────────────────────────────────────────────────
+# This compose defines the runnable free local stack. It proves KSwitch
+# governance over a developer's local
+# agent fleet (scanner + ingestion + runtime ops + MCP gateway
+# enforcement + observability lite). Refined from ATCP main 2026-06-15.
+#
+# Differences vs the dev compose at the parent repo root:
+#   - No source-volume mounts (all code ships in the image).
+#   - No hot-reload / debug ports.
+#   - No n8n (workflow automation is commercial-platform scope).
+#   - No fleet specialist agents / Redpanda / Elasticsearch / Wazuh /
+#     Kibana / Tetragon (Tier D parity — deferred, see README "What the
+#     Developer Edition does NOT demonstrate").
+#   - Vault dev-mode replaced by file-backed Vault.
+#   - Log rotation on every service (max-size 50m, max-file 5).
+#   - Memory caps on every container.
+#   - `restart: unless-stopped` on every long-running service.
+#   - extra_hosts for Linux host.docker.internal compatibility.
+#   - Floating MINOR tags pinned per §E (developers absorb patches via
+#     `make pull && make up`, snapshotted to ./image-digests.lock).
+#   - SPIRE identity profile activated by default — the five EP094 JWT
+#     materializers self-bootstrap once the spire-agent socket is up
+#     (§G EP094 fix per parent docker-compose.yml:699-700).
+#   - MCP gateway stack ported from gateway/docker/docker-compose.yml
+#     and unified onto kswitch-net (the parent uses a separate
+#     gateway-net; Developer Edition is a single-network simplification).
+#   - Observability lite (otel-collector, prometheus, grafana, tempo)
+#     ported from parent docker-compose.yml:1639-1733 — opt-in via the
+#     `observability` profile (`make up-with-observability`).
+#
+# Developer Edition scope. Compose declares 26 named services across
+# four profiles; `make up` brings up 21 of them by default. Developers
+# add observability with `make up-with-observability` (+4) and mTLS
+# downstream auth on the gateway with `--profile gateway-mtls` (+1).
+#
+#   Default profile     (11):  postgres, keycloak, app-init, app,
+#                              runtime-ops, inventory-ingest,
+#                              scanner-sync-egress, valkey, falkordb,
+#                              opa, vault.
+#   `identity` profile   (7):  spire-server, spire-agent, and the five
+#                              ep094-jwt-materializer-* services (one
+#                              per consumer service).
+#   `gateway` profile    (3):  gateway-opa, envoy, gateway-upstream.
+#   `gateway-mtls`       (1):  spiffe-helper (mTLS downstream).
+#   `observability`      (4):  otel-collector, prometheus, grafana,
+#                              tempo.
+#   ─────────────────────────────────────────────────────────────────
+#   `make up`                   = default + identity + gateway     = 21
+#   `make up-with-observability`= default + identity + gateway + obs = 25
+
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "50m"
+    max-file: "5"
+
+x-app-env: &app-env
+  KSWITCH_CUSTOMER_ID: ${KSWITCH_CUSTOMER_ID:?KSWITCH_CUSTOMER_ID required — set in .env}
+  KSWITCH_DEPLOYMENT_TARGET: ${KSWITCH_DEPLOYMENT_TARGET:-laptop}
+  KSWITCH_ENV: production
+  # OIDC two-URL pattern (see CLAUDE.md "Docker + OIDC: Two URL Pattern")
+  OIDC_ISSUER: http://localhost:3001/realms/kswitch
+  OIDC_ISSUER_INTERNAL: http://keycloak:8080/realms/kswitch
+  OIDC_JWKS_URI: http://localhost:3001/realms/kswitch/protocol/openid-connect/certs
+  OIDC_JWKS_URI_INTERNAL: http://keycloak:8080/realms/kswitch/protocol/openid-connect/certs
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: agent_register
+  POSTGRES_USER: postgres
+  # Strong default — overridden in the developer's .env if needed.
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-kswitch-developer-postgres}
+
+# Shared env block for the four core workers (app-init, runtime-ops,
+# inventory-ingest, scanner-sync-egress). Each worker sets its own
+# KSWITCH_ROLE on top of this block.
+x-worker-env: &worker-env
+  KSWITCH_CUSTOMER_ID: ${KSWITCH_CUSTOMER_ID:?KSWITCH_CUSTOMER_ID required — set in .env}
+  KSWITCH_ENV: production
+  DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-kswitch-developer-postgres}@postgres:5432/agent_register
+  AUTH_DISABLED: "false"
+  ENABLE_BACKGROUND_WORKERS: "false"
+  REDIS_URL: redis://valkey:6379/0
+  OPA_URL: http://opa:8181
+  # Cloud connectors default to OFF in Developer Edition — opt in via .env per
+  # parent docker-compose.yml:418 (INGEST_AWS_IAM_ENABLED) etc.
+  VAULT_ENABLED: ${VAULT_ENABLED:-false}
+  VAULT_FALLBACK_ALLOWED: ${VAULT_FALLBACK_ALLOWED:-true}
+
+# Shared block for the five EP094 JWT materializers. Developer Edition
+# uses the local-id-scoped SPIFFE namespace per the existing
+# materializer-app pattern (see kswitch-ep094-jwt-materializer below);
+# the parent compose uses the unscoped `local` namespace.
+x-ep094-materializer: &ep094-materializer
+  image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+  profiles: ["identity"]
+  restart: unless-stopped
+  user: "0:0"
+  depends_on:
+    # §G EP094 fix — gate on agent Workload API socket readiness per
+    # parent docker-compose.yml:699-700 (the materializer race-started
+    # against the agent and failed with "SPIFFE socket file
+    # /var/run/spire/agent.sock does not exist" before this dependency).
+    spire-agent:
+      condition: service_healthy
+  volumes:
+    - spire-agent-socket:/var/run/spire:ro
+  networks:
+    - kswitch-net
+  deploy:
+    resources:
+      limits:
+        memory: 256m
+  logging: *default-logging
+
+services:
+  # ── Core database ────────────────────────────────────────────────
+  postgres:
+    image: postgres:18
+    container_name: kswitch-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: agent_register
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-kswitch-developer-postgres}
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    networks:
+      - kswitch-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d agent_register"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    deploy:
+      resources:
+        limits:
+          memory: 4g
+    logging: *default-logging
+
+  # ── Identity provider ────────────────────────────────────────────
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0
+    container_name: kswitch-keycloak
+    restart: unless-stopped
+    command: ["start-dev", "--import-realm"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-kswitch-developer-keycloak}
+      KC_HEALTH_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+    ports:
+      - "127.0.0.1:3001:8080"
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+      - ./seed/realm-export.json:/opt/keycloak/data/import/kswitch-realm.json:ro
+    networks:
+      - kswitch-net
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/9000 && echo -e 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && head -1 <&3 | grep -q 200"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    logging: *default-logging
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # ── KSwitch app-init — one-shot schema migration / bootstrap ─────
+  # Ports parent docker-compose.yml:167-209 (governance-app-init).
+  # `restart: "no"` (parent line 172) — app-init is a one-shot job
+  # that exits 0 once bootstrap completes; the app `depends_on:
+  # app-init: service_completed_successfully` gates startup behind it.
+  app-init:
+    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    container_name: kswitch-app-init
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      <<: *worker-env
+      KSWITCH_ROLE: bootstrap
+      KSWITCH_ONE_SHOT_BOOTSTRAP: "true"
+      KSWITCH_BOOTSTRAP_DONE: "false"
+      OPA_ENABLED: "false"
+    networks:
+      - kswitch-net
+    entrypoint: ["python3", "scripts/init_runtime_bootstrap.py"]
+    healthcheck:
+      disable: true
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging: *default-logging
+
+  # ── KSwitch app (the control plane) ──────────────────────────────
+  app:
+    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    container_name: kswitch-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+      app-init:
+        # EP050 W3 (parent line 238) — bootstrap must finish first.
+        condition: service_completed_successfully
+    environment:
+      <<: *app-env
+      KSWITCH_BOOTSTRAP_DONE: "true"  # app-init handles bootstrap; the app skips mutations.
+    ports:
+      - "127.0.0.1:5001:5001"
+    volumes:
+      # Developer Edition entitlement overlay. This shadows the licence
+      # loader only for the local free stack and returns a non-expiring
+      # developer entitlement with hard caps:
+      # agents=10, mcps=10, tools=100, skills=100.
+      - ./developer-edition/licence_loader.py:/app/app/licence/loader.py:ro
+      # State — bundle-script audit markers (seed.sh / seed-reset.sh
+      # write JSON marker files here; the app's audit-marker drain
+      # consumes them on a 60s poll — see app/licence/audit_markers.py).
+      # RW because the drainer renames
+      # `<marker>.json` → `<marker>.processed` atomically. This bind
+      - ./state:/var/lib/kswitch/state:rw
+      # TLS — generated by `make tls` (or customer-supplied CA-signed)
+      - ./tls:/var/lib/kswitch/tls:ro
+    networks:
+      - kswitch-net
+    healthcheck:
+      test: ["CMD", "curl", "-fk", "https://localhost:5001/api/v1/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 4g
+    logging: *default-logging
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # ── Runtime-ops singleton (EP050 W2) ────────────────────────────
+  # Ports parent docker-compose.yml:331-384 (governance-runtime-ops).
+  # Runs the platform agent, identity rotation scheduler, daily
+  # cleanup. Single replica; fail-closed singleton lock via Valkey.
+  runtime-ops:
+    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    container_name: kswitch-runtime-ops
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+      app-init:
+        condition: service_completed_successfully
+    environment:
+      <<: *worker-env
+      KSWITCH_ROLE: runtime-ops
+      KSWITCH_BOOTSTRAP_DONE: "true"
+      ENABLE_PLATFORM_AGENT: "true"
+      # Fail-closed singleton lock per parent line 370 — the devkit
+      # ships Valkey so the lock is real, not stubbed.
+      KSWITCH_SINGLETON_LOCK_FAIL_OPEN: "false"
+      EVENT_RETENTION_DAYS: "90"
+    networks:
+      - kswitch-net
+    entrypoint: ["python3", "scripts/run_runtime_ops.py"]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "from pathlib import Path; cmd=Path('/proc/1/cmdline').read_bytes(); raise SystemExit(0 if b'scripts/run_runtime_ops.py' in cmd else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging: *default-logging
+
+  # ── Inventory ingest worker (EP058 Phase 1) ─────────────────────
+  # Ports parent docker-compose.yml:392-476 (governance-inventory-ingest).
+  # Read-only data pull from cloud / K8s / secrets sources into records
+  # + FalkorDB graph. v1: AWS IAM connector. Per-connector enable
+  # flags default OFF — opt in via .env (INGEST_AWS_IAM_ENABLED=true,
+  # INGEST_KUBERNETES_SA_ENABLED=true, etc.). Discovered NHIs land as
+  # status='declared', never 'active'.
+  inventory-ingest:
+    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    container_name: kswitch-inventory-ingest
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      app-init:
+        condition: service_completed_successfully
+    environment:
+      <<: *worker-env
+      KSWITCH_ROLE: inventory-ingest
+      KSWITCH_BOOTSTRAP_DONE: "true"
+      # Per-connector enable flags (all default false). Opt in via .env.
+      INGEST_AWS_IAM_ENABLED: ${INGEST_AWS_IAM_ENABLED:-false}
+      INGEST_AWS_IAM_INTERVAL_S: ${INGEST_AWS_IAM_INTERVAL_S:-3600}
+      INGEST_AWS_IAM_ROLE_ARN: ${INGEST_AWS_IAM_ROLE_ARN:-}
+      INGEST_AWS_IAM_REGION: ${INGEST_AWS_IAM_REGION:-}
+      INGEST_KUBERNETES_SA_ENABLED: ${INGEST_KUBERNETES_SA_ENABLED:-false}
+      INGEST_KUBERNETES_SA_NAMESPACE: ${INGEST_KUBERNETES_SA_NAMESPACE:-}
+      INGEST_KUBERNETES_SA_INTERVAL_S: ${INGEST_KUBERNETES_SA_INTERVAL_S:-3600}
+      INGEST_VAULT_KV_ENABLED: ${INGEST_VAULT_KV_ENABLED:-false}
+      INGEST_VAULT_KV_MOUNT: ${INGEST_VAULT_KV_MOUNT:-secret}
+      INGEST_AZURE_ENTRA_SP_ENABLED: ${INGEST_AZURE_ENTRA_SP_ENABLED:-false}
+      INGEST_GCP_VERTEX_AI_ENABLED: ${INGEST_GCP_VERTEX_AI_ENABLED:-false}
+      INGEST_SAMPLE_FIRST_RUN: ${INGEST_SAMPLE_FIRST_RUN:-false}
+      INGEST_FIRST_RUN_SAMPLE_LIMIT: ${INGEST_FIRST_RUN_SAMPLE_LIMIT:-100}
+    networks:
+      - kswitch-net
+    entrypoint: ["python3", "scripts/run_inventory_ingest.py"]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "from pathlib import Path; cmd=Path('/proc/1/cmdline').read_bytes(); raise SystemExit(0 if b'scripts/run_inventory_ingest.py' in cmd else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging: *default-logging
+
+  # ── Scanner / Sync egress worker (EP052 W1) ─────────────────────
+  # Ports parent docker-compose.yml:486-541 (governance-scanner-sync-egress).
+  # The ONLY process permitted to make public-internet HTTP calls.
+  # Claims jobs from scanner_sync_jobs table via SELECT FOR UPDATE
+  # SKIP LOCKED. Allowlist-enforced HTTP client (AllowlistedHTTP) is
+  # the app-layer backstop; perimeter is the AWS Network Firewall SNI
+  # allowlist in cloud installs.
+  scanner-sync-egress:
+    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    container_name: kswitch-scanner-sync-egress
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      app-init:
+        condition: service_completed_successfully
+    environment:
+      <<: *worker-env
+      KSWITCH_ROLE: scanner-sync-egress
+      KSWITCH_BOOTSTRAP_DONE: "true"
+      SCANNER_SYNC_EGRESS_MODE: ${SCANNER_SYNC_EGRESS_MODE:-direct}
+      # Default feature set per parent line 513 — these all work
+      # against public registries with no auth.
+      SCANNER_SYNC_ENABLED_FEATURES: ${SCANNER_SYNC_ENABLED_FEATURES:-huggingface_sync,npm_sync,pypi_sync,smithery_sync,mcp_registry_sync,docker_mcp_sync}
+      SCANNER_SYNC_POLL_INTERVAL_S: ${SCANNER_SYNC_POLL_INTERVAL_S:-10}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+    networks:
+      - kswitch-net
+    entrypoint: ["python3", "scripts/run_scanner_sync_egress.py"]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "from pathlib import Path; cmd=Path('/proc/1/cmdline').read_bytes(); raise SystemExit(0 if b'scripts/run_scanner_sync_egress.py' in cmd else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging: *default-logging
+
+  # ── Cache + secondary stores ─────────────────────────────────────
+  valkey:
+    image: valkey/valkey:8
+    container_name: kswitch-valkey
+    restart: unless-stopped
+    networks:
+      - kswitch-net
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+    logging: *default-logging
+
+  falkordb:
+    image: falkordb/falkordb:4
+    container_name: kswitch-falkordb
+    restart: unless-stopped
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    logging: *default-logging
+
+  # ── OPA — policy decision point ──────────────────────────────────
+  opa:
+    image: openpolicyagent/opa:0.69-rootless
+    container_name: kswitch-opa
+    restart: unless-stopped
+    command:
+      - "run"
+      - "--server"
+      - "--addr=0.0.0.0:8181"
+    networks:
+      - kswitch-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8181/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging: *default-logging
+
+  # ── Vault — file-backed sealed mode (no dev-mode) ────────────────
+  vault:
+    image: hashicorp/vault:1.16
+    container_name: kswitch-vault
+    restart: unless-stopped
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_LOCAL_CONFIG: |
+        {
+          "storage": {"file": {"path": "/vault/data"}},
+          "listener": {"tcp": {"address": "0.0.0.0:8200", "tls_disable": true}},
+          "ui": false,
+          "disable_mlock": false
+        }
+    command: ["vault", "server", "-config=/vault/config/local.json"]
+    volumes:
+      - vault-data:/vault/data
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging: *default-logging
+
+  # ── SPIRE — identity profile (per §G, on by default in the bundle) ──
+  spire-server:
+    image: ghcr.io/spiffe/spire-server:1.10
+    container_name: kswitch-spire-server
+    profiles: ["identity"]
+    restart: unless-stopped
+    command: ["-config", "/etc/spire/server/server.conf"]
+    volumes:
+      - ./seed/spire-server.conf:/etc/spire/server/server.conf:ro
+      - spire-data:/var/lib/spire/server
+      - spire-server-socket:/tmp/spire-server/private
+    healthcheck:
+      test: ["CMD", "/opt/spire/bin/spire-server", "healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging: *default-logging
+
+  spire-agent:
+    # Per §G EP094 fix — the wrapper image ships the spire-agent
+    # socket on /var/run/spire so the JWT materializers can attest
+    # without a host-side bootstrap.
+    image: ghcr.io/maxcope-alt/kswitch-spire-agent-wrapper:1.10
+    container_name: kswitch-spire-agent
+    profiles: ["identity"]
+    restart: unless-stopped
+    depends_on:
+      spire-server:
+        condition: service_healthy
+    volumes:
+      - ./seed/spire-agent.conf:/etc/spire/agent/agent.conf:ro
+      - spire-agent-socket:/var/run/spire
+      - spire-server-socket:/tmp/spire-server/private:ro
+      - spire-data:/var/lib/spire/agent
+    pid: "host"
+    healthcheck:
+      test: ["CMD", "/opt/spire/bin/spire-agent", "healthcheck", "-socketPath", "/var/run/spire/agent.sock"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 60s
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging: *default-logging
+
+  # ── EP094 JWT materializers — one per consumer service ──────────
+  # Five materializers, each issuing a SPIFFE JWT-SVID for its paired
+  # consumer service. Ports parent docker-compose.yml:682-1045
+  # (ep094-jwt-materializer-{app-init,app,runtime-ops,inventory-ingest,
+  # scanner-sync-egress}). Developer Edition deliberately keeps the per-service
+  # materializer pattern (rather than the single-instance simplification
+  # Wave 2 used) so developers see the same identity-isolation model
+  # they'd run in production.
+  #
+  # `EP094_SPIFFE_ID` here uses the local-id-scoped namespace
+  # (spiffe://kswitch.ai/kswitch/<local-id>/<role>) per the
+  # existing materializer-app pattern below. The parent compose uses
+  # the unscoped `local` namespace; the bundle is multi-tenant-shaped
+  # from day one.
+
+  ep094-jwt-materializer-app-init:
+    <<: *ep094-materializer
+    container_name: kswitch-ep094-jwt-materializer-app-init
+    environment:
+      SPIFFE_ENDPOINT_SOCKET: unix:///var/run/spire/agent.sock
+      EP094_SPIFFE_ID: spiffe://kswitch.ai/kswitch/${KSWITCH_CUSTOMER_ID:?KSWITCH_CUSTOMER_ID required}/app-init
+      EP094_VAULT_AUDIENCE: vault
+      EP094_JWT_REFRESH_INTERVAL_SECONDS: "180"
+    entrypoint: ["python3", "scripts/ep094_jwt_materializer.py"]
+
+  ep094-jwt-materializer-app:
+    # The single-instance materializer that pairs with `app`. The
+    # historical bundle name was `ep094-jwt-materializer`; renamed to
+    # `-app` (2026-05-15) to match the parent naming convention so the
+    # five materializers form a uniform set.
+    <<: *ep094-materializer
+    container_name: kswitch-ep094-jwt-materializer-app
+    environment:
+      SPIFFE_ENDPOINT_SOCKET: unix:///var/run/spire/agent.sock
+      EP094_SPIFFE_ID: spiffe://kswitch.ai/kswitch/${KSWITCH_CUSTOMER_ID:?KSWITCH_CUSTOMER_ID required}/app
+      EP094_VAULT_AUDIENCE: vault
+      EP094_JWT_REFRESH_INTERVAL_SECONDS: "180"
+    entrypoint: ["python3", "scripts/ep094_jwt_materializer.py"]
+
+  ep094-jwt-materializer-runtime-ops:
+    <<: *ep094-materializer
+    container_name: kswitch-ep094-jwt-materializer-runtime-ops
+    environment:
+      SPIFFE_ENDPOINT_SOCKET: unix:///var/run/spire/agent.sock
+      EP094_SPIFFE_ID: spiffe://kswitch.ai/kswitch/${KSWITCH_CUSTOMER_ID:?KSWITCH_CUSTOMER_ID required}/runtime-ops
+      EP094_VAULT_AUDIENCE: vault
+      EP094_JWT_REFRESH_INTERVAL_SECONDS: "180"
+    entrypoint: ["python3", "scripts/ep094_jwt_materializer.py"]
+
+  ep094-jwt-materializer-inventory-ingest:
+    <<: *ep094-materializer
+    container_name: kswitch-ep094-jwt-materializer-inventory-ingest
+    environment:
+      SPIFFE_ENDPOINT_SOCKET: unix:///var/run/spire/agent.sock
+      EP094_SPIFFE_ID: spiffe://kswitch.ai/kswitch/${KSWITCH_CUSTOMER_ID:?KSWITCH_CUSTOMER_ID required}/inventory-ingest
+      EP094_VAULT_AUDIENCE: vault
+      EP094_JWT_REFRESH_INTERVAL_SECONDS: "180"
+    entrypoint: ["python3", "scripts/ep094_jwt_materializer.py"]
+
+  ep094-jwt-materializer-scanner-sync-egress:
+    <<: *ep094-materializer
+    container_name: kswitch-ep094-jwt-materializer-scanner-sync-egress
+    environment:
+      SPIFFE_ENDPOINT_SOCKET: unix:///var/run/spire/agent.sock
+      EP094_SPIFFE_ID: spiffe://kswitch.ai/kswitch/${KSWITCH_CUSTOMER_ID:?KSWITCH_CUSTOMER_ID required}/scanner-sync-egress
+      EP094_VAULT_AUDIENCE: vault
+      EP094_JWT_REFRESH_INTERVAL_SECONDS: "180"
+    entrypoint: ["python3", "scripts/ep094_jwt_materializer.py"]
+
+  # ── MCP gateway stack ────────────────────────────────────────────
+  # Ports gateway/docker/docker-compose.yml:23-134 (spiffe-helper,
+  # opa, envoy, upstream). The parent gateway compose uses its own
+  # `gateway-net` (line 137-138); the devkit unifies these services
+  # onto `kswitch-net` so developers bring everything up with a
+  # single `docker compose up -d` and the gateway can reach the app
+  # at `https://app:5001/api/v1/jwks` rather than via the host
+  # `host.docker.internal` indirection.
+
+  gateway-opa:
+    # Token validation policy engine (gRPC ext_authz plugin).
+    # Parent gateway/docker/docker-compose.yml:42-72.
+    image: openpolicyagent/opa:1.15.1-envoy-static
+    container_name: kswitch-gateway-opa
+    profiles: ["gateway"]
+    restart: unless-stopped
+    command:
+      - run
+      - --server
+      - --addr=0.0.0.0:8181
+      - --set=plugins.envoy_ext_authz_grpc.addr=0.0.0.0:9191
+      - --set=plugins.envoy_ext_authz_grpc.path=kswitch/gateway/allow
+      - --set=decision_logs.console=true
+      - --log-level=${OPA_LOG_LEVEL:-info}
+      - /policy/token_validation.rego
+      - /policy/data.json
+    volumes:
+      - ./gateway/policy:/policy:ro
+    ports:
+      # OPA REST API (diagnostics) — also used by Envoy ext_authz over
+      # gRPC at 9191 internal. The :9191 port is NOT exposed to the
+      # host; only the diagnostic REST API at :8181 is.
+      - "127.0.0.1:8181:8181"
+    environment:
+      KSWITCH_JWKS_URL: https://app:5001/api/v1/jwks
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+    logging: *default-logging
+
+  spiffe-helper:
+    # SPIRE SVID writer (mTLS profile). Ports parent gateway/docker/
+    # docker-compose.yml:23-39. Only runs with --profile mtls; default
+    # bundle install runs the gateway with simple JWT auth (no mTLS).
+    image: ghcr.io/spiffe/spiffe-helper:0.8.0
+    container_name: kswitch-gateway-spiffe-helper
+    profiles: ["gateway-mtls"]
+    restart: unless-stopped
+    depends_on:
+      spire-agent:
+        condition: service_healthy
+    volumes:
+      - spire-agent-socket:/var/run/spire:ro
+      - gateway-certs:/certs
+      - ./gateway/spiffe-helper/helper.conf:/etc/spiffe-helper/helper.conf:ro
+    command: ["-config", "/etc/spiffe-helper/helper.conf"]
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    logging: *default-logging
+
+  envoy:
+    # MCP gateway proxy with ext_authz filter. Ports parent gateway/
+    # docker/docker-compose.yml:75-111. Listens on
+    # KSWITCH_MCP_GATEWAY_PORT (default 10000) — developers route their
+    # agent / MCP client traffic through this address.
+    image: envoyproxy/envoy:v1.29-latest
+    container_name: kswitch-gateway-envoy
+    profiles: ["gateway"]
+    restart: unless-stopped
+    command:
+      - envoy
+      - -c
+      - /etc/envoy/envoy.yaml
+      - --log-level
+      - ${ENVOY_LOG_LEVEL:-info}
+    volumes:
+      - ./gateway/envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+      - gateway-certs:/etc/envoy/certs:ro
+    ports:
+      - "127.0.0.1:${KSWITCH_MCP_GATEWAY_PORT:-10000}:10000"
+      # Envoy admin interface — bound to loopback only.
+      - "127.0.0.1:9901:9901"
+    depends_on:
+      gateway-opa:
+        condition: service_started
+      gateway-upstream:
+        condition: service_healthy
+    healthcheck:
+      # Envoy v1.29 has no curl/wget/nc but does have /proc/net/tcp.
+      # 9901 decimal = 0x26AD; verify the admin port is LISTEN.
+      test: ["CMD-SHELL", "grep -q '00000000:26AD' /proc/net/tcp"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+    logging: *default-logging
+
+  gateway-upstream:
+    # Echo container — kept as the simplest functional target for the
+    # gateway. Commercial deployments replace this with
+    # their real MCP / agent upstream by editing
+    # gateway/envoy/envoy.yaml or pointing the gateway at the
+    # upstream's URL directly.
+    # Parent gateway/docker/docker-compose.yml:114-134.
+    image: mendhak/http-https-echo:latest
+    container_name: kswitch-gateway-upstream
+    profiles: ["gateway"]
+    restart: unless-stopped
+    environment:
+      HTTP_PORT: "8080"
+      HTTPS_PORT: "8443"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    logging: *default-logging
+
+  # ── Observability lite (profile: observability) ──────────────────
+  # Ports parent docker-compose.yml:1639-1733 (otel-collector,
+  # prometheus, grafana, tempo). Off by default; opt in with
+  # `docker compose --profile observability up -d`. The full v1.35.3-pg
+  # stack also includes Loki, Vector, and an Elasticsearch SIEM
+  # (parent lines 1816-2059); the devkit keeps only the four core metric +
+  # trace services so the laptop minimum stays at 16 GB RAM.
+  #
+  # Dashboards are pre-provisioned from ./seed/grafana/dashboards/.
+  # Metric names cited match the live emitters (per EP203 §B):
+  #   - kswitch_pdp_decision_duration_seconds (PDP latency histogram,
+  #     emitted from app/routes/enforcement.py:294 per EP203 line 171)
+  #   - kswitch_enforcement_decisions_total
+  #   - kswitch_auth_failures_total
+  #   - kswitch_kill_switches_active
+  #   - kswitch_siem_dispatched_total / kswitch_siem_dropped_total
+  #   - kswitch_jti_replays_total
+  #   - kswitch_rate_limit_hits_total
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.99.0
+    container_name: kswitch-otel-collector
+    profiles: ["observability"]
+    restart: unless-stopped
+    command: ["--config=/etc/otel/config.yaml"]
+    environment:
+      KSWITCH_ENV: production
+      KSWITCH_VERSION: ${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    volumes:
+      - ./seed/otel/collector.yaml:/etc/otel/config.yaml:ro
+    ports:
+      - "127.0.0.1:4317:4317"   # OTLP gRPC
+      - "127.0.0.1:4318:4318"   # OTLP HTTP
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+    logging: *default-logging
+
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: kswitch-prometheus
+    profiles: ["observability"]
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=30d
+      - --web.enable-lifecycle
+    volumes:
+      - ./seed/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    ports:
+      - "127.0.0.1:9090:9090"
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+    logging: *default-logging
+
+  grafana:
+    image: grafana/grafana:10.4.1
+    container_name: kswitch-grafana
+    profiles: ["observability"]
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-kswitch-developer-grafana}
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SERVER_ROOT_URL: http://localhost:3000
+      GF_FEATURE_TOGGLES_ENABLE: traceqlEditor
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./seed/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./seed/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      prometheus:
+        condition: service_started
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging: *default-logging
+
+  tempo:
+    image: grafana/tempo:2.4.1
+    container_name: kswitch-tempo
+    profiles: ["observability"]
+    restart: unless-stopped
+    command: ["-config.file=/etc/tempo/tempo.yaml"]
+    volumes:
+      - ./seed/tempo/tempo.yaml:/etc/tempo/tempo.yaml:ro
+      - tempo-data:/tmp/tempo
+    ports:
+      - "127.0.0.1:3200:3200"   # Tempo HTTP
+    networks:
+      - kswitch-net
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    logging: *default-logging
+
+volumes:
+  postgres-data:
+  keycloak-data:
+  vault-data:
+  spire-data:
+  spire-server-socket:
+  spire-agent-socket:
+  gateway-certs:
+  prometheus-data:
+  grafana-data:
+  tempo-data:
+
+networks:
+  kswitch-net:
+    driver: bridge

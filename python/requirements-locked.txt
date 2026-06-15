@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=sdks/python/requirements-locked.txt --strip-extras sdks/python/pyproject.toml
 #
---index-url https://pypi.org/simple/
+--index-url https://pkgs.safetycli.com/repository/maxs-team/pypi/simple/
 
 annotated-types==0.7.0
     # via pydantic

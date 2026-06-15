@@ -24,7 +24,7 @@ It should not dilute the enterprise product:
 - No fleet specialist agents or workflow automation tier.
 - No commercial support entitlement or SLA.
 
-## Target Quick Start
+## Quick Start
 
 ```sh
 cd devkit
@@ -32,7 +32,7 @@ cp .env.example .env
 make up
 ```
 
-The target `make up` should start:
+`make up` starts:
 
 - KSwitch control plane image.
 - Postgres and Valkey.
@@ -45,26 +45,19 @@ The target `make up` should start:
 Observability can be optional. Vault should be optional unless the example is
 explicitly demonstrating secretless integration.
 
-## Licence Model
+## Entitlement Model
 
-The public developer path should not use the pilot renewal flow.
+The public developer path does not use the pilot renewal flow and does not ship
+a customer licence file.
 
-Preferred model:
+Developer Edition uses a local entitlement overlay:
 
 - No licence file required for Developer Edition.
-- Server starts in `edition=developer` when the devkit profile is selected.
-- Hard caps are enforced locally.
+- The server sees `edition=developer` when the devkit profile is selected.
+- Hard caps are enforced locally by the existing server-side cap decorators.
 - Enterprise-only features remain unavailable.
 
-Fallback model if the platform currently requires a signed licence:
-
-- Bundle a non-customer-specific perpetual developer licence.
-- Use `edition: "developer"`.
-- Omit `exp`, or set a far-future non-renewal date only if the verifier cannot
-  yet support no-expiry claims.
-- Keep strict caps, local-only wording, and disabled enterprise features.
-
-Suggested starter caps:
+Hard local caps:
 
 | Resource | Cap |
 | --- | ---: |
@@ -72,7 +65,6 @@ Suggested starter caps:
 | MCP servers | 10 |
 | Tools | 100 |
 | Skills | 100 |
-| Policy bundles | 10 |
 
 ## Authentication Contract
 

@@ -1,0 +1,31 @@
+# KSwitch initial admin credentials — TEMPLATE
+# ─────────────────────────────────────────────
+#
+# `make seed` (on laptop / on-prem Docker installs) renders this template
+# into ./state/initial-admin.txt with mode 600.
+#
+# The rendered file is THIS exact format. The audit-log subscriber on
+# successful first admin login parses it back to confirm the identity
+# and then unlinks it (G20).
+#
+# Cloud / K8s installs do NOT render this template to disk — the same
+# JSON payload (password + valid_until) is written to the cloud-native
+# secret manager / K8s Secret instead, per §F lifecycle revision.
+#
+# Variable expansion happens in scripts/seed.sh:
+#   {{CUSTOMER_ID}}  → KSWITCH_CUSTOMER_ID env value
+#   {{USERNAME}}     → admin@{{CUSTOMER_ID}}
+#   {{PASSWORD}}     → openssl rand -base64 24 (32-char URL-safe)
+#   {{VALID_UNTIL}}  → ISO-8601 UTC stamp, +24h from generation
+#   {{GENERATED_AT}} → ISO-8601 UTC stamp at generation time
+#
+# After first admin login, this file is auto-deleted. After {{VALID_UNTIL}}
+# the password is rejected by the admin login flow regardless of file
+# persistence (time-bomb, G20b). Use `make seed-reset
+# KSWITCH_CONFIRM_SEED_RESET=yes` to recover (G21a).
+KSWITCH_INITIAL_ADMIN_VERSION=1
+KSWITCH_INITIAL_ADMIN_USERNAME={{USERNAME}}
+KSWITCH_INITIAL_ADMIN_PASSWORD={{PASSWORD}}
+KSWITCH_INITIAL_ADMIN_VALID_UNTIL={{VALID_UNTIL}}
+KSWITCH_INITIAL_ADMIN_GENERATED_AT={{GENERATED_AT}}
+KSWITCH_INITIAL_ADMIN_CUSTOMER_ID={{CUSTOMER_ID}}

@@ -33,8 +33,8 @@ KEYCLOAK_ADMIN_PASSWORD=<strong-local-password>
 ## 4. `make pull` — GHCR Image Denied
 
 Developer Edition expects its runtime images to be publicly pullable. If Docker
-reports `denied` for `ghcr.io/maxcope-alt/kswitch` or
-`ghcr.io/maxcope-alt/kswitch-spire-agent-wrapper`, the referenced image has not
+reports `denied` for `ghcr.io/kswitchdev/kswitch-developer` or
+`ghcr.io/kswitchdev/kswitch-spire-agent-wrapper`, the referenced image has not
 been published for public Developer Edition use yet.
 
 Do not work around this with personal registry credentials for a public devkit

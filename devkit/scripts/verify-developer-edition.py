@@ -45,8 +45,8 @@ def verify_limits() -> None:
 def verify_compose_overlay() -> None:
     compose = read("docker-compose.yml")
     required = (
-        "./developer-edition/licence_loader.py:/app/app/licence/loader.py:ro",
-        "agents=10, mcps=10, tools=100, skills=100",
+        "${KSWITCH_IMAGE:?KSWITCH_IMAGE required",
+        "${KSWITCH_SPIRE_AGENT_WRAPPER_IMAGE:?KSWITCH_SPIRE_AGENT_WRAPPER_IMAGE required",
     )
     for needle in required:
         if needle not in compose:
@@ -55,10 +55,28 @@ def verify_compose_overlay() -> None:
     forbidden_patterns = {
         "licence bind mount": r"\./licen[cs]e:/var/lib/kswitch",
         "licence path env": r"\bLICEN[CS]E_PATH\b",
+        "developer loader bind mount": r"developer-edition/licen[cs]e_loader\.py:/",
     }
     for label, pattern in forbidden_patterns.items():
         if re.search(pattern, compose, flags=re.IGNORECASE):
             fail(f"docker-compose.yml still contains {label}")
+    for private_ref in (
+        "ghcr.io/maxcope-alt/kswitch:",
+        "ghcr.io/maxcope-alt/kswitch-spire-agent-wrapper:",
+    ):
+        if private_ref in compose:
+            fail(f"docker-compose.yml still references private image namespace: {private_ref}")
+
+
+def verify_public_image_defaults() -> None:
+    env_example = read(".env.example")
+    expected = (
+        "KSWITCH_IMAGE=ghcr.io/kswitchdev/kswitch-developer:v1.36-pg",
+        "KSWITCH_SPIRE_AGENT_WRAPPER_IMAGE=ghcr.io/kswitchdev/kswitch-spire-agent-wrapper:1.10",
+    )
+    for line in expected:
+        if line not in env_example:
+            fail(f".env.example missing public image default: {line}")
 
 
 def verify_live_docs() -> None:
@@ -85,6 +103,7 @@ def verify_live_docs() -> None:
 def main() -> None:
     verify_limits()
     verify_compose_overlay()
+    verify_public_image_defaults()
     verify_live_docs()
     print("Developer Edition static checks passed")
 

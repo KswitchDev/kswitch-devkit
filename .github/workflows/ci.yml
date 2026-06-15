@@ -68,6 +68,7 @@ jobs:
       - name: Verify public runtime images are pullable
         run: |
           set -euo pipefail
-          tag="$(awk -F= '/^KSWITCH_IMAGE_TAG=/{print $2}' .env)"
-          docker manifest inspect "ghcr.io/maxcope-alt/kswitch:${tag}" >/dev/null
-          docker manifest inspect "ghcr.io/maxcope-alt/kswitch-spire-agent-wrapper:1.10" >/dev/null
+          image="$(awk -F= '/^KSWITCH_IMAGE=/{print $2}' .env)"
+          spire_image="$(awk -F= '/^KSWITCH_SPIRE_AGENT_WRAPPER_IMAGE=/{print $2}' .env)"
+          docker manifest inspect "${image}" >/dev/null
+          docker manifest inspect "${spire_image}" >/dev/null

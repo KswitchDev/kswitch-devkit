@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kswitch.ai/schemas/kswitch-project.json",
+  "title": "KSwitch Project Manifest",
+  "description": "Schema for kswitch.json — the KSwitch.ai project manifest file. Commit this to your repo root to declare your agent, MCP servers, and governance settings.",
+  "type": "object",
+  "required": ["version"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Manifest schema version. Must be '1.0'."
+    },
+    "enforcement": {
+      "type": "string",
+      "enum": ["shadow", "enforce", "disabled"],
+      "default": "shadow",
+      "description": "Enforcement mode for this project. 'shadow' observes without blocking, 'enforce' actively blocks policy violations, 'disabled' turns off enforcement."
+    },
+    "control_plane": {
+      "type": "string",
+      "format": "uri",
+      "description": "Override URL for the KSwitch control plane API (overrides KSWITCH_API_URL env var). Leave blank to use the env var or default."
+    },
+    "agent": {
+      "type": "object",
+      "description": "Descriptor for the AI agent that owns this project.",
+      "required": ["id", "display_name"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "minLength": 3,
+          "maxLength": 64,
+          "description": "Unique kebab-case identifier for this agent. Must match [a-z0-9][a-z0-9-]{2,63} — lowercase letters, digits, and hyphens only; no underscores; no uppercase; length 3-64.",
+          "examples": ["fraud-detector-v2", "loan-approval-agent", "kyc-screener-01"]
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "description": "Human-readable display name for the agent.",
+          "examples": ["Fraud Detector v2", "Loan Approval Agent"]
+        },
+        "risk_tier": {
+          "type": "string",
+          "enum": ["tier_1", "tier_2", "tier_3", "tier_4"],
+          "default": "tier_3",
+          "description": "Risk tier classification. tier_1=critical, tier_2=high, tier_3=standard (default), tier_4=low."
+        },
+        "trust_domain": {
+          "type": "string",
+          "maxLength": 255,
+          "description": "SPIFFE trust domain for this agent (e.g. 'bank.internal'). Used for workload identity.",
+          "examples": ["bank.internal", "trading.corp.example.com"]
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 1000,
+          "description": "Free-text description of what this agent does."
+        },
+        "owning_division": {
+          "type": "string",
+          "maxLength": 255,
+          "description": "The business division or team that owns and is responsible for this agent.",
+          "examples": ["Risk", "Fraud", "Compliance", "Treasury"]
+        },
+        "contact_email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email address for the team responsible for this agent."
+        }
+      }
+    },
+    "mcps": {
+      "type": "array",
+      "description": "List of MCP (Model Context Protocol) servers this project depends on.",
+      "items": {
+        "$ref": "#/definitions/McpServer"
+      },
+      "default": []
+    }
+  },
+  "definitions": {
+    "McpServer": {
+      "type": "object",
+      "description": "Descriptor for a single MCP server.",
+      "required": ["id"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "minLength": 3,
+          "maxLength": 64,
+          "description": "Unique kebab-case identifier for this MCP server.",
+          "examples": ["database-mcp", "web-search-mcp", "file-system-mcp"]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for an HTTP(S) MCP server. Provide either 'url' (HTTP) or 'command' (stdio), not both.",
+          "examples": ["https://db.bank.internal/mcp", "https://search.corp.example.com:8443/mcp"]
+        },
+        "command": {
+          "type": "string",
+          "description": "Executable path for a stdio MCP server. Provide either 'url' (HTTP) or 'command' (stdio), not both.",
+          "examples": ["/usr/local/bin/mcp-server", "npx", "uvx"]
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Arguments passed to the stdio MCP server command. Only relevant when 'command' is set.",
+          "default": [],
+          "examples": [
+            ["--port", "3333"],
+            ["mcp-server-git", "--repository", "/path/to/repo"]
+          ]
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "version": "1.0",
+      "enforcement": "shadow",
+      "agent": {
+        "id": "fraud-detector-v2",
+        "display_name": "Fraud Detector v2",
+        "risk_tier": "tier_2",
+        "trust_domain": "bank.internal",
+        "owning_division": "Risk",
+        "contact_email": "risk-team@bank.internal",
+        "description": "Real-time transaction fraud detection agent"
+      },
+      "mcps": [
+        {
+          "id": "transaction-db-mcp",
+          "url": "https://txdb.bank.internal/mcp"
+        },
+        {
+          "id": "sanctions-mcp",
+          "command": "npx",
+          "args": ["@bank/sanctions-mcp-server", "--env", "production"]
+        }
+      ]
+    }
+  ]
+}

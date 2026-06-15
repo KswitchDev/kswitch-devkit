@@ -1,0 +1,6 @@
+github.com/cedar-policy/cedar-go v0.3.2 h1:WKE8sW/RsnTp9hkAHSf3oGspcEoIOGCPPz1GDF3dgFc=
+github.com/cedar-policy/cedar-go v0.3.2/go.mod h1:pEgiK479O5dJfzXnTguOMm+bCplzy5rEEFPGdZKPWz4=
+github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
+github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+golang.org/x/exp v0.0.0-20240222234643-814bf88cf225 h1:LfspQV/FYTatPTr/3HzIcmiUFH7PGP+OQ6mgDYo3yuQ=
+golang.org/x/exp v0.0.0-20240222234643-814bf88cf225/go.mod h1:CxmFvTBINI24O/j8iY7H1xHzx2i4OsyguNBmN/uPtqc=

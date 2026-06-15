@@ -2,113 +2,53 @@
 
 Official SDK packages for the KSwitch Agent Trust Control Plane.
 
-This repository is intentionally narrow. It contains the SDK packages and small executable examples that the Developer Hub can link to directly, without marketing-site assets, website content, or unrelated documentation.
+This repository is intentionally narrow. It contains only SDK source, SDK examples, SDK schemas, and SDK hardening notes. Marketing-site assets, platform services, and unrelated product documentation stay out of this repo so the Developer Hub can link here cleanly.
 
 ## Packages
 
 | Language | Path | Package |
 | --- | --- | --- |
-| Python | `packages/python` | `kswitch-sdk` |
-| TypeScript | `packages/typescript` | `@kswitch/sdk` |
-| Go | `packages/go` | `github.com/KswitchDev/kswitch-sdks/packages/go/kswitch` |
+| Python | `python/` | `kswitch-sdk` |
+| TypeScript | `typescript/` | `@kswitch/sdk` |
+| Go | `go/` | `github.com/KswitchDev/kswitch-sdks/go` |
 
-## Quick Start
+The current SDK release train is recorded in [`SDK_VERSION`](SDK_VERSION).
 
-Set the API endpoint and token:
+## Developer Hub
 
-```sh
-export KSWITCH_BASE_URL="https://api.kswitch.io"
-export KSWITCH_API_KEY="..."
-```
+- [Python SDK docs](https://kswitch.io/sdk/python.html)
+- [TypeScript SDK docs](https://kswitch.io/sdk/typescript.html)
+- [Go SDK docs](https://kswitch.io/sdk/go.html)
 
-The clients also accept the Developer Hub aliases `KSWITCH_URL` and `KSWITCH_TOKEN`.
-
-Python:
-
-```python
-from kswitch import KSwitchClient
-
-client = KSwitchClient.from_env()
-agent = client.governance.register_agent(
-    display_name="customer-onboarding-v1",
-    record_type="AGENT",
-    risk_tier="tier_2",
-    owning_division="Retail Banking",
-    owning_team="onboarding-platform",
-)
-client.governance.connect_mcps(agent["id"], mcp_ids=["mcp-kyc", "mcp-customer-data"])
-```
-
-TypeScript:
-
-```ts
-import { KSwitchClient } from "@kswitch/sdk";
-
-const client = KSwitchClient.fromEnv();
-const agent = await client.governance.registerAgent({
-  display_name: "customer-onboarding-v1",
-  record_type: "AGENT",
-  risk_tier: "tier_2",
-  owning_division: "Retail Banking",
-  owning_team: "onboarding-platform",
-});
-await client.governance.connectMcps(agent.id, { mcp_ids: ["mcp-kyc", "mcp-customer-data"] });
-```
-
-Go:
-
-```go
-client, err := kswitch.NewClientFromEnv()
-if err != nil {
-    return err
-}
-
-agent, err := client.Governance.RegisterAgent(ctx, &kswitch.RegisterAgentRequest{
-    DisplayName:    "customer-onboarding-v1",
-    RecordType:     "AGENT",
-    RiskTier:       "tier_2",
-    OwningDivision: "Retail Banking",
-    OwningTeam:     "onboarding-platform",
-})
-```
-
-## Repository Layout
-
-```text
-packages/
-  python/
-  typescript/
-  go/
-examples/
-  python/
-  typescript/
-  go/
-```
-
-## Development
+## Local Checks
 
 Python:
 
 ```sh
-python -m unittest discover -s packages/python/tests
+cd python
+python -m pip install -e ".[dev]"
+pytest tests -q
 ```
 
 TypeScript:
 
 ```sh
-cd packages/typescript
-npm install
-npm run build
+cd typescript
+npm ci
 npm test
 ```
 
 Go:
 
 ```sh
-cd packages/go
+cd go
 go test ./...
 ```
 
-## API Compatibility
+## Licenses
 
-The SDKs are thin HTTP clients over the KSwitch API and are designed to track the Developer Hub and OpenAPI contract. High-level methods cover the developer journey shown in KSwitch examples: registering an agent, connecting MCPs, updating policy enforcement, listing audit events, evaluating toxic combos, and operating kill-switch actions.
+Each SDK package carries its own license file:
+
+- `python/LICENSE`
+- `typescript/LICENSE`
+- `go/LICENSE`

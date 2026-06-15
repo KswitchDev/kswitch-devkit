@@ -1,0 +1,70 @@
+{
+  "name": "@kswitch/sdk",
+  "version": "0.2.1",
+  "description": "TypeScript SDK for the KSwitch.ai Agent Governance Platform",
+  "author": "KSwitch.ai",
+  "license": "Apache-2.0",
+  "homepage": "https://kswitch.io/sdk/typescript.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KswitchDev/kswitch-sdks.git",
+    "directory": "typescript"
+  },
+  "bugs": {
+    "url": "https://github.com/KswitchDev/kswitch-sdks/issues"
+  },
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist/cjs",
+    "dist/esm",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:contract",
+    "test:contract": "node --test tests/*.test.ts",
+    "test:legacy": "node --test test/*.test.ts"
+  },
+  "dependencies": {
+    "@cedar-policy/cedar-wasm": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "kswitch",
+    "agent-governance",
+    "mcp",
+    "policy",
+    "compliance",
+    "killswitch",
+    "authzen",
+    "spiffe"
+  ]
+}

@@ -53,20 +53,30 @@ client := kswitch.NewClient(
 )
 ```
 
-### Keycloak M2M (Client Credentials)
+### Workload Identity
+
+For service-to-service calls, prefer workload identity (SPIFFE JWT-SVID or
+WIMSE) when the runtime has access to a SPIRE Workload API socket. Use the
+Developer Edition stack to exercise this locally.
+
+### Keycloak M2M (Client Credentials Fallback)
 
 ```go
+secret := os.Getenv("KSWITCH_CLIENT_SECRET")
+
 client := kswitch.NewClient(
     kswitch.WithKeycloak(
         "https://keycloak.example.com",  // Keycloak URL
         "kswitch",                        // Realm
         "my-client-id",                   // Client ID
-        "my-client-secret",               // Client Secret
+        secret,                           // Client secret
     ),
 )
 ```
 
-Tokens are cached in memory and automatically refreshed before expiry.
+Tokens are cached in memory and automatically refreshed before expiry. Use
+client credentials only where the deployment cannot issue workload-bound
+identity.
 
 ## Services
 
@@ -88,7 +98,7 @@ Tokens are cached in memory and automatically refreshed before expiry.
 client := kswitch.NewClient(
     kswitch.WithBaseURL("https://kswitch.example.com"),
     kswitch.WithToken("bearer-token"),
-    kswitch.WithKeycloak(url, realm, clientID, secret),
+    kswitch.WithKeycloak(url, realm, clientID, secret), // fallback M2M auth
     kswitch.WithTLSConfig(tlsConfig),   // mTLS / CA pinning
     kswitch.WithTimeout(60 * time.Second),
     kswitch.WithRetries(5),
@@ -129,7 +139,7 @@ The SDK ships with a full test suite — interceptor parity, Local PDP
 evaluation, WIMSE builder, audit emitter, revocation cache, etc.
 
 ```bash
-cd sdks/go
+cd go
 go test -v ./...
 ```
 

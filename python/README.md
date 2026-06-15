@@ -71,13 +71,26 @@ async def main():
 asyncio.run(main())
 ```
 
-### Keycloak M2M Auth
+### Service Auth
+
+For service-to-service calls, prefer workload identity (SPIFFE JWT-SVID or
+WIMSE) when the runtime has access to a SPIRE Workload API socket. The SDK
+includes SPIFFE/WIMSE helpers; use the Developer Edition stack for a local SPIRE
+path.
+
+OAuth2 client credentials are supported as a compatibility fallback for legacy
+IdP deployments that cannot issue workload-bound tokens. Do not hard-code the
+secret.
+
+### Keycloak M2M Auth (fallback)
 
 ```python
+import os
+
 client = KSwitchClient(
     base_url="https://kswitch.internal:5001",
-    client_id="my-service",
-    client_secret="secret",
+    client_id=os.environ["KSWITCH_CLIENT_ID"],
+    client_secret=os.environ["KSWITCH_CLIENT_SECRET"],
     keycloak_url="https://keycloak.internal:8080",
     keycloak_realm="kswitch",
 )
@@ -104,8 +117,8 @@ client = KSwitchClient(
 |-----------|---------------------|---------|-------------|
 | `base_url` | `KSWITCH_BASE_URL` | `https://localhost:5001` | API base URL |
 | `token` | `KSWITCH_AUTH_TOKEN` | — | Static bearer token |
-| `client_id` | — | — | Keycloak/Logto client ID for M2M |
-| `client_secret` | — | — | Keycloak/Logto client secret |
+| `client_id` | — | — | Keycloak/Logto client ID for fallback M2M |
+| `client_secret` | — | — | Keycloak/Logto client secret for fallback M2M |
 | `keycloak_url` | — | — | Keycloak base URL |
 | `ca_path` | `KSWITCH_CA_FILE` | auto-detect mkcert | CA bundle for TLS |
 | `verify_ssl` | — | `True` | Enable TLS verification |

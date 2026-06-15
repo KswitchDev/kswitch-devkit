@@ -23,11 +23,11 @@ const client = new KSwitchClient({
   token: "your-bearer-token",
 });
 
-// Or with M2M client credentials (auto-refreshes)
+// Compatibility fallback: M2M client credentials (auto-refreshes)
 const client = new KSwitchClient({
   baseUrl: "https://kswitch.example.com",
   clientId: "my-agent",
-  clientSecret: "secret",
+  clientSecret: process.env.KSWITCH_CLIENT_SECRET!,
   keycloakUrl: "https://keycloak.example.com",
   keycloakRealm: "kswitch",
 });
@@ -53,6 +53,17 @@ const result = await client.enforcement.enforceMCPCall({
   tool_name: "query",
 });
 ```
+
+## Service Authentication
+
+For service-to-service calls, prefer workload identity (SPIFFE JWT-SVID or
+WIMSE) when the runtime has access to a SPIRE Workload API socket. The SDK
+contains SPIFFE/WIMSE helpers; the Developer Edition stack is the local path for
+exercising that model.
+
+OAuth2 client credentials remain supported for compatibility with legacy IdP
+deployments. Treat `clientSecret` as a fallback, not the default public posture.
+Read it from the environment or a secret manager and scope the client narrowly.
 
 ## API Namespaces
 
@@ -102,8 +113,8 @@ try {
 |---|---|---|---|
 | `baseUrl` | `string` | *required* | KSwitch API base URL |
 | `token` | `string` | - | Static Bearer token |
-| `clientId` | `string` | - | OAuth2 client ID for M2M auth |
-| `clientSecret` | `string` | - | OAuth2 client secret |
+| `clientId` | `string` | - | OAuth2 client ID for fallback M2M auth |
+| `clientSecret` | `string` | - | OAuth2 client secret for fallback M2M auth |
 | `keycloakUrl` | `string` | - | Keycloak base URL |
 | `keycloakRealm` | `string` | `"kswitch"` | Keycloak realm |
 | `tokenEndpoint` | `string` | - | Custom token endpoint URL |

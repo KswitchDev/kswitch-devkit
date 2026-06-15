@@ -4,15 +4,6 @@
   "description": "TypeScript SDK for the KSwitch.ai Agent Governance Platform",
   "author": "KSwitch.ai",
   "license": "Apache-2.0",
-  "homepage": "https://kswitch.io/sdk/typescript.html",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KswitchDev/kswitch-sdks.git",
-    "directory": "typescript"
-  },
-  "bugs": {
-    "url": "https://github.com/KswitchDev/kswitch-sdks/issues"
-  },
   "type": "module",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",

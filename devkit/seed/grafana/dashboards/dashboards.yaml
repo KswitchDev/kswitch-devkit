@@ -1,0 +1,15 @@
+# Grafana dashboard provider — points Grafana at the dashboards
+# directory inside this folder. Auto-loaded at startup; new JSON
+# files dropped in /etc/grafana/provisioning/dashboards/ appear
+# automatically.
+
+apiVersion: 1
+
+providers:
+  - name: kswitch-developer
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: false
+    options:
+      path: /etc/grafana/provisioning/dashboards

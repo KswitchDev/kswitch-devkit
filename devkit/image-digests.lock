@@ -1,0 +1,10 @@
+# KSwitch Developer Edition — image digest lock
+# ─────────────────────────────────────────
+# Auto-populated by `make pull`. Records the sha256 digest of every image
+# the customer is currently running, snapshotted from the floating MINOR
+# tags resolved at last pull time.
+#
+# Format: one line per service, "service_name image_ref@sha256:..."
+# Initial state: empty (populated on first `make pull`).
+#
+# Safe to version-control. Contains no secrets.

@@ -92,7 +92,7 @@ Then compare against the running docs at `https://localhost:5001/docs/`.
 
 ## 9. Capacity Cap Reached
 
-Developer Edition is hard-capped locally:
+Official unmodified Developer Edition artefacts enforce these caps:
 
 ```text
 agents: 10

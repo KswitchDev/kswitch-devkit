@@ -1,0 +1,5 @@
+{
+  "status": "placeholder",
+  "release_blocked": true,
+  "reason": "EP-227 requires a generated manifest with source path, destination path, SHA256, licence classification, and reason for every emitted public devkit file. This placeholder must be replaced by the allowlist generator before public release."
+}

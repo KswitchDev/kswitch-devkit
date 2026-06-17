@@ -4,7 +4,7 @@
 # directory. The bundle is a runnable artefact distributed as a GitHub
 # release tarball; the parent repository is not required at runtime.
 #
-# Free local Developer Edition — first-run + lifecycle targets.
+# Local Developer Edition — first-run + lifecycle targets.
 #
 # This Makefile is asserted in CI against:
 #   - `make up` healthy in <5 min warm cache, <15 min cold
@@ -78,7 +78,7 @@ help: ## Show this help (the default target)
 	@echo "  1. cp .env.example .env"
 	@echo "  2. make up"
 	@echo ""
-	@echo "Hard local caps: 10 agents, 10 MCP servers, 100 tools, 100 skills"
+	@echo "Developer Edition caps in official unmodified artefacts: 10 agents, 10 MCP servers, 100 tools, 100 skills"
 	@echo ""
 	@echo "Targets:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -192,7 +192,7 @@ backup: ## pg_dump postgres to ./backups/<timestamp>.sql.gz
 	$(COMPOSE) $(COMPOSE_FILE) $(COMPOSE_PROFILES) exec -T postgres pg_dump -U postgres agent_register | gzip > $$out; \
 	echo "[backup] wrote $$out ($$(du -h $$out | cut -f1))"
 
-developer-limits: ## Print Developer Edition hard local caps
+developer-limits: ## Print Developer Edition caps for official unmodified artefacts
 	@echo "KSwitch Developer Edition caps"
 	@echo "  agents: 10"
 	@echo "  mcps:   10"

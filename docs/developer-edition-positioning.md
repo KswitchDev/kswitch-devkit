@@ -1,4 +1,4 @@
-# Free Forever Developer Positioning
+# Developer Edition Positioning
 
 KSwitch Developer Edition should be generous enough that developers can build,
 test, and demo real governed agent flows without speaking to sales.
@@ -8,10 +8,11 @@ platform for production.
 
 ## Public Promise
 
-Suggested wording:
+Approved baseline wording:
 
-> KSwitch Developer Edition is free forever for local development, demos,
-> evaluation, and non-production agent governance.
+> KSwitch Developer Edition has no scheduled expiry for permitted local
+> non-commercial development, demos, SDK integration, and bounded
+> non-production evaluation of the applicable release version.
 
 Avoid calling it production-ready. Avoid calling local proxy routing hard desktop
 containment. Avoid promising support, uptime, managed deployment, cloud
@@ -44,7 +45,7 @@ templates, or regulated-workload enforcement in the free repo.
 
 ## Recommended Limits
 
-Use hard caps rather than expiry:
+Use cap enforcement in official unmodified artefacts rather than expiry:
 
 | Resource | Free Developer Edition |
 | --- | ---: |

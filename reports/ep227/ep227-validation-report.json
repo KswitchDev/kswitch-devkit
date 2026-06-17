@@ -1,0 +1,1135 @@
+{
+  "failure_count": 11,
+  "failures": [
+    {
+      "gate": "G9/G19",
+      "message": "Services outside the EP-227 minimal/default or optional identity boundary: envoy, ep094-jwt-materializer-app, ep094-jwt-materializer-app-init, ep094-jwt-materializer-inventory-ingest, ep094-jwt-materializer-runtime-ops, ep094-jwt-materializer-scanner-sync-egress, gateway-opa, gateway-upstream, grafana, inventory-ingest, otel-collector, prometheus, runtime-ops, scanner-sync-egress, spiffe-helper, tempo, vault",
+      "path": "devkit/docker-compose.yml"
+    },
+    {
+      "gate": "G12/G24/G26",
+      "message": "Release legal checklist still has PENDING items.",
+      "path": "RELEASE-LEGAL-CHECKLIST.md"
+    },
+    {
+      "gate": "G15/G21/G23/G24/G27/G28",
+      "message": "Required EP-227 evidence is still pending/blocking.",
+      "path": "reports/ep227/sdk-ip-boundary.csv"
+    },
+    {
+      "gate": "G15/G21/G23/G24/G27/G28",
+      "message": "Required EP-227 evidence is still pending/blocking.",
+      "path": "reports/ep227/sdk-ip-boundary.md"
+    },
+    {
+      "gate": "G15/G21/G23/G24/G27/G28",
+      "message": "Required EP-227 evidence is still pending/blocking.",
+      "path": "reports/ep227/public-claims-matrix.md"
+    },
+    {
+      "gate": "G15/G21/G23/G24/G27/G28",
+      "message": "Required EP-227 evidence is still pending/blocking.",
+      "path": "reports/ep227/privacy-data-flow-review.md"
+    },
+    {
+      "gate": "G15/G21/G23/G24/G27/G28",
+      "message": "Required EP-227 evidence is still pending/blocking.",
+      "path": "reports/ep227/export-sanctions-review.md"
+    },
+    {
+      "gate": "G15/G21/G23/G24/G27/G28",
+      "message": "Required EP-227 evidence is still pending/blocking.",
+      "path": "reports/ep227/release-evidence-index.md"
+    },
+    {
+      "gate": "G15/G21/G23/G24/G27/G28",
+      "message": "Required EP-227 evidence is still pending/blocking.",
+      "path": "reports/ep227/package-inspection.md"
+    },
+    {
+      "gate": "G14/G25",
+      "message": "Image SBOM evidence is missing.",
+      "path": "reports/ep227/images"
+    },
+    {
+      "gate": "G13",
+      "message": "Devkit manifest is still a release-blocking placeholder.",
+      "path": "devkit/MANIFEST.json"
+    }
+  ],
+  "manifest": [
+    {
+      "path": ".editorconfig",
+      "sha256": "d6ebf4b7c399a80b01e8fc67160052c15ede882a6de09d80d6db1b28481e5b4e"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/config.yml",
+      "sha256": "5bf90b6fe49fd2823e801a9e736766c31cef9c545424db2a2dd4adc4e0a25b16"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "sha256": "d704e1194453d8ef4bbd8b4aa561a817e0f5c728c64ecf4b5043ba0ffb06d315"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "c66544486e06ecb84ba84f18eb7ab1b9a73c0d126eb3c01d8e6bee8b44b4d553"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "e4a07f865ba4519bdda531f2372630453f34d2266f567fd54eacf3f3e3d6dedd"
+    },
+    {
+      "path": "BYPASS_HARDENING.md",
+      "sha256": "473168b0c27b16b9d1c194d22f1e8b878d5cbab85d51a805eddf31a80f3f0dfd"
+    },
+    {
+      "path": "COMMERCIAL-USE.md",
+      "sha256": "e9f115c2d0f2508687839529f792de03b9a703f0a8a133a03c4ef1de975bec1d"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "60d7cadc922c0cc107885645c39d5ba413e17263fcdecb2e8b5228124b1362c3"
+    },
+    {
+      "path": "DEPENDENCY-LICENSE-POLICY.md",
+      "sha256": "92192417a2cdba930ac03b2ef38650e31120a128e263dba78ba7c241d5127a8a"
+    },
+    {
+      "path": "LICENSE.md",
+      "sha256": "7bca19f106b38450a49d1e7f48e0386e1494fc9aef0eb59695e0e7bf1ab25f52"
+    },
+    {
+      "path": "LICENSES/Apache-2.0.txt",
+      "sha256": "2f9713be9cd1fd215e3fd2553d590bee4ad2d037ada0e39c2cbad7a718034614"
+    },
+    {
+      "path": "LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md",
+      "sha256": "87233f7d4893bc21a5aaa50972ca4ea2f728b5274ba5bf85428b5c55637a2393"
+    },
+    {
+      "path": "Makefile",
+      "sha256": "7639b71a40fb891bc0e4f2c9a2a50efccb0e52224aae70935415de14e730e973"
+    },
+    {
+      "path": "NOTICE",
+      "sha256": "38c56a3ad5b5c76084116b0b91fd36462ce0bbbfec744d81f8f58e69c34001de"
+    },
+    {
+      "path": "PRIVACY.md",
+      "sha256": "5d4fe2cdaecaade0817b49cf32562cbe6a946f1268730a3ac77531173733b197"
+    },
+    {
+      "path": "README.md",
+      "sha256": "41d72353b34ccec01ba9d8f0ae3897a0d954f1f40ba7303a8dd8a3d9bc48f8fd"
+    },
+    {
+      "path": "RELEASE-LEGAL-CHECKLIST.md",
+      "sha256": "8624c7ac971baa3952bd2541c409821333b94c6fee55d7c18739fc48ae05f4bc"
+    },
+    {
+      "path": "SDK_VERSION",
+      "sha256": "71015c979ccb0fc8a0be7ca0ae83046ab045cdc2c8faa09fb2f0f7e440f9b4a6"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "f8d008e567f4aead821ed18177f04340ba94d9ab80b6fdf394996b008731b81f"
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.md",
+      "sha256": "1dee1946b094348c791e71bf78b5d1ad34d83580a878c3927228dcaa735559c9"
+    },
+    {
+      "path": "TRADEMARKS.md",
+      "sha256": "392468b14497dcfd739b9710aa6ba279b2926ba9c7714de29f51b5e4f4444b20"
+    },
+    {
+      "path": "_schemas/kswitch-project.json",
+      "sha256": "ba6e39ca3b1b5f37cfcfd8c3ef8a8fdd1de4fe8432635f22fc4ae3230bc6b0f2"
+    },
+    {
+      "path": "_schemas/v1.32/README.md",
+      "sha256": "95ba722fc5f4d7748930b4988a6f98f1375c874e6558a684231226702abeff66"
+    },
+    {
+      "path": "_schemas/v1.34/README.md",
+      "sha256": "1252be7b956ef16a6d20796433d34de3270e89af2cf47f88ebf1ba5c635c8a13"
+    },
+    {
+      "path": "_schemas/v1.37.0/README.md",
+      "sha256": "d534a612ea98213ebdc7ad55dcccbb8e8afcc69e727382ad7a44aac1787df0a9"
+    },
+    {
+      "path": "_schemas/v1.37.1/README.md",
+      "sha256": "34da33d8fb7b5b5a5d49a8b479ebf2b6c5964cdf2e3a4ad210613817d1fde983"
+    },
+    {
+      "path": "devkit/.env.example",
+      "sha256": "94faa5fc4db84575255500d38e00d614960935494c7d3bcb719d3ed2dfced960"
+    },
+    {
+      "path": "devkit/BUNDLE_VERSION",
+      "sha256": "80d4e936879eb0ba6b6cb706b7d0e974d82466ff70030d085c2de6bb4953c5b6"
+    },
+    {
+      "path": "devkit/FORBIDDEN_PUBLIC_PAYLOAD_GLOBS.txt",
+      "sha256": "75a5f69526a2dfecd5571f7a1375678614812bda64860835cd6aa1e745decca8"
+    },
+    {
+      "path": "devkit/MANIFEST.json",
+      "sha256": "b26369c5aaeef88fb880533115c3344c854d8e031cc96cc591542bf07840c09f"
+    },
+    {
+      "path": "devkit/MIGRATION_FROM_PILOT.md",
+      "sha256": "02019aac219a4fb2435ad8f273c4a7d0814ef73dfc403f58eeaa72a8b4804afe"
+    },
+    {
+      "path": "devkit/Makefile",
+      "sha256": "5db2a9bd2f1c1be76347e943b6e97df722a93816b2f981cc2ddbfcf8d9a70d6e"
+    },
+    {
+      "path": "devkit/PUBLIC_PAYLOAD_ALLOWLIST.txt",
+      "sha256": "1f6c496b70366181efeb7476d44f4267e4befb92524a91ad7846ceeeca2f6806"
+    },
+    {
+      "path": "devkit/README.md",
+      "sha256": "ddf2a1dd3e66715ecb3419a9e0b409c5dbba52cb7de6821ed5a8b31466b42752"
+    },
+    {
+      "path": "devkit/TROUBLESHOOTING.md",
+      "sha256": "e07fc1abb390cc457c41e74bbd9d0012d8f26cdbdac78e2df5cf7e1ee67bb6f6"
+    },
+    {
+      "path": "devkit/backups/.gitignore",
+      "sha256": "0a9d2ea00f6a3e1b29511e0a35fd550a92f633ddcf0ef07ca8080af001652961"
+    },
+    {
+      "path": "devkit/backups/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "devkit/cli/README.md",
+      "sha256": "f6a969f72ff35b42d9dd893fed03259077fce7ad84b6e6b030659d7c030b5780"
+    },
+    {
+      "path": "devkit/cli/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "devkit/cli/pkce.py",
+      "sha256": "1af186a334ecc5c05c826dfc72346597e6317cd6758381fde64cf70dd9d7a8d4"
+    },
+    {
+      "path": "devkit/developer-edition/licence_loader.py",
+      "sha256": "846cb540472df1174ef43fde873ee6270b4f3304607e60e35a9f94fe98e6fd45"
+    },
+    {
+      "path": "devkit/docker-compose.yml",
+      "sha256": "2525f64419744e8c620a80df6aab200b21d158140793c72802b81484510957fd"
+    },
+    {
+      "path": "devkit/examples/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "devkit/gateway/envoy/envoy.yaml",
+      "sha256": "de0a26664e4dc39a1ad4e4bb7862817627418f43fdfe7f7160f9d283517c9670"
+    },
+    {
+      "path": "devkit/gateway/policy/data.json",
+      "sha256": "15c7651e29ff9a2a5697641e788d82dc49f034e12d0f82fe9d464584b31392e9"
+    },
+    {
+      "path": "devkit/gateway/policy/token_validation.rego",
+      "sha256": "744da9301cf1d724acd304bcc136980283fe7cf878970d7e6bb3111d37091818"
+    },
+    {
+      "path": "devkit/gateway/spiffe-helper/helper.conf",
+      "sha256": "fe7457a6fa22925895e6bc9d114d54fa0547343766bdbf74c1fde1a1d641f7a9"
+    },
+    {
+      "path": "devkit/image-digests.lock",
+      "sha256": "797e19aeddecf69106ad33be58848382bb9c70945caae864f1068f8f94d7a93e"
+    },
+    {
+      "path": "devkit/scripts/doctor.sh",
+      "sha256": "d4cf3afd1fb3ddad692a79710a98175c17459bd3780f3ac793042d8b624ffeab"
+    },
+    {
+      "path": "devkit/scripts/seed-reset.sh",
+      "sha256": "846aafae689b6c55cc98b4350e985edc0115ac37d0fe86b2aaebd7c1141b8404"
+    },
+    {
+      "path": "devkit/scripts/seed.sh",
+      "sha256": "ca4c3ec98ab4f574e4236ded2215b4bba84b4793ef754ab9f9f49d53662ab54d"
+    },
+    {
+      "path": "devkit/scripts/smoke.sh",
+      "sha256": "43940a647834ea5e9b79bbb18c27170046f4a1ce2b19a5939181c29df31942f8"
+    },
+    {
+      "path": "devkit/scripts/tls.sh",
+      "sha256": "92a5e1ab778073874b68ae731c2d351ccde996d6c3ba6cdfe7799a4fdcae8513"
+    },
+    {
+      "path": "devkit/seed/grafana/dashboards/dashboards.yaml",
+      "sha256": "c4a610e4c2a666d873ac12d94f317603a7a7a85dbd84789047b2d41591b95282"
+    },
+    {
+      "path": "devkit/seed/grafana/dashboards/kswitch-developer-overview.json",
+      "sha256": "fbf767b9460495859def05fe3d27716891c0d4a181de5d9398b716bc2c03638d"
+    },
+    {
+      "path": "devkit/seed/grafana/datasources/datasources.yaml",
+      "sha256": "785b043336895c3d33ca0ac5786209da42ef4b0a3daac007b4a9b9de52d185f7"
+    },
+    {
+      "path": "devkit/seed/initial-admin.tmpl",
+      "sha256": "4559fc07de4ca5e3442a98938644e144da28c2b5ff868fd88c9a5919641b494e"
+    },
+    {
+      "path": "devkit/seed/otel/collector.yaml",
+      "sha256": "38fcc42d51b0a46e70545a5c788a94d24d8f630001266628b05e6de6ca3650cf"
+    },
+    {
+      "path": "devkit/seed/prometheus/prometheus.yml",
+      "sha256": "b453f7613002370fa25999051b7b3ed0996fb5386f248b1aee3a1baddcb35833"
+    },
+    {
+      "path": "devkit/seed/tempo/tempo.yaml",
+      "sha256": "596877009df88ae93a516a0918e88c886417799dfd5e95b02512496c3022551e"
+    },
+    {
+      "path": "devkit/state/.gitignore",
+      "sha256": "70746bdde1d62ef236b8794c5b0dcdfa01768db8468871dc6df22fb3808202ef"
+    },
+    {
+      "path": "devkit/state/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "devkit/tls/.gitignore",
+      "sha256": "36aff1300d12e46cc817811301d1d78a313e28c4d9bd3b26651e0e1f22e6b3e7"
+    },
+    {
+      "path": "devkit/tls/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "devkit/tls/README.md",
+      "sha256": "0e643af46122f8ed37115f2c429fe6b648da6b77a142794f83f3fbbf681ce338"
+    },
+    {
+      "path": "docs/auth-model.md",
+      "sha256": "bab319b5fb5078c3fe05322bdaf4a8137e2af31fc57ac51b701b9927f64e30a8"
+    },
+    {
+      "path": "docs/developer-edition-positioning.md",
+      "sha256": "a47de2c3851f9e94395f9a88ec10bcc66a9b92f2811ec769a3a4ecc766dd9782"
+    },
+    {
+      "path": "examples/sdk-apache/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "go/LICENSE",
+      "sha256": "2f9713be9cd1fd215e3fd2553d590bee4ad2d037ada0e39c2cbad7a718034614"
+    },
+    {
+      "path": "go/README.md",
+      "sha256": "6ea146b1f040f06804bede11986820fe132c33786d61a79c72f030c9c55a9a96"
+    },
+    {
+      "path": "go/backcompat_test.go",
+      "sha256": "1da4edad22907462cf8edf243c8acf08b1d9155142952b35e4acad0d669220f1"
+    },
+    {
+      "path": "go/examples/evaluate/main.go",
+      "sha256": "b05a950fd64bf19b718e55e171a7e04cd1ce62e9bfcec3cabc62db0d33ac9212"
+    },
+    {
+      "path": "go/examples/governed/main.go",
+      "sha256": "b79bc637d2d5a1fc5336745b7d4622c59e3929580c4866168db9b6a8a8db2a9e"
+    },
+    {
+      "path": "go/examples/killswitch/main.go",
+      "sha256": "fea27c9da3e4a841613e161fff50266a14e3b502ca0100a5bb298656704df47c"
+    },
+    {
+      "path": "go/examples/register/main.go",
+      "sha256": "14566ffd0bcb696a36433a60bdcf66e0583ad4e8cb89b1b106835afefd258760"
+    },
+    {
+      "path": "go/go.mod",
+      "sha256": "dd92f7e61dd6d42a8101b29a3b4c8220ef777ba020da3b799e0ac51a1f576ab8"
+    },
+    {
+      "path": "go/go.sum",
+      "sha256": "6d850758e1d6647ddb23771d8afb3f86fa75aabad2e07aba7d8859d739f16c68"
+    },
+    {
+      "path": "go/kswitch/audit/emitter.go",
+      "sha256": "969e9b1cd11cca6335202ca489eeda3f01773915a8050d1f6ff07afa2a7d7e3c"
+    },
+    {
+      "path": "go/kswitch/audit/emitter_test.go",
+      "sha256": "6b440cee304134ac3af436d37e49b0e9a0df4bfb6c2720334ed93f32b031f6dc"
+    },
+    {
+      "path": "go/kswitch/audit/sender.go",
+      "sha256": "5e44f8c0ab9fa3e853acc57d1478c9d5b3690432e93af5e8333c0aeeac2a8ba9"
+    },
+    {
+      "path": "go/kswitch/audit/sender_test.go",
+      "sha256": "f9dfd9d5a3e3e9070092b43cde598de5398705587bdf14d1ceb8ba5842a5f2ff"
+    },
+    {
+      "path": "go/kswitch/auth.go",
+      "sha256": "6f985f4b57887017dfcf19c09b167e4e11dcf7f3ffc022ab0f27d133f0c05f31"
+    },
+    {
+      "path": "go/kswitch/authzen.go",
+      "sha256": "5a94d96314b8391db8678b5768571522174a0629d1956d79cc0007794f05323d"
+    },
+    {
+      "path": "go/kswitch/bundle/local_cache.go",
+      "sha256": "53ec9e9d7e10e919c5359871c8519c2bef25c3a331c66e6d5000a22816af027b"
+    },
+    {
+      "path": "go/kswitch/bundle/local_cache_test.go",
+      "sha256": "3624f41950b9594bc58d46321bbaa8d0556eaf9024a060d1d7d6f3ea057cafbb"
+    },
+    {
+      "path": "go/kswitch/catalog.go",
+      "sha256": "ef0b01771f7465670dd565deb3d808c42829ff15a8c0929ea45ae7b594c23d12"
+    },
+    {
+      "path": "go/kswitch/client.go",
+      "sha256": "8b036702105f7eadeb01e7cb596f32c7ef4c788a36782f5450bbfa712fc0fd0f"
+    },
+    {
+      "path": "go/kswitch/compliance.go",
+      "sha256": "060c3fcf3edec65d263d0ccc02e5087d0fc27c84caa12cf11614ba27381332cc"
+    },
+    {
+      "path": "go/kswitch/deny_reason.go",
+      "sha256": "97eb18b3b965b4a7f995cdc6e044003e7a15488c6919fe2f40657237fc5d174a"
+    },
+    {
+      "path": "go/kswitch/enforcement.go",
+      "sha256": "3b1f4a02b8887b8e80d19fb01b13eccff90dfed77237d99f00a98d7535d1cff7"
+    },
+    {
+      "path": "go/kswitch/ep221_decision_types_test.go",
+      "sha256": "5d8f2fd6677b763257c7d71e7684cd5bab40dc3e0ddd64ba628e469c3c1bcc58"
+    },
+    {
+      "path": "go/kswitch/errors.go",
+      "sha256": "4b3a12258f11090f45fc250288e601f113998b29dfbd38c5a5ac91f9957117a0"
+    },
+    {
+      "path": "go/kswitch/events.go",
+      "sha256": "e44b009e27923c2d9dd7484f0327ef29749b44b9f846f292d49cb878cc6fce64"
+    },
+    {
+      "path": "go/kswitch/governance.go",
+      "sha256": "799997437df983fff8cd443d680ee449b9c90ce0feacdc00a20c7b4d91047337"
+    },
+    {
+      "path": "go/kswitch/identity.go",
+      "sha256": "517f51868dff3be85ed2492b034e897dc3a69e908f09b0bc139ddc1d8344ca97"
+    },
+    {
+      "path": "go/kswitch/interceptor.go",
+      "sha256": "f95cf567460378c3c6d52128c0d9d6caf32f665d075f8423e0c2b77ae505fb1e"
+    },
+    {
+      "path": "go/kswitch/killswitch.go",
+      "sha256": "25500e4786c8a4cfb7dc3548114522033712b94e365fc1eedd014b2f17a07ef5"
+    },
+    {
+      "path": "go/kswitch/kscontext/local_cache.go",
+      "sha256": "d27904a4e385a2f39f16ecca6a97b5f25fe4c2bd9c41fa241e3809d653f38d83"
+    },
+    {
+      "path": "go/kswitch/kscontext/local_cache_test.go",
+      "sha256": "1af02cd2fb7e9bc1d4fda05efd43477943da0ddbcf3c452e59bc9d4162f67d8f"
+    },
+    {
+      "path": "go/kswitch/localpdp/evaluator.go",
+      "sha256": "cd663ea08fd120be2e7d3256e59a492135016d1aa0947c0638badd0dd6ceefc9"
+    },
+    {
+      "path": "go/kswitch/localpdp/evaluator_test.go",
+      "sha256": "907f678a654f76522653fe4521f6f618562ec708c324449d0d2e47c339b98e96"
+    },
+    {
+      "path": "go/kswitch/localpdp/types.go",
+      "sha256": "7a68e62bfd95d6ce532b4d43caffcf58b672c0a1acec28bf22cb8f31300425aa"
+    },
+    {
+      "path": "go/kswitch/no_network_decision_test.go",
+      "sha256": "2cad48fcf523257c1b9e209a52b492c73ed06f23c802a20fbc909275d3153aaa"
+    },
+    {
+      "path": "go/kswitch/options.go",
+      "sha256": "a2b793e7d4de702a1715b57945338b6a2a73df0995a820534c88fa4ab1549dc6"
+    },
+    {
+      "path": "go/kswitch/otel_enabled.go",
+      "sha256": "883f9a30ea125d0527d3026a1dc7129024e99ff316c32b48c8a06a5224453f2d"
+    },
+    {
+      "path": "go/kswitch/otel_noop.go",
+      "sha256": "9187702c5f1b384abb2a9dde7ac3e78252eb5031920951e8a5ebe9fbccc7dce3"
+    },
+    {
+      "path": "go/kswitch/path_resolution_test.go",
+      "sha256": "5f5274783d8851c200ef5d594241b61469eed53d38fbef261340474e233eb2e3"
+    },
+    {
+      "path": "go/kswitch/policy.go",
+      "sha256": "7cff92d3e38e842ac89341b86006333c05b42c89a72a1e8a46d5147f0988d4cd"
+    },
+    {
+      "path": "go/kswitch/revocation/cache.go",
+      "sha256": "7ba3fd2d51cbc4ea9ccdc0c08df2c783fc30f94edb87046b8923e410c7c4057e"
+    },
+    {
+      "path": "go/kswitch/revocation/cache_test.go",
+      "sha256": "4ccae3d0b9a0ff2ce0a3078fb4024d436779013287a438f998b96e3af9df4f79"
+    },
+    {
+      "path": "go/kswitch/revocation/sync.go",
+      "sha256": "dd349c3f1487144f917b3b6f272b1a536c373969e768c74809e55e629bc4c9d0"
+    },
+    {
+      "path": "go/kswitch/revocation/sync_test.go",
+      "sha256": "5432ece1e9a9adbc6be0f683e093258bde051faf91f46740944e5893c17bd5b5"
+    },
+    {
+      "path": "go/kswitch/service.go",
+      "sha256": "681e1d6cf4a9f697ed5a2321ab94ff1afa4573ee5fc9cc1bdfd539a21c869a8c"
+    },
+    {
+      "path": "go/kswitch/service_contract_test.go",
+      "sha256": "ac67697437cee499b813b49db13da732f53d0e8c63a38579279a8a87accf6efd"
+    },
+    {
+      "path": "go/kswitch/tokens/context.go",
+      "sha256": "d00df81846368e253d1aed710f31fa4a1837e1b3947841a1094b5b919b43c065"
+    },
+    {
+      "path": "go/kswitch/tokens/curl.go",
+      "sha256": "b27df1367a0684a1ed44ac6e1310fac60dc6573054e4172e6eae6f7f4c18055c"
+    },
+    {
+      "path": "go/kswitch/tokens/issuer.go",
+      "sha256": "e5732f1246aadac788d5eec63688cb9deb915c32fe892a7b3354f57621c9ff25"
+    },
+    {
+      "path": "go/kswitch/tokens/validator.go",
+      "sha256": "810bf49287dc39cb25103f856f072c2505341e978534a5ea5ca1d2fdee83e73d"
+    },
+    {
+      "path": "go/kswitch/types.go",
+      "sha256": "92591109f4bcf1616228b25829bae8225f62f6fbffd7ae2faae25f64b1a4bbcb"
+    },
+    {
+      "path": "go/kswitch/wimse/spire.go",
+      "sha256": "1ff4fcb05e9790b73189e3bcd7c6731a6cf74b03fd4110108387313f5f9ee89e"
+    },
+    {
+      "path": "go/kswitch/wimse/wimse.go",
+      "sha256": "f882187b99325fd5feaa42f93b59e1ef850c570504bde0c064b57ed28024837c"
+    },
+    {
+      "path": "go/kswitch/wimse/wimse_test.go",
+      "sha256": "a46261e925b1affc3e79b086ffcdf9451dbf0091f80e5757aba4aaca71796a52"
+    },
+    {
+      "path": "python/LICENSE",
+      "sha256": "2f9713be9cd1fd215e3fd2553d590bee4ad2d037ada0e39c2cbad7a718034614"
+    },
+    {
+      "path": "python/README.md",
+      "sha256": "491de7573010184a8d09cbce2b3f44f089a150b395d660f4fb640b1f86d96215"
+    },
+    {
+      "path": "python/examples/evaluate_access.py",
+      "sha256": "42e1b4260df66605f058b1183998f2ce7d20f9cc016507a292fe7bcc787a6ab8"
+    },
+    {
+      "path": "python/examples/fleet_monitoring.py",
+      "sha256": "b8120d81140a47e77ee6cf20c7d0ad386a5a0d67cf8cf211a0f346c886311637"
+    },
+    {
+      "path": "python/examples/kill_switch.py",
+      "sha256": "27adbe05bd2492562a65e1cf3a14b3d925782af748fe46d53c4219416d8ad2ee"
+    },
+    {
+      "path": "python/examples/mcp_enforcement.py",
+      "sha256": "d854421ad29c51f738b26d9716adf00b17eb7dbcafc03050bea25277cb591428"
+    },
+    {
+      "path": "python/examples/register_agent.py",
+      "sha256": "4cc12c807f9123ef3ad44c6ecb79397cd1fe04e57c2bb79913a3b5b4214043c9"
+    },
+    {
+      "path": "python/kswitch/__init__.py",
+      "sha256": "602cdc60f58257b55d6859fa538d75027d4eca63995874c066f179e9667ff1bd"
+    },
+    {
+      "path": "python/kswitch/__version__.py",
+      "sha256": "1df8d53aba539e667ec551426125665f9d045da050789b5e5071be3c3ea242cf"
+    },
+    {
+      "path": "python/kswitch/_anthropic_hook.py",
+      "sha256": "4b66e6c833b1c79ec4fac88f81ce242a02162c8b087c6ff56f027b952447c382"
+    },
+    {
+      "path": "python/kswitch/audit/__init__.py",
+      "sha256": "e6128ebb76b21de9c70cd31f2a5b12728710bed180b3f6fd9fb14a94c15a7dcf"
+    },
+    {
+      "path": "python/kswitch/audit/emitter.py",
+      "sha256": "0140d5035bf1fa759c85bdd8dec49b9a5371f06a7d8d35d9a1d02835bd8ec774"
+    },
+    {
+      "path": "python/kswitch/audit/sender.py",
+      "sha256": "8f1df4c9855dee7ae621c3393b44f19135e6cc78325feacc8b2d221fa3a5b66a"
+    },
+    {
+      "path": "python/kswitch/auth.py",
+      "sha256": "7cafc2389beb667f0206ff7151ae73ad3e7848de986ab3218a256b5b1e7d7128"
+    },
+    {
+      "path": "python/kswitch/authzen.py",
+      "sha256": "871b8d58950230e0bb377f7c7d1b75e6c70d3243160774aa810430b95b6be7b0"
+    },
+    {
+      "path": "python/kswitch/bundle/__init__.py",
+      "sha256": "36fcd7da006ba4aa8afffd3672c3f90c452ee35494ced890371395632aa3d150"
+    },
+    {
+      "path": "python/kswitch/bundle/local_cache.py",
+      "sha256": "5df049f0d72c16a64a2a82755900d65f4b0ca40fc4be23d000c3a5e9599c33b6"
+    },
+    {
+      "path": "python/kswitch/catalog.py",
+      "sha256": "d9d1b838c4527f1e4a54c876b516d6ebf0cc2cf554f4ed27f14e04ada59db620"
+    },
+    {
+      "path": "python/kswitch/client.py",
+      "sha256": "4cc1628a75ea6a4ae28c706659e20709f8ab843ab0cd76f4e29263a74fe7a9e6"
+    },
+    {
+      "path": "python/kswitch/compliance.py",
+      "sha256": "b08ab90dd0351ff680c9b8984a3b0fea9677a6284faab449f5b870d5c5240bf6"
+    },
+    {
+      "path": "python/kswitch/config.py",
+      "sha256": "c5585e0114935ddee97d6580755517faa7645f63f9511e721b4624735431e00c"
+    },
+    {
+      "path": "python/kswitch/context/__init__.py",
+      "sha256": "1b97100286e83a9f8998801d644d115bb54d82f18ba6eb7339c8c4dbcf8f24fb"
+    },
+    {
+      "path": "python/kswitch/context/invalidation_sync.py",
+      "sha256": "d3a29b916942fd7648da5b41a073a688937a3338aaf05aab1d1d718f57a3a41b"
+    },
+    {
+      "path": "python/kswitch/context/local_cache.py",
+      "sha256": "ff425f35cb334a8779c9b1cf9648b49f618ae3a6eb2419a9673b0630eb1cd32d"
+    },
+    {
+      "path": "python/kswitch/deny_reason.py",
+      "sha256": "d3c9bbabfd282cdffea8b5a7018a2d1a6ccdc8fc89acc4f17e9fd6ea4da3f7db"
+    },
+    {
+      "path": "python/kswitch/enforcement.py",
+      "sha256": "072a1dabebc0f882c166cb421006f4a3a67949b9856d4892331fe903b1a30f8e"
+    },
+    {
+      "path": "python/kswitch/events.py",
+      "sha256": "74281e7289a40f4b0c77643582090292a9479d0ca913545135c6ab073705b440"
+    },
+    {
+      "path": "python/kswitch/exceptions.py",
+      "sha256": "5d6801b7ee158317ea828311bdbb896ec91fe0815993e24dd126f065a49b6082"
+    },
+    {
+      "path": "python/kswitch/frameworks/__init__.py",
+      "sha256": "306e80b7b4e99315bf57a1bee86a1824cd6a5d7531a73296f478bf2f352c6438"
+    },
+    {
+      "path": "python/kswitch/frameworks/_base.py",
+      "sha256": "f290b2d0119d46a375c2e668e950276bd00ba8bac52ca906e8be25ba32be7378"
+    },
+    {
+      "path": "python/kswitch/frameworks/anthropic.py",
+      "sha256": "c534ccbd85f638f10fa63bfa148b53856d2b7fde87b6a28fd7b8f2aa97aa32f2"
+    },
+    {
+      "path": "python/kswitch/frameworks/autogen.py",
+      "sha256": "ea79918e1abbed1c8ee5288a0e59b6621d9af46856c0c60fa1d706181e1bebea"
+    },
+    {
+      "path": "python/kswitch/frameworks/langchain.py",
+      "sha256": "d1250cceb80bde9d370b31567fae3c33722eb08292e6a3cb7bc5c340e58e9a21"
+    },
+    {
+      "path": "python/kswitch/frameworks/llamaindex.py",
+      "sha256": "a841ecca65a1dc27ef36574d467d171637653b7469a07f5f207cdf1bf25fa7b2"
+    },
+    {
+      "path": "python/kswitch/frameworks/openai.py",
+      "sha256": "f41bd943049757e13392ae398d0c721e3ff165c67f272b8540ba415260169e4b"
+    },
+    {
+      "path": "python/kswitch/frameworks/semantic_kernel.py",
+      "sha256": "6719d092155f1f8f1e12e65beb784673ccb391361c73942baa6589c02298edbd"
+    },
+    {
+      "path": "python/kswitch/governance.py",
+      "sha256": "770dad8853b1ad6748fe8ffdd85424938ffda37ca6f2f65bd18f002c1aaef705"
+    },
+    {
+      "path": "python/kswitch/identity.py",
+      "sha256": "71f627fd347bf7248207b00d96059802430cf5e0e922ff3a6b43ccf67b304aed"
+    },
+    {
+      "path": "python/kswitch/interceptor.py",
+      "sha256": "30bda7fef51ab27fda4d46341a422f28ee7a9c07b7f0bf8f2b6b103e66508e98"
+    },
+    {
+      "path": "python/kswitch/invoke.py",
+      "sha256": "59ed4ac79b5c482aa15209c5713c2c694bf6d2bccd6024f237681828a254db21"
+    },
+    {
+      "path": "python/kswitch/killswitch.py",
+      "sha256": "a655ba6217448f3cb97c76a68996f88c95cc63cc840b26a40e52193d63637486"
+    },
+    {
+      "path": "python/kswitch/local_pdp/__init__.py",
+      "sha256": "e6f4fce0511d886a65e86dce57cf59e3583f4db19931477387dfe5710a131b97"
+    },
+    {
+      "path": "python/kswitch/local_pdp/evaluator.py",
+      "sha256": "823154fdfaa090f12895a6f23551842b539d3eace586b5cad550def9b4202b3f"
+    },
+    {
+      "path": "python/kswitch/models.py",
+      "sha256": "abd8fd4b7c1392b7500925e09ac2e35a427e7ec50c60a02e3655a2d9bbace113"
+    },
+    {
+      "path": "python/kswitch/policy.py",
+      "sha256": "91b84873d694c76f1633444af73714c9d98a19367db1610eb9afcc0306a7cc3e"
+    },
+    {
+      "path": "python/kswitch/revocation/__init__.py",
+      "sha256": "9e89b8e624b7f13f1e025ecbd7711e2b377f083ca733290e09ad6fbe2bfd3dcc"
+    },
+    {
+      "path": "python/kswitch/revocation/cache.py",
+      "sha256": "9ba3ca8c0a45fcf8d18d6d902a6af3f62a4b3f64d9d4e58740592893c8e8312b"
+    },
+    {
+      "path": "python/kswitch/revocation/sync.py",
+      "sha256": "6b09d03a248eb10465484ef11c378263b75b86208e12b54702458a3be216bb9b"
+    },
+    {
+      "path": "python/kswitch/sdk_adapter/__init__.py",
+      "sha256": "dd12057ca985ccc71f16295c9895b01b678ff900c7bffc4aa80d242f46789de8"
+    },
+    {
+      "path": "python/kswitch/sdk_adapter/openai_agents.py",
+      "sha256": "27eea0f08b446dc026fd92e0b77dc9922a6152da2a6fd29980a553082956532f"
+    },
+    {
+      "path": "python/kswitch/service.py",
+      "sha256": "ba22747bfd8a44eab7ae5646fbd72d965dd26b959b3e6fe2cecd95055b95106c"
+    },
+    {
+      "path": "python/kswitch/spire.py",
+      "sha256": "4430b6a8a8df79523a1b46129e19533034deab3bd51361c576e7f2ed2b86fc87"
+    },
+    {
+      "path": "python/kswitch/tokens/__init__.py",
+      "sha256": "53c3c8f7f35076771de7788ff9542eedcd18b3077a2e06a4a2adac39d17f7316"
+    },
+    {
+      "path": "python/kswitch/tokens/issuer.py",
+      "sha256": "a1ee5540a3cc56455fbe38ca2f9249d5ad14878674f1fcbce7c3a3d88cc39d35"
+    },
+    {
+      "path": "python/kswitch/tokens/validator.py",
+      "sha256": "2e823f4732f4459887ba5368126e5cd96ccdc510bed7a9e8b26f2cb99ca9419c"
+    },
+    {
+      "path": "python/kswitch/wimse.py",
+      "sha256": "de3d56ac73bf2db305b2519c0c79dea88eb549091d287b17f5f0fe72ef8700d4"
+    },
+    {
+      "path": "python/pyproject.toml",
+      "sha256": "e7a2e4a519fdc9c44204c54616e73f9323313406c9301f31849837ab38a034c6"
+    },
+    {
+      "path": "python/requirements-locked.txt",
+      "sha256": "eec81d9cbd48fe84307dda997a664f32e9e3d87843a3429ad5993aea50d28910"
+    },
+    {
+      "path": "python/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "python/tests/frameworks/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "python/tests/frameworks/test_framework_adapters.py",
+      "sha256": "0fe211e8efbff0c4f43ef230475248b6aa5540b25cafd5db7ba6a8292573411b"
+    },
+    {
+      "path": "python/tests/parity_helpers.py",
+      "sha256": "d63769231b2e9cd4a573d12c643b98d1762ac75c9212fd2f902dd2f5100baee1"
+    },
+    {
+      "path": "python/tests/test_anthropic_hook.py",
+      "sha256": "930e77ef77d6d87a80ffd40aa2a72fddd8dcf70090a6d604643b29bc53b20f2b"
+    },
+    {
+      "path": "python/tests/test_async_local_pdp.py",
+      "sha256": "49bbfe3bf1da0d63d763d065592a21e02dbdabbac2317c97bdb14d4018046b95"
+    },
+    {
+      "path": "python/tests/test_async_local_vs_sync.py",
+      "sha256": "054040e6e87cde2325a5dc59d9c4c4de03471706f4a99911b478eb3a362358c9"
+    },
+    {
+      "path": "python/tests/test_async_no_network_decision.py",
+      "sha256": "d71bf52f0853668fdec068166ffbe4be74676a968936ce9312aa73f1d880d96e"
+    },
+    {
+      "path": "python/tests/test_audit_emitter.py",
+      "sha256": "c67b5051dbf3a61332ca5f7de358e1152e4b8e48b1336fdb369196e52060b059"
+    },
+    {
+      "path": "python/tests/test_audit_event_ingestion.py",
+      "sha256": "942417a08e95797e7e9b903f95c609aeef948aa3163b4f2fbef49615c1e03f04"
+    },
+    {
+      "path": "python/tests/test_audit_sender.py",
+      "sha256": "e28888d54a9a680ad48c93ca0efc4166c8466498c352370d0aee0bc62322e606"
+    },
+    {
+      "path": "python/tests/test_b005_service_contract.py",
+      "sha256": "3704726a839d4f779944956e41d517360dc60bfc66d34afb0fe50ee623bbf50f"
+    },
+    {
+      "path": "python/tests/test_backcompat.py",
+      "sha256": "9818936252df4eac88bea94729ab8bf408d932437ea0750a9c2697cdb0a2e408"
+    },
+    {
+      "path": "python/tests/test_client.py",
+      "sha256": "e17b26d53210a13afcb92e4e9562392cdf3ac18745f92b9f406572245c4c6534"
+    },
+    {
+      "path": "python/tests/test_context_invalidation_sync.py",
+      "sha256": "a7106b4e771b2896ed0477e7db6c77229d04123db54ae64e39164bcd435f9bcb"
+    },
+    {
+      "path": "python/tests/test_governance.py",
+      "sha256": "3d548a4def8607c545dfbcfdff053632cc3759479710e5e70de026596066732c"
+    },
+    {
+      "path": "python/tests/test_governed_invoke.py",
+      "sha256": "e4fb55cf9c7fc4c3609eb8eb9220c4703fb37c649a5060c8dff89f0dbef9871b"
+    },
+    {
+      "path": "python/tests/test_live_local_vs_server_parity.py",
+      "sha256": "a789398d65697c3cb947aa0cd0c8d23b35e5832b4c764bc1adabb234e24f7be5"
+    },
+    {
+      "path": "python/tests/test_local_bundle.py",
+      "sha256": "0f4a3f8c826344fc51f3fefce060a22992239d73814e2ca8ee7f3bf3b5f3cdfc"
+    },
+    {
+      "path": "python/tests/test_local_context.py",
+      "sha256": "69fbfd691e1d24ba18ff30d18d57a14b555ebe03861ec7a18be0376caa96a2d3"
+    },
+    {
+      "path": "python/tests/test_local_deny_after_remote_revoke.py",
+      "sha256": "0e35a7140e153673d3ccf84408cb8efd260903b1187481dbee2049fb5fdd5312"
+    },
+    {
+      "path": "python/tests/test_local_pdp.py",
+      "sha256": "9a584600525932796d70b4b9313e961e2119014d20e8ec51d25a03a5aa97b8dc"
+    },
+    {
+      "path": "python/tests/test_models.py",
+      "sha256": "a6219efb1adfac7fdd2be33e0c612699503741a15fde18bdff650eca52e5aa1b"
+    },
+    {
+      "path": "python/tests/test_parity_helpers.py",
+      "sha256": "9e00993095bfc41a435346162c4cf2cf91616602e8b5d66cbc81c4aafb36ebfb"
+    },
+    {
+      "path": "python/tests/test_python_local_vs_server.py",
+      "sha256": "a7d3bf3680768f21988df1e5e093d04529229c10df50f0000e132cdb08781b2e"
+    },
+    {
+      "path": "python/tests/test_python_no_network_decision.py",
+      "sha256": "639463bd887f5faa4736cff55baf4b01bb4ab861160de93d04550555326da723"
+    },
+    {
+      "path": "python/tests/test_python_sdk_event_flow.py",
+      "sha256": "be0f204e13a9c0924b75f9d16a8deaf08f078226260b0480733bd1456c0eb587"
+    },
+    {
+      "path": "python/tests/test_revocation_sync.py",
+      "sha256": "2682668d653c45ae98df351bd495daebb026eeaa803cb2986b0f3f01b0754cec"
+    },
+    {
+      "path": "python/tests/test_wimse.py",
+      "sha256": "ee4842fb7b2b4c1e219633576434e6adc4315b63b910458162c841c4d2da9222"
+    },
+    {
+      "path": "reports/ep227/ep227-validation-report.json",
+      "sha256": "438fbee1acfa30ac48762bb5254a462049b2b83c861421fc6b6b163829170fdf"
+    },
+    {
+      "path": "reports/ep227/export-sanctions-review.md",
+      "sha256": "be7e00a8cfbe866165759fc31c8f335d9107be604ffc54f2d9b4eab30d1effd4"
+    },
+    {
+      "path": "reports/ep227/images/README.md",
+      "sha256": "90c621930a9662de157dc9e2fe8824c5ea247bc6a5565d9c10c932f4abc4162c"
+    },
+    {
+      "path": "reports/ep227/package-inspection.md",
+      "sha256": "ae6ea88055c500b0650f3c53279568461c7f82bf5746482c48d1d29878346ac5"
+    },
+    {
+      "path": "reports/ep227/privacy-data-flow-review.md",
+      "sha256": "49121c4f1960f2435d9515b33437af8372e4f7915c443ea5e5afc7f16a40aa07"
+    },
+    {
+      "path": "reports/ep227/public-claims-matrix.md",
+      "sha256": "0643d81d7fac5f16832a5252bfd3917a5e1cf7646be6df64cb0132a06ffdc466"
+    },
+    {
+      "path": "reports/ep227/release-evidence-index.md",
+      "sha256": "a3bb47b401262bf1cc32f3bb58691bfc202fb4eda50f9698c1debcbc7ce63adc"
+    },
+    {
+      "path": "reports/ep227/sdk-ip-boundary.csv",
+      "sha256": "977be6d040353cd0782a96e22508332f818a249558caf97bd208b80368240f8f"
+    },
+    {
+      "path": "reports/ep227/sdk-ip-boundary.md",
+      "sha256": "44087d4cde15774f73f85ed4f3b6ac586349fe17a0dbb9a2d90bb9bc54ac65de"
+    },
+    {
+      "path": "scripts/validate_ep227_release.py",
+      "sha256": "87ef3f8710b5de89a2f4974d701535e37c31d4689b2c4bd3664d51e5971e387a"
+    },
+    {
+      "path": "typescript/LICENSE",
+      "sha256": "5e7ab95811d4d45442184c2d33ec7b8a0e10fed82e16da59a7f417e283d33147"
+    },
+    {
+      "path": "typescript/README.md",
+      "sha256": "ece79a8343acfa81d4dc58dec5e751577e9b7fa6446b029709d6b73cfed045e2"
+    },
+    {
+      "path": "typescript/examples/evaluate-access.ts",
+      "sha256": "57a75464b5f3a7b87d963284f1a6f5a2c49cdde11f573d676696489dcc022aab"
+    },
+    {
+      "path": "typescript/examples/mcp-enforcement.ts",
+      "sha256": "cfe1ae4ca1cd69c2ff3e5d36c849a48fd308c9001acf94dc375a6d61e8c7f260"
+    },
+    {
+      "path": "typescript/examples/register-agent.ts",
+      "sha256": "ed5ac59d9f59bdb972cfdb55b71fdb1148b2d4ffb67f9b8fdddd41b3fecf8ac0"
+    },
+    {
+      "path": "typescript/package-lock.json",
+      "sha256": "80572098f8211cc6cdfc567b124a159d2810fda34f46227f0f036113f2aed678"
+    },
+    {
+      "path": "typescript/package.json",
+      "sha256": "e593a4f96aea9b7a422d12ceade6d11e83a6d9971d253c73645f969b344aaae0"
+    },
+    {
+      "path": "typescript/src/audit/emitter.ts",
+      "sha256": "12faf895d6c6c09bd95c5cc0870aad9271e07c1aff69cb8d8da9023e632562f9"
+    },
+    {
+      "path": "typescript/src/audit/sender.ts",
+      "sha256": "d6f1445872e297490064f4d7b34f226a1695df9c8b3011e36ffa3f4cb1e5e161"
+    },
+    {
+      "path": "typescript/src/auth.ts",
+      "sha256": "404687c4cc7d97afe806f07e3a83dc39f8deb43c3234870f3ac651aedd69be6b"
+    },
+    {
+      "path": "typescript/src/authzen.ts",
+      "sha256": "35e0675f70517d0d62722cc6c37a6d48210128651a485f5cb5ddf375b8153a49"
+    },
+    {
+      "path": "typescript/src/bundle/local_cache.ts",
+      "sha256": "9ea9eeae070aa4fd20d7a71163a57523a11eaaed5344563647b704521bae6057"
+    },
+    {
+      "path": "typescript/src/catalog.ts",
+      "sha256": "f86af3eaf699a97b18a296015d825e5fb30cf2bc642d52995b4fea904005aea4"
+    },
+    {
+      "path": "typescript/src/client.ts",
+      "sha256": "27c3886881f56f781c1806a50c95ac51c37c6d9a1861a07e375c9beb64af46d4"
+    },
+    {
+      "path": "typescript/src/compliance.ts",
+      "sha256": "83cfd2b18ffe8491f81e0afde08047bc268c4d1b8a7ec56bfcf6261ca7e5e8f6"
+    },
+    {
+      "path": "typescript/src/context/local_cache.ts",
+      "sha256": "57833d11bfd40fa53de7587b9faffe331710af8c4e0c0fbb6a85513e37c4a194"
+    },
+    {
+      "path": "typescript/src/denyReason.ts",
+      "sha256": "69d9c513c3ac3c8d0889f0765e7555adf45353995f6c883d9e59c7076127da35"
+    },
+    {
+      "path": "typescript/src/enforcement.ts",
+      "sha256": "75fa5969e1174a2983d5d4fcf45960d1d364e33df60a97ddf83dc1438eda63bd"
+    },
+    {
+      "path": "typescript/src/errors.ts",
+      "sha256": "7c341960c2a31788f180f8447c5c09f6e8112306845cf28d4f65ea9515db03b0"
+    },
+    {
+      "path": "typescript/src/events.ts",
+      "sha256": "fbfbd18ac2dca9bdd9c124d6e155dc52e16ebbb02c276998386abbdf95bc579e"
+    },
+    {
+      "path": "typescript/src/governance.ts",
+      "sha256": "58b5b8961449e35d1756f8d4d5990335bfb3155e8fbd280943658d15e9f8c938"
+    },
+    {
+      "path": "typescript/src/identity.ts",
+      "sha256": "f4224a8227faceab59857a8b119564ca4eaad9d51b80f702959d6f1f678d685d"
+    },
+    {
+      "path": "typescript/src/index.ts",
+      "sha256": "2397cefcc8783d1a3388a6f7d4116c2389e956a47f6bd71b5d064d2875076e58"
+    },
+    {
+      "path": "typescript/src/interceptor.ts",
+      "sha256": "27493d794dcf795588a6b27d081095f74f89f992f6eb6a6ec73c34af7d1928fc"
+    },
+    {
+      "path": "typescript/src/killswitch.ts",
+      "sha256": "1f497940e5c573397679b4f8b3577ad1466195e877482e6c7cab068ce954f171"
+    },
+    {
+      "path": "typescript/src/local_pdp/evaluator.ts",
+      "sha256": "cb7dffe834785079fd886aa11c10409c5182ca5b3bf4ddf9ffc11a3661ca07a5"
+    },
+    {
+      "path": "typescript/src/local_pdp/types.ts",
+      "sha256": "a4513f045137de01795051ef2f6bafa4d814e71029cac7da407f2acf97b20f31"
+    },
+    {
+      "path": "typescript/src/policy.ts",
+      "sha256": "9472e5cde473711dda3c34a07fae17143039f43e46e0485dffd94b28d9c9867e"
+    },
+    {
+      "path": "typescript/src/revocation/cache.ts",
+      "sha256": "2b56735e27d68722519d28d2a5c5e25facf40e0f1dc4beea0319be82bb5b706f"
+    },
+    {
+      "path": "typescript/src/revocation/sync.ts",
+      "sha256": "98cc353237b01f05aae851dab3c89a50734045dc94e3daa9c72013a0f3b6af76"
+    },
+    {
+      "path": "typescript/src/service.ts",
+      "sha256": "454962dd317a2faaeaaaea82ecdc65c004603a0182e6a23935538b71f3c172a4"
+    },
+    {
+      "path": "typescript/src/spire.ts",
+      "sha256": "0c329a89b3b23d9d9de6347288c7df1ec7e6338cce2b0e00f47df957c52f4c26"
+    },
+    {
+      "path": "typescript/src/tokens/index.ts",
+      "sha256": "80c3acba6ee3088b0b9d3b430b75167a01ccfe94b1cf507954b441534557be8f"
+    },
+    {
+      "path": "typescript/src/tokens/issuer.ts",
+      "sha256": "cd0a4f030f912fd2e3da1c57fa8dc65cfe60df29b33004d03592aeed974c4e93"
+    },
+    {
+      "path": "typescript/src/tokens/validator.ts",
+      "sha256": "2142cfee9fd24a52aebb0c7e7b8e752021b923d735b67a5fd25b05ae47db010a"
+    },
+    {
+      "path": "typescript/src/types.ts",
+      "sha256": "f42f2ce0bcc33260e7c73b8eefd21314c8e39e286de7b5e1c47eee82a2946c44"
+    },
+    {
+      "path": "typescript/src/wimse.ts",
+      "sha256": "9f73ae7b17558ebe22ba30604cb3025933b93cf7ff0748c357505008b4718935"
+    },
+    {
+      "path": "typescript/test/test_audit_sink.test.ts",
+      "sha256": "5879ee7ddaf09bb6b942d67b7c694ca736ffca9e414a28e170cc18a8019e3abd"
+    },
+    {
+      "path": "typescript/test/test_ep221_decision_types.test.ts",
+      "sha256": "5bffa0cc62da4d9e948dfcb8d31d1b48afdedb18b5c149311565c725b349d6e0"
+    },
+    {
+      "path": "typescript/test/test_local_pdp.test.ts",
+      "sha256": "7318f30e1f7ce8b4e286f7547788149a1575694e1d1039650a32d828eeb53f06"
+    },
+    {
+      "path": "typescript/test/test_local_vs_python_parity.test.ts",
+      "sha256": "3e003a114149c161dd8adcc58ef1f73d86b8e0304e66c8b105b674328c004843"
+    },
+    {
+      "path": "typescript/test/test_no_network_decision.test.ts",
+      "sha256": "6003a3744755519875b1c0cf5fa512cdf746de58b7b8bf0e8fc104180e1f3aae"
+    },
+    {
+      "path": "typescript/test/test_revocation_sync.test.ts",
+      "sha256": "467c84d6bf3cbe1827327e20f82339e2114a0862e01e77149a9f194c4172b4eb"
+    },
+    {
+      "path": "typescript/test/test_wimse.test.ts",
+      "sha256": "70175a2361236ce4b70d5b1614f33e7d6f0d11dbd3cb9edc2b9d12a0132daf8f"
+    },
+    {
+      "path": "typescript/tests/backcompat.test.ts",
+      "sha256": "67b1628f8d6edc9ab49f4c03f1e0fcad52963c577e5abc6e7c0c207ba73e3e67"
+    },
+    {
+      "path": "typescript/tests/test_b005_service_contract.test.ts",
+      "sha256": "d3c5b5e56b34e8bc5ede08edbea76d122af47c49342b20fe798f5033daaea839"
+    },
+    {
+      "path": "typescript/tsconfig.cjs.json",
+      "sha256": "28e1d030f7eea2c7caea973a2a6a05c9ec03353bd37f2c8b84f5307504116a5e"
+    },
+    {
+      "path": "typescript/tsconfig.json",
+      "sha256": "c797a5203b1e67b4df91300517854b075fa12211da1353f6b4832fb2cf663949"
+    },
+    {
+      "path": "typescript/tsconfig.test.json",
+      "sha256": "e035f051d200b943addb35e92e5a814523fbdfac08a48d596118f9cba88be3d7"
+    }
+  ],
+  "status": "fail"
+}

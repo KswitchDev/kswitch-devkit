@@ -1,7 +1,13 @@
 # KSwitch Developer Edition
 
-KSwitch Developer Edition is the free forever local stack for developers who
-want to build against the SDKs without needing a commercial KSwitch deployment.
+KSwitch Developer Edition is the local stack for developers who want to build
+against the SDKs without needing a commercial KSwitch deployment.
+
+It has no scheduled expiry for permitted local non-commercial development,
+demos, SDK integration, and bounded non-production evaluation of the applicable
+release version. It does not grant production, customer-facing,
+managed-service, revenue-generating, internal business-operation, or commercial
+platform rights.
 
 It should be meaningful enough to prove the product:
 
@@ -54,10 +60,12 @@ Developer Edition uses a local entitlement overlay:
 
 - No licence file required for Developer Edition.
 - The server sees `edition=developer` when the devkit profile is selected.
-- Hard caps are enforced locally by the existing server-side cap decorators.
+- Caps are enforced in official unmodified artefacts by the existing
+  server-side cap decorators. The Developer Edition licence prohibits disabling,
+  bypassing, or removing those controls.
 - Enterprise-only features remain unavailable.
 
-Hard local caps:
+Developer Edition caps:
 
 | Resource | Cap |
 | --- | ---: |

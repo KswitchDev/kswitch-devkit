@@ -1,0 +1,29 @@
+# EP-227 public payload allowlist
+#
+# Public devkit payload must be generated from this allowlist. Broad recursive
+# copies from ATCPDev, agent-registration-config-pg, or internal worktrees are
+# prohibited.
+
+README.md
+TROUBLESHOOTING.md
+MIGRATION_FROM_PILOT.md
+Makefile
+.env.example
+BUNDLE_VERSION
+PUBLIC_PAYLOAD_ALLOWLIST.txt
+FORBIDDEN_PUBLIC_PAYLOAD_GLOBS.txt
+MANIFEST.json
+docker-compose.yml
+image-digests.lock
+developer-edition/**
+cli/**
+scripts/**
+seed/**
+tls/README.md
+tls/.gitignore
+tls/.gitkeep
+state/.gitignore
+state/.gitkeep
+backups/.gitignore
+backups/.gitkeep
+examples/**

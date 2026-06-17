@@ -1,0 +1,4 @@
+source_path,destination_path,classification,licence,reason,reviewer_date,included_public_repo,status
+python/kswitch,python/kswitch,PENDING,PENDING,"EP-227 requires file-level classification before release",PENDING,true,PENDING
+typescript/src,typescript/src,PENDING,PENDING,"EP-227 requires file-level classification before release",PENDING,true,PENDING
+go/kswitch,go/kswitch,PENDING,PENDING,"EP-227 requires file-level classification before release",PENDING,true,PENDING

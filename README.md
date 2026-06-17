@@ -1,6 +1,6 @@
 # KSwitch SDKs + Developer Edition
 
-Official SDK packages and the free forever developer landing for the KSwitch
+Official SDK packages and the Developer Edition landing for the KSwitch
 Agent Trust Control Plane.
 
 This repository has two jobs:
@@ -8,33 +8,35 @@ This repository has two jobs:
 1. Ship the language SDKs developers import into agents, MCP servers, and
    governed tools.
 2. Provide a local KSwitch Developer Edition path that proves the SDKs against
-   a real control plane, SPIFFE identity, policy decisioning, audit, and MCP
+   a local control plane, SPIFFE identity, policy decisioning, audit, and MCP
    gateway flow.
 
-The Developer Edition is free forever for local development, demos, evaluation,
-and non-production agent governance. It is not the enterprise deployment
-package, a production support entitlement, or a full source drop.
+Developer Edition has no scheduled expiry for permitted local non-commercial
+development, demos, SDK integration, and bounded non-production evaluation of
+the applicable release version. It is not the enterprise deployment package, a
+production support entitlement, a commercial-use licence, or a full source drop.
 
 ## Start Here
 
 | Goal | Path |
 | --- | --- |
 | Use a language SDK | `python/`, `typescript/`, or `go/` |
-| Run the free local platform | `devkit/` |
+| Run Developer Edition locally | `devkit/` |
 | Understand service authentication | `docs/auth-model.md` |
-| Understand the commercial boundary | `docs/free-for-life-positioning.md` |
+| Understand the commercial boundary | `docs/developer-edition-positioning.md` |
 | Review bypass and hardening rules | `BYPASS_HARDENING.md` |
+| Review licence boundaries | `LICENSE.md` and `COMMERCIAL-USE.md` |
 
 ## Developer Edition
 
-The free local stack is built from the existing pilot bundle, but deliberately
-refactored for public developer use:
+The local Developer Edition stack is built from the existing pilot bundle, but
+deliberately refactored for public developer use:
 
 - No time-boxed trial posture.
 - No customer-specific source drop.
 - No cloud deployment templates in the free path.
 - No production SLA, support entitlement, or managed deployment rights.
-- Hard local caps instead of expiry.
+- Cap enforcement in official unmodified artefacts instead of trial expiry.
 - No licence file or renewal flow in the free local path.
 - SPIFFE/workload identity as the preferred service-auth path.
 
@@ -111,8 +113,13 @@ go test ./...
 
 ## Licenses
 
-Each SDK package carries its own license file:
+This repository uses a mixed licence model. See [`LICENSE.md`](LICENSE.md).
+
+Each SDK package carries its own licence file:
 
 - `python/LICENSE`
 - `typescript/LICENSE`
 - `go/LICENSE`
+
+The runnable `devkit/` is source-available under the KSwitch Developer Edition
+Licence and is not open source.

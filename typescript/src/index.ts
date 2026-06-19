@@ -113,6 +113,43 @@ export {
 } from "./wimse.js";
 export type { WIMSEAssertionFields, WIMSEHopOptions } from "./wimse.js";
 
+// ── OBO / Envoy policy evidence contract ───────────────────────────────────
+export {
+  OBO_ACTOR_CHAIN_HEADER,
+  OBO_REQUESTED_SCOPE_HEADER,
+  OBO_SENDER_CONSTRAINT_HEADER,
+  KSWITCH_ENFORCEMENT_DECISION_HEADER,
+  KSWITCH_ENFORCEMENT_ID_HEADER,
+  KSWITCH_POLICY_DECISION_HEADER,
+  KSWITCH_POLICY_EVIDENCE_HEADER,
+  KSWITCH_POLICY_BUNDLE_HEADER,
+  EXPECTED_POLICY_PEP,
+  EXPECTED_POLICY_TRANSPORT,
+  EXPECTED_POLICY_ENFORCEMENT_POINT,
+  EXPECTED_POLICY_PDP_MODE,
+  actorChainFromHeaders,
+  buildActorChain,
+  buildOBOHeaders,
+  buildSenderConstraint,
+  decodeJsonHeader,
+  encodeJsonHeader,
+  getHeader,
+  kswitchDecisionFromHeaders,
+  policyEngineEvidenceFrom,
+  policyEvidenceAllows,
+  policyEvidenceFrom,
+  policyEvidenceFromHeaders,
+  senderConstraintFromHeaders,
+  sha256B64Url,
+} from "./obo.js";
+export type {
+  BuildActorChainOptions,
+  BuildOBOHeadersOptions,
+  BuildSenderConstraintOptions,
+  PolicyEngineEvidence,
+  PolicyEvidence,
+} from "./obo.js";
+
 // ── SPIRE workload identity ─────────────────────────────────────────────────
 export { fetchSvid, SPIREUnavailableError } from "./spire.js";
 export type { SVIDBundle } from "./spire.js";

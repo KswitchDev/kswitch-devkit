@@ -1,90 +1,146 @@
 # KSwitch DevKit
 
-Official SDK packages, examples, and Developer Edition devkit for the KSwitch
-Agent Trust Control Plane.
+[![SDK CI](https://github.com/KswitchDev/kswitch-devkit/actions/workflows/ci.yml/badge.svg)](https://github.com/KswitchDev/kswitch-devkit/actions/workflows/ci.yml)
 
-This repository has two jobs:
+Build governed AI-agent integrations without standing up the full enterprise
+platform first.
 
-1. Ship the language SDKs developers import into agents, MCP servers, and
-   governed tools.
-2. Provide a local KSwitch Developer Edition path that proves the SDKs against
-   a local control plane, PKCE login, policy decisioning, audit, kill-switch
-   flows, and optional SPIFFE workload identity.
+KSwitch DevKit gives developers the language SDKs, local runtime, and examples
+needed to try real agent-control flows on a laptop: register an agent, evaluate
+policy, emit audit events, trigger a kill switch, and test workload identity
+without turning `client_id` + `client_secret` into the default service-auth
+story.
 
-Developer Edition has no scheduled expiry for permitted local non-commercial
-development, demos, SDK integration, and bounded non-production evaluation of
-the applicable release version. It is not the enterprise deployment package, a
-production support entitlement, a commercial-use licence, or a right to
-enterprise deployment components.
+If this helps you build or explain safer agent systems, star the repo. Stars help
+us see which SDKs, examples, and integrations to invest in next.
 
-## Start Here
+## What You Can Do
 
-| Goal | Path |
-| --- | --- |
-| Use a language SDK | `python/`, `typescript/`, or `go/` |
-| Run Developer Edition locally | `devkit/` |
-| Understand service authentication | `docs/auth-model.md` |
-| Understand the commercial boundary | `docs/developer-edition-positioning.md` |
-| Review bypass and hardening rules | `BYPASS_HARDENING.md` |
-| Review licence boundaries | `LICENSE.md` and `COMMERCIAL-USE.md` |
+With this repo you can:
 
-## Developer Edition
+- Add KSwitch governance calls to Python, TypeScript, or Go applications.
+- Run a local Developer Edition control plane for SDK integration.
+- Exercise policy decisions, audit events, and kill-switch flows end to end.
+- Try SPIFFE/WIMSE workload identity locally with optional SPIRE services.
+- Learn the production auth posture before wiring an enterprise deployment.
 
-The local Developer Edition stack is packaged for public developer use with a
-deliberately narrow, non-production boundary:
+The Developer Edition path is free for permitted local, non-commercial
+development, education, demos, SDK integration, and bounded non-production
+evaluation. It has no scheduled expiry for the applicable release version.
 
-- No time-boxed trial posture.
-- No environment-specific artefacts.
-- No cloud deployment templates in the free path.
-- No production SLA, support entitlement, or managed deployment rights.
-- Cap enforcement in official unmodified artefacts instead of trial expiry.
-- No licence file or renewal flow in the local developer path.
-- SPIFFE/workload identity as the preferred service-auth path.
+## Quick Start
 
-The intended developer loop is:
+Prerequisites:
+
+- Docker with the Compose plugin
+- `make`
+- `openssl`
+- `curl`
+- `jq`
+
+Start the local Developer Edition stack:
 
 ```sh
 cd devkit
 cp .env.example .env
+# Set KEYCLOAK_ADMIN_PASSWORD in .env to a strong local password.
 make up
 ```
 
-Then use the SDK examples against `https://localhost:5001` and the local API.
-The `devkit/` directory documents the bundled local runtime and examples.
+Then open:
 
-## Packages
+- App and local API: `https://localhost:5001`
+- Local docs: `https://localhost:5001/docs/`
+- Health and hints: `make doctor`
 
-| Language | Path | Package |
-| --- | --- | --- |
-| Python | `python/` | `kswitch-sdk` |
-| TypeScript | `typescript/` | `@kswitch/sdk` |
-| Go | `go/` | `github.com/KswitchDev/kswitch-devkit/go` |
+For workload-identity examples, use the SPIRE profile:
 
-The current SDK release train is recorded in [`SDK_VERSION`](SDK_VERSION).
+```sh
+make up-with-identity
+```
 
-## Authentication Posture
+## SDKs
 
-For humans and local development, use the Developer Edition PKCE helper to mint
-short-lived bearer tokens.
+| Language | Package | Path | Docs |
+| --- | --- | --- | --- |
+| Python | `kswitch-sdk` | `python/` | [Python SDK](https://hub.kswitch.io/sdk/python.html) |
+| TypeScript | `@kswitch/sdk` | `typescript/` | [TypeScript SDK](https://hub.kswitch.io/sdk/typescript.html) |
+| Go | `github.com/KswitchDev/kswitch-devkit/go` | `go/` | [Go SDK](https://hub.kswitch.io/sdk/go.html) |
 
-For service-to-service calls, prefer workload identity:
+For local development from source:
 
-- SPIFFE JWT-SVID / WIMSE where the workload can access a SPIRE Workload API
-  socket.
-- mTLS where the deployment uses client certificate identity.
-- OAuth2 client credentials only as a legacy IdP fallback when workload identity
-  is not available.
+```sh
+cd python
+python -m pip install -e ".[dev]"
 
-Do not make `client_id` + `client_secret` the primary public example. It is
-supported for compatibility, but it creates secret lifecycle and distribution
-work that KSwitch should avoid when the environment can issue workload-bound
-identity.
+cd ../typescript
+npm ci
 
-## Developer Hub
+cd ../go
+go test ./...
+```
 
-- [Python SDK docs](https://hub.kswitch.io/sdk/python.html)
-- [TypeScript SDK docs](https://hub.kswitch.io/sdk/typescript.html)
-- [Go SDK docs](https://hub.kswitch.io/sdk/go.html)
+## Service Auth Posture
+
+KSwitch leads with workload identity for service-to-service calls.
+
+Preferred order:
+
+1. Local human development: OAuth2 PKCE using the bundled Developer Edition CLI.
+2. Service workloads: SPIFFE JWT-SVID or WIMSE assertions from SPIRE.
+3. Transport identity: mTLS where client certificates are the deployment
+   identity.
+4. Compatibility fallback: OAuth2 client credentials when workload identity is
+   not available.
+
+Client credentials remain supported because many environments still need them.
+They are not the flagship example because shared secrets create storage,
+rotation, distribution, and revocation work that workload-bound identities avoid.
+
+Read more in [docs/auth-model.md](docs/auth-model.md).
+
+## Free Developer Edition Boundary
+
+Developer Edition is meant to be useful, not decorative. Official unmodified
+artefacts enforce these local caps:
+
+| Resource | Cap |
+| --- | ---: |
+| Agents | 10 |
+| MCP servers | 10 |
+| Tools | 100 |
+| Skills | 100 |
+
+What is included:
+
+- Local control-plane runtime for SDK evaluation.
+- Local Keycloak realm for PKCE.
+- Optional local SPIRE for workload identity examples.
+- OPA-backed policy-decision path.
+- Starter policies, examples, smoke checks, and doctor checks.
+
+What is not included:
+
+- Production deployment rights.
+- Customer-facing, managed-service, revenue-generating, or internal
+  business-operation use.
+- Commercial support, SLA, cloud deployment packages, HA, SIEM, fleet
+  operations, desktop hard-containment, or enterprise enforcement add-ons.
+- Rights to bypass, disable, or remove Developer Edition caps.
+
+Commercial use requires a separate written agreement with KSwitch. See
+[LICENSE.md](LICENSE.md) and [COMMERCIAL-USE.md](COMMERCIAL-USE.md).
+
+## Repository Map
+
+| Path | Purpose |
+| --- | --- |
+| `python/` | Python SDK, tests, examples, framework adapters |
+| `typescript/` | TypeScript SDK, tests, package metadata |
+| `go/` | Go SDK, tests, examples |
+| `devkit/` | Local Developer Edition runtime and lifecycle scripts |
+| `docs/` | Auth and Developer Edition positioning notes |
+| `reports/ep227/` | Release-gate evidence for the public devkit boundary |
 
 ## Local Checks
 
@@ -111,15 +167,19 @@ cd go
 go test ./...
 ```
 
-## Licenses
+Release gate:
 
-This repository uses a mixed licence model. See [`LICENSE.md`](LICENSE.md).
+```sh
+make validate-ep227-release
+```
 
-Each SDK package carries its own licence file:
+## Community And Security
 
-- `python/LICENSE`
-- `typescript/LICENSE`
-- `go/LICENSE`
+Open issues for bugs, docs gaps, and SDK examples you want to see. Do not put
+secrets, customer data, production logs, or sensitive environment details in
+public issues.
 
-The runnable `devkit/` is source-available under the KSwitch Developer Edition
-Licence and is not open source.
+Report suspected vulnerabilities privately to `security@kswitch.io`.
+
+External code contributions are not accepted until KSwitch enables an approved
+DCO, CLA, or no-external-contributions workflow.

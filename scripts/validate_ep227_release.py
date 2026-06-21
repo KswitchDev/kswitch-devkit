@@ -34,6 +34,14 @@ REQUIRED_FILES = [
     ".github/ISSUE_TEMPLATE/config.yml",
 ]
 
+LEGAL_STATUS_BLOCKERS = [
+    "PENDING",
+    "_REQUIRED",
+    "DRAFT",
+    "not approved",
+    "approval required",
+]
+
 PUBLIC_TEXT_GLOBS = [
     "README.md",
     "COMMERCIAL-USE.md",
@@ -98,6 +106,12 @@ EVIDENCE_FILES = [
     "reports/ep227/export-sanctions-review.md",
     "reports/ep227/release-evidence-index.md",
     "reports/ep227/package-inspection.md",
+]
+
+SDK_LICENSE_FILES = [
+    ("python/pyproject.toml", 'license = "Apache-2.0"', "Python SDK must declare Apache-2.0."),
+    ("typescript/package.json", '"license": "Apache-2.0"', "TypeScript SDK must declare Apache-2.0."),
+    ("go/LICENSE", "Apache License", "Go SDK licence file must be Apache-2.0."),
 ]
 
 
@@ -169,6 +183,13 @@ def check_python_licence(failures: list[dict[str, str]]) -> None:
         add(failures, "G2", "python/LICENSE", "Python SDK licence file must be Apache-2.0.")
 
 
+def check_sdk_licences(failures: list[dict[str, str]]) -> None:
+    for item, needle, message in SDK_LICENSE_FILES:
+        path = ROOT / item
+        if not path.is_file() or needle not in read_text(path):
+            add(failures, "G2", item, message)
+
+
 def parse_compose_services() -> set[str]:
     compose = ROOT / "devkit" / "docker-compose.yml"
     if not compose.is_file():
@@ -205,8 +226,19 @@ def check_service_boundary(failures: list[dict[str, str]]) -> None:
 
 def check_release_approval(failures: list[dict[str, str]]) -> None:
     checklist = ROOT / "RELEASE-LEGAL-CHECKLIST.md"
-    if checklist.is_file() and "PENDING" in read_text(checklist):
-        add(failures, "G12/G24/G26", rel(checklist), "Release legal checklist still has PENDING items.")
+    if not checklist.is_file():
+        add(failures, "G12/G24/G26", rel(checklist), "Release legal checklist is missing.")
+        return
+    text = read_text(checklist)
+    for blocker in LEGAL_STATUS_BLOCKERS:
+        if blocker in text:
+            add(
+                failures,
+                "G12/G24/G26",
+                rel(checklist),
+                f"Release approval gate still contains blocker marker: {blocker!r}.",
+            )
+            return
 
 
 def check_evidence(failures: list[dict[str, str]]) -> None:
@@ -234,14 +266,31 @@ def check_evidence(failures: list[dict[str, str]]) -> None:
         else:
             if manifest_data.get("release_blocked") or manifest_data.get("status") == "placeholder":
                 add(failures, "G13", rel(manifest), "Devkit manifest is still a release-blocking placeholder.")
+            entries = manifest_data.get("entries")
+            if not isinstance(entries, list) or not entries:
+                add(failures, "G13", rel(manifest), "Devkit manifest must contain file entries.")
+            else:
+                required_keys = {"source_path", "destination_path", "sha256", "classification", "licence", "reason"}
+                for entry in entries:
+                    if not isinstance(entry, dict) or required_keys - set(entry):
+                        add(failures, "G13", rel(manifest), "Devkit manifest has an incomplete entry.")
+                        break
     else:
         add(failures, "G13", rel(manifest), "Devkit manifest is missing.")
+
+    sbom_summary = ROOT / "reports" / "ep227" / "images" / "image-sbom-engineering-summary.md"
+    if sbom_summary.is_file():
+        sbom_text = read_text(sbom_summary)
+        if "PLACEHOLDER" in sbom_text or "BLOCKED_" in sbom_text:
+            add(failures, "G14/G25", rel(sbom_summary), "Image SBOM evidence is not release-complete.")
 
 
 def build_manifest() -> list[dict[str, str]]:
     files: list[dict[str, str]] = []
     for path in sorted(ROOT.rglob("*")):
         if not path.is_file() or ".git" in path.parts:
+            continue
+        if path == REPORT:
             continue
         files.append({"path": rel(path), "sha256": sha256(path)})
     return files
@@ -254,6 +303,7 @@ def main() -> int:
     check_public_claims(failures)
     check_repo_sanitisation(failures)
     check_python_licence(failures)
+    check_sdk_licences(failures)
     check_service_boundary(failures)
     check_release_approval(failures)
     check_evidence(failures)

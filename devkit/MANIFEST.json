@@ -1,5 +1,290 @@
 {
-  "status": "placeholder",
-  "release_blocked": true,
-  "reason": "EP-227 requires a generated manifest with source path, destination path, SHA256, licence classification, and reason for every emitted public devkit file. This placeholder must be replaced by the allowlist generator before public release."
+  "devkit_baseline": "v1.39.0-pg",
+  "entries": [
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": ".env.example",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "f774c97486e871656520bc0316fd317050e2133340e6ff26f8543a25b6318d7e",
+      "source_path": "devkit/.env.example"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "BUNDLE_VERSION",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "67dbc7c7fe428e4ececb7312ef77447bf48f7dfe5ec2d3cd70c56f349e9d0100",
+      "source_path": "devkit/BUNDLE_VERSION"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "FORBIDDEN_PUBLIC_PAYLOAD_GLOBS.txt",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "e36bdbbdfb55db55f097523002c6e392d18e47e592c4ba7e2ef61747e8594963",
+      "source_path": "devkit/FORBIDDEN_PUBLIC_PAYLOAD_GLOBS.txt"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "MIGRATION_FROM_PILOT.md",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "1f55891da5cf47684e13039a3508a99a7ad0f8012e2171918af1cc2ac2d5d5aa",
+      "source_path": "devkit/MIGRATION_FROM_PILOT.md"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "Makefile",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "2702db2f37c9babfd67e8dd192f217bea5c514a451033235ce4cb14d32a262c6",
+      "source_path": "devkit/Makefile"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "PUBLIC_PAYLOAD_ALLOWLIST.txt",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "08285cad07af77be530f8945d263e6907f237945267989a680fd38196e838d74",
+      "source_path": "devkit/PUBLIC_PAYLOAD_ALLOWLIST.txt"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "README.md",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "2df8ed118db36a53c52ba530c4cfbf5da02af249195b68cf3b2bdceed025fca1",
+      "source_path": "devkit/README.md"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "TROUBLESHOOTING.md",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "0539065c71650224c85111c2e8805ce3ce6bc51e81ee35cfb04f6f0990719d8e",
+      "source_path": "devkit/TROUBLESHOOTING.md"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "backups/.gitignore",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "0a9d2ea00f6a3e1b29511e0a35fd550a92f633ddcf0ef07ca8080af001652961",
+      "source_path": "devkit/backups/.gitignore"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "backups/.gitkeep",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "devkit/backups/.gitkeep"
+    },
+    {
+      "classification": "developer-edition-developer-tooling",
+      "destination_path": "cli/README.md",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "PKCE helper used by developers to obtain short-lived local tokens without browser-storage extraction.",
+      "sha256": "099beeca51ec6fcb7e930757c322093deae6bfbb1ba459d4f5b041450ae7db7b",
+      "source_path": "devkit/cli/README.md"
+    },
+    {
+      "classification": "developer-edition-developer-tooling",
+      "destination_path": "cli/__init__.py",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "PKCE helper used by developers to obtain short-lived local tokens without browser-storage extraction.",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "devkit/cli/__init__.py"
+    },
+    {
+      "classification": "developer-edition-developer-tooling",
+      "destination_path": "cli/pkce.py",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "PKCE helper used by developers to obtain short-lived local tokens without browser-storage extraction.",
+      "sha256": "d649c2c140c7307358968ec4363b6bc9e8910bf7a8c246bcbcae2443b0d19331",
+      "source_path": "devkit/cli/pkce.py"
+    },
+    {
+      "classification": "developer-edition-entitlement-overlay",
+      "destination_path": "developer-edition/licence_loader.py",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Local entitlement overlay required to enforce Developer Edition caps in official unmodified artefacts.",
+      "sha256": "846cb540472df1174ef43fde873ee6270b4f3304607e60e35a9f94fe98e6fd45",
+      "source_path": "devkit/developer-edition/licence_loader.py"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "docker-compose.yml",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "b5f5869e56575b69654fc1f1fe2c19c68ceb26e7de4d67761d25ad4b2f15193b",
+      "source_path": "devkit/docker-compose.yml"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "examples/.gitkeep",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "source_path": "devkit/examples/.gitkeep"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "image-digests.lock",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "797e19aeddecf69106ad33be58848382bb9c70945caae864f1068f8f94d7a93e",
+      "source_path": "devkit/image-digests.lock"
+    },
+    {
+      "classification": "developer-edition-operator-script",
+      "destination_path": "scripts/doctor.sh",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Self-contained local lifecycle, smoke, seed, TLS, or doctor operation.",
+      "sha256": "d4cf3afd1fb3ddad692a79710a98175c17459bd3780f3ac793042d8b624ffeab",
+      "source_path": "devkit/scripts/doctor.sh"
+    },
+    {
+      "classification": "developer-edition-operator-script",
+      "destination_path": "scripts/seed-reset.sh",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Self-contained local lifecycle, smoke, seed, TLS, or doctor operation.",
+      "sha256": "846aafae689b6c55cc98b4350e985edc0115ac37d0fe86b2aaebd7c1141b8404",
+      "source_path": "devkit/scripts/seed-reset.sh"
+    },
+    {
+      "classification": "developer-edition-operator-script",
+      "destination_path": "scripts/seed.sh",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Self-contained local lifecycle, smoke, seed, TLS, or doctor operation.",
+      "sha256": "ca4c3ec98ab4f574e4236ded2215b4bba84b4793ef754ab9f9f49d53662ab54d",
+      "source_path": "devkit/scripts/seed.sh"
+    },
+    {
+      "classification": "developer-edition-operator-script",
+      "destination_path": "scripts/smoke.sh",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Self-contained local lifecycle, smoke, seed, TLS, or doctor operation.",
+      "sha256": "43940a647834ea5e9b79bbb18c27170046f4a1ce2b19a5939181c29df31942f8",
+      "source_path": "devkit/scripts/smoke.sh"
+    },
+    {
+      "classification": "developer-edition-operator-script",
+      "destination_path": "scripts/tls.sh",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Self-contained local lifecycle, smoke, seed, TLS, or doctor operation.",
+      "sha256": "92a5e1ab778073874b68ae731c2d351ccde996d6c3ba6cdfe7799a4fdcae8513",
+      "source_path": "devkit/scripts/tls.sh"
+    },
+    {
+      "classification": "developer-edition-sanitized-seed",
+      "destination_path": "seed/initial-admin.tmpl",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Sanitized local realm, SPIRE, or first-run template needed for the public devkit.",
+      "sha256": "4559fc07de4ca5e3442a98938644e144da28c2b5ff868fd88c9a5919641b494e",
+      "source_path": "devkit/seed/initial-admin.tmpl"
+    },
+    {
+      "classification": "developer-edition-sanitized-seed",
+      "destination_path": "seed/realm-export.json",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Sanitized local realm, SPIRE, or first-run template needed for the public devkit.",
+      "sha256": "d3f2a75aa324003b0557b97f340641eba4102c3eee80c09b516f92471934f680",
+      "source_path": "devkit/seed/realm-export.json"
+    },
+    {
+      "classification": "developer-edition-sanitized-seed",
+      "destination_path": "seed/spire-agent.conf",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Sanitized local realm, SPIRE, or first-run template needed for the public devkit.",
+      "sha256": "ca8302a050d5ba684969aeb30bd56730c2f2ce6ee644e968a4e3fd16b913f6cb",
+      "source_path": "devkit/seed/spire-agent.conf"
+    },
+    {
+      "classification": "developer-edition-sanitized-seed",
+      "destination_path": "seed/spire-server.conf",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Sanitized local realm, SPIRE, or first-run template needed for the public devkit.",
+      "sha256": "9f9074afa99fd792082c147b291d9036ee7a4bd9df49cb66c2d0c80e58e0ffb4",
+      "source_path": "devkit/seed/spire-server.conf"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "state/.gitignore",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "70746bdde1d62ef236b8794c5b0dcdfa01768db8468871dc6df22fb3808202ef",
+      "source_path": "devkit/state/.gitignore"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "state/.gitkeep",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "devkit/state/.gitkeep"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "tls/.gitignore",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "36aff1300d12e46cc817811301d1d78a313e28c4d9bd3b26651e0e1f22e6b3e7",
+      "source_path": "devkit/tls/.gitignore"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "tls/.gitkeep",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "devkit/tls/.gitkeep"
+    },
+    {
+      "classification": "developer-edition-runtime-configuration",
+      "destination_path": "tls/README.md",
+      "included_public_repo": true,
+      "licence": "KSwitch Developer Edition Licence",
+      "reason": "Public devkit documentation, configuration, state placeholder, or release control file.",
+      "sha256": "0e643af46122f8ed37115f2c429fe6b648da6b77a142794f83f3fbbf681ce338",
+      "source_path": "devkit/tls/README.md"
+    }
+  ],
+  "entry_count": 31,
+  "release_blocked": false,
+  "source_describe": "v1.39.0-pg-28-ge21edf33",
+  "source_ref": "e21edf331c52014365f1aca24f2c47f2fa804d06",
+  "source_repo": "/Users/Max1/agent-registration-config-pg",
+  "status": "engineering-manifest-complete"
 }

@@ -1,24 +1,24 @@
 # EP-227 Release Legal Checklist
 
-Status: BLOCKED - approval required before public release.
+Status: BLOCKED - company/counsel approval required before public release.
 
 This checklist records release approval gates. Do not mark an item approved
 without company counsel/product/security approval.
 
 | Area | Status | Evidence |
 |---|---|---|
-| Developer Edition licence text | PENDING | `LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md` |
-| Commercial-use boundary | PENDING | `COMMERCIAL-USE.md` |
-| Contributor / inbound IP policy | PENDING | `CONTRIBUTING.md` |
-| Trademark guidance | PENDING | `TRADEMARKS.md` |
-| Privacy / telemetry posture | PENDING | `PRIVACY.md` |
-| Security reporting wording | PENDING | `SECURITY.md` |
-| Export / sanctions review | PENDING | `reports/ep227/export-sanctions-review.md` |
-| Third-party notices | PENDING | `THIRD-PARTY-NOTICES.md` |
-| Dependency licence policy | PENDING | `DEPENDENCY-LICENSE-POLICY.md` |
-| Image redistribution rights | PENDING | `reports/ep227/images/` |
-| Public claims matrix | PENDING | `reports/ep227/public-claims-matrix.md` |
-| Package artefact inspection | PENDING | `reports/ep227/package-inspection.md` |
-| Release evidence custody | PENDING | `reports/ep227/release-evidence-index.md` |
+| Developer Edition licence text | COUNSEL_REQUIRED | `LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md` |
+| Commercial-use boundary | PRODUCT_COUNSEL_REQUIRED | `COMMERCIAL-USE.md` |
+| Contributor / inbound IP policy | COMPANY_APPROVAL_REQUIRED | `CONTRIBUTING.md` |
+| Trademark guidance | COMPANY_APPROVAL_REQUIRED | `TRADEMARKS.md` |
+| Privacy / telemetry posture | PRIVACY_APPROVAL_REQUIRED | `PRIVACY.md`; `reports/ep227/privacy-data-flow-review.md` |
+| Security reporting wording | SECURITY_APPROVAL_REQUIRED | `SECURITY.md` |
+| Export / sanctions review | COUNSEL_REQUIRED | `reports/ep227/export-sanctions-review.md` |
+| Third-party notices | COUNSEL_REQUIRED | `THIRD-PARTY-NOTICES.md` |
+| Dependency licence policy | COUNSEL_REQUIRED | `DEPENDENCY-LICENSE-POLICY.md` |
+| Image redistribution rights | COUNSEL_REQUIRED | `reports/ep227/images/` |
+| Public claims matrix | PRODUCT_COUNSEL_REQUIRED | `reports/ep227/public-claims-matrix.md` |
+| Package artefact inspection | RELEASE_APPROVAL_REQUIRED | `reports/ep227/package-inspection.md` |
+| Release evidence custody | RELEASE_APPROVAL_REQUIRED | `reports/ep227/release-evidence-index.md` |
 
-Public release remains blocked while any item is `PENDING`.
+Public release remains blocked while any item status ends in `_REQUIRED`.

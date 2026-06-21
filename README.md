@@ -8,8 +8,8 @@ This repository has two jobs:
 1. Ship the language SDKs developers import into agents, MCP servers, and
    governed tools.
 2. Provide a local KSwitch Developer Edition path that proves the SDKs against
-   a local control plane, SPIFFE identity, policy decisioning, audit, and MCP
-   gateway flow.
+   a local control plane, PKCE login, policy decisioning, audit, kill-switch
+   flows, and optional SPIFFE workload identity.
 
 Developer Edition has no scheduled expiry for permitted local non-commercial
 development, demos, SDK integration, and bounded non-production evaluation of
@@ -37,7 +37,7 @@ deliberately refactored for public developer use:
 - No cloud deployment templates in the free path.
 - No production SLA, support entitlement, or managed deployment rights.
 - Cap enforcement in official unmodified artefacts instead of trial expiry.
-- No licence file or renewal flow in the free local path.
+- No licence file or renewal flow in the local developer path.
 - SPIFFE/workload identity as the preferred service-auth path.
 
 The intended developer loop is:
@@ -49,8 +49,8 @@ make up
 ```
 
 Then use the SDK examples against `https://localhost:5001` and the local MCP
-gateway. The `devkit/` directory documents the target package shape while the
-pilot assets are being imported.
+API. The `devkit/` directory documents the target package shape while the pilot
+assets are being imported.
 
 ## Packages
 

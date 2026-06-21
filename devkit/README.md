@@ -12,7 +12,6 @@ platform rights.
 It should be meaningful enough to prove the product:
 
 - Register an agent or MCP server.
-- Route a governed MCP call through the local gateway.
 - Evaluate policy through the local PDP path.
 - Emit an audit event.
 - Trigger and observe a kill-switch decision.
@@ -43,13 +42,15 @@ make up
 - KSwitch control plane image.
 - Postgres and Valkey.
 - Keycloak local realm for human PKCE login.
-- SPIRE server and SPIRE agent for workload identity.
-- OPA and Envoy MCP gateway.
-- A simple gateway upstream for end-to-end examples.
+- OPA for local policy decisioning.
 - Seed data, starter policies, and SDK walkthrough examples.
 
-Observability can be optional. Vault should be optional unless the example is
-explicitly demonstrating secretless integration.
+`make up-with-identity` also starts SPIRE server and SPIRE agent for
+workload-identity examples.
+
+The public devkit deliberately excludes production gateway, scanner,
+runtime-worker, Vault, observability, cloud, and fleet-operation internals.
+Those remain commercial-platform scope.
 
 ## Entitlement Model
 

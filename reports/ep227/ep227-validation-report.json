@@ -1,60 +1,15 @@
 {
-  "failure_count": 11,
+  "failure_count": 2,
   "failures": [
     {
-      "gate": "G9/G19",
-      "message": "Services outside the EP-227 minimal/default or optional identity boundary: envoy, ep094-jwt-materializer-app, ep094-jwt-materializer-app-init, ep094-jwt-materializer-inventory-ingest, ep094-jwt-materializer-runtime-ops, ep094-jwt-materializer-scanner-sync-egress, gateway-opa, gateway-upstream, grafana, inventory-ingest, otel-collector, prometheus, runtime-ops, scanner-sync-egress, spiffe-helper, tempo, vault",
-      "path": "devkit/docker-compose.yml"
-    },
-    {
       "gate": "G12/G24/G26",
-      "message": "Release legal checklist still has PENDING items.",
+      "message": "Release approval gate still contains blocker marker: '_REQUIRED'.",
       "path": "RELEASE-LEGAL-CHECKLIST.md"
     },
     {
-      "gate": "G15/G21/G23/G24/G27/G28",
-      "message": "Required EP-227 evidence is still pending/blocking.",
-      "path": "reports/ep227/sdk-ip-boundary.csv"
-    },
-    {
-      "gate": "G15/G21/G23/G24/G27/G28",
-      "message": "Required EP-227 evidence is still pending/blocking.",
-      "path": "reports/ep227/sdk-ip-boundary.md"
-    },
-    {
-      "gate": "G15/G21/G23/G24/G27/G28",
-      "message": "Required EP-227 evidence is still pending/blocking.",
-      "path": "reports/ep227/public-claims-matrix.md"
-    },
-    {
-      "gate": "G15/G21/G23/G24/G27/G28",
-      "message": "Required EP-227 evidence is still pending/blocking.",
-      "path": "reports/ep227/privacy-data-flow-review.md"
-    },
-    {
-      "gate": "G15/G21/G23/G24/G27/G28",
-      "message": "Required EP-227 evidence is still pending/blocking.",
-      "path": "reports/ep227/export-sanctions-review.md"
-    },
-    {
-      "gate": "G15/G21/G23/G24/G27/G28",
-      "message": "Required EP-227 evidence is still pending/blocking.",
-      "path": "reports/ep227/release-evidence-index.md"
-    },
-    {
-      "gate": "G15/G21/G23/G24/G27/G28",
-      "message": "Required EP-227 evidence is still pending/blocking.",
-      "path": "reports/ep227/package-inspection.md"
-    },
-    {
       "gate": "G14/G25",
-      "message": "Image SBOM evidence is missing.",
-      "path": "reports/ep227/images"
-    },
-    {
-      "gate": "G13",
-      "message": "Devkit manifest is still a release-blocking placeholder.",
-      "path": "devkit/MANIFEST.json"
+      "message": "Image SBOM evidence is not release-complete.",
+      "path": "reports/ep227/images/image-sbom-engineering-summary.md"
     }
   ],
   "manifest": [
@@ -120,11 +75,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "41d72353b34ccec01ba9d8f0ae3897a0d954f1f40ba7303a8dd8a3d9bc48f8fd"
+      "sha256": "94112cefb7b53a61d2f29a7544f1459e083b6e81c06325a16a1d509c719f8062"
     },
     {
       "path": "RELEASE-LEGAL-CHECKLIST.md",
-      "sha256": "8624c7ac971baa3952bd2541c409821333b94c6fee55d7c18739fc48ae05f4bc"
+      "sha256": "69d7e520c4cf4d3837b622855c04c1121af1d9e977f4c38cb2db19fc8cd01d30"
     },
     {
       "path": "SDK_VERSION",
@@ -164,39 +119,39 @@
     },
     {
       "path": "devkit/.env.example",
-      "sha256": "94faa5fc4db84575255500d38e00d614960935494c7d3bcb719d3ed2dfced960"
+      "sha256": "f774c97486e871656520bc0316fd317050e2133340e6ff26f8543a25b6318d7e"
     },
     {
       "path": "devkit/BUNDLE_VERSION",
-      "sha256": "80d4e936879eb0ba6b6cb706b7d0e974d82466ff70030d085c2de6bb4953c5b6"
+      "sha256": "67dbc7c7fe428e4ececb7312ef77447bf48f7dfe5ec2d3cd70c56f349e9d0100"
     },
     {
       "path": "devkit/FORBIDDEN_PUBLIC_PAYLOAD_GLOBS.txt",
-      "sha256": "75a5f69526a2dfecd5571f7a1375678614812bda64860835cd6aa1e745decca8"
+      "sha256": "e36bdbbdfb55db55f097523002c6e392d18e47e592c4ba7e2ef61747e8594963"
     },
     {
       "path": "devkit/MANIFEST.json",
-      "sha256": "b26369c5aaeef88fb880533115c3344c854d8e031cc96cc591542bf07840c09f"
+      "sha256": "45e82cb61f9bf4eaf9c703a1cdd85668b0137755ab8467ee1601135a98314bae"
     },
     {
       "path": "devkit/MIGRATION_FROM_PILOT.md",
-      "sha256": "02019aac219a4fb2435ad8f273c4a7d0814ef73dfc403f58eeaa72a8b4804afe"
+      "sha256": "1f55891da5cf47684e13039a3508a99a7ad0f8012e2171918af1cc2ac2d5d5aa"
     },
     {
       "path": "devkit/Makefile",
-      "sha256": "5db2a9bd2f1c1be76347e943b6e97df722a93816b2f981cc2ddbfcf8d9a70d6e"
+      "sha256": "2702db2f37c9babfd67e8dd192f217bea5c514a451033235ce4cb14d32a262c6"
     },
     {
       "path": "devkit/PUBLIC_PAYLOAD_ALLOWLIST.txt",
-      "sha256": "1f6c496b70366181efeb7476d44f4267e4befb92524a91ad7846ceeeca2f6806"
+      "sha256": "08285cad07af77be530f8945d263e6907f237945267989a680fd38196e838d74"
     },
     {
       "path": "devkit/README.md",
-      "sha256": "ddf2a1dd3e66715ecb3419a9e0b409c5dbba52cb7de6821ed5a8b31466b42752"
+      "sha256": "2df8ed118db36a53c52ba530c4cfbf5da02af249195b68cf3b2bdceed025fca1"
     },
     {
       "path": "devkit/TROUBLESHOOTING.md",
-      "sha256": "e07fc1abb390cc457c41e74bbd9d0012d8f26cdbdac78e2df5cf7e1ee67bb6f6"
+      "sha256": "0539065c71650224c85111c2e8805ce3ce6bc51e81ee35cfb04f6f0990719d8e"
     },
     {
       "path": "devkit/backups/.gitignore",
@@ -208,7 +163,7 @@
     },
     {
       "path": "devkit/cli/README.md",
-      "sha256": "f6a969f72ff35b42d9dd893fed03259077fce7ad84b6e6b030659d7c030b5780"
+      "sha256": "099beeca51ec6fcb7e930757c322093deae6bfbb1ba459d4f5b041450ae7db7b"
     },
     {
       "path": "devkit/cli/__init__.py",
@@ -216,7 +171,7 @@
     },
     {
       "path": "devkit/cli/pkce.py",
-      "sha256": "1af186a334ecc5c05c826dfc72346597e6317cd6758381fde64cf70dd9d7a8d4"
+      "sha256": "d649c2c140c7307358968ec4363b6bc9e8910bf7a8c246bcbcae2443b0d19331"
     },
     {
       "path": "devkit/developer-edition/licence_loader.py",
@@ -224,27 +179,11 @@
     },
     {
       "path": "devkit/docker-compose.yml",
-      "sha256": "2525f64419744e8c620a80df6aab200b21d158140793c72802b81484510957fd"
+      "sha256": "b5f5869e56575b69654fc1f1fe2c19c68ceb26e7de4d67761d25ad4b2f15193b"
     },
     {
       "path": "devkit/examples/.gitkeep",
       "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
-    },
-    {
-      "path": "devkit/gateway/envoy/envoy.yaml",
-      "sha256": "de0a26664e4dc39a1ad4e4bb7862817627418f43fdfe7f7160f9d283517c9670"
-    },
-    {
-      "path": "devkit/gateway/policy/data.json",
-      "sha256": "15c7651e29ff9a2a5697641e788d82dc49f034e12d0f82fe9d464584b31392e9"
-    },
-    {
-      "path": "devkit/gateway/policy/token_validation.rego",
-      "sha256": "744da9301cf1d724acd304bcc136980283fe7cf878970d7e6bb3111d37091818"
-    },
-    {
-      "path": "devkit/gateway/spiffe-helper/helper.conf",
-      "sha256": "fe7457a6fa22925895e6bc9d114d54fa0547343766bdbf74c1fde1a1d641f7a9"
     },
     {
       "path": "devkit/image-digests.lock",
@@ -271,32 +210,20 @@
       "sha256": "92a5e1ab778073874b68ae731c2d351ccde996d6c3ba6cdfe7799a4fdcae8513"
     },
     {
-      "path": "devkit/seed/grafana/dashboards/dashboards.yaml",
-      "sha256": "c4a610e4c2a666d873ac12d94f317603a7a7a85dbd84789047b2d41591b95282"
-    },
-    {
-      "path": "devkit/seed/grafana/dashboards/kswitch-developer-overview.json",
-      "sha256": "fbf767b9460495859def05fe3d27716891c0d4a181de5d9398b716bc2c03638d"
-    },
-    {
-      "path": "devkit/seed/grafana/datasources/datasources.yaml",
-      "sha256": "785b043336895c3d33ca0ac5786209da42ef4b0a3daac007b4a9b9de52d185f7"
-    },
-    {
       "path": "devkit/seed/initial-admin.tmpl",
       "sha256": "4559fc07de4ca5e3442a98938644e144da28c2b5ff868fd88c9a5919641b494e"
     },
     {
-      "path": "devkit/seed/otel/collector.yaml",
-      "sha256": "38fcc42d51b0a46e70545a5c788a94d24d8f630001266628b05e6de6ca3650cf"
+      "path": "devkit/seed/realm-export.json",
+      "sha256": "d3f2a75aa324003b0557b97f340641eba4102c3eee80c09b516f92471934f680"
     },
     {
-      "path": "devkit/seed/prometheus/prometheus.yml",
-      "sha256": "b453f7613002370fa25999051b7b3ed0996fb5386f248b1aee3a1baddcb35833"
+      "path": "devkit/seed/spire-agent.conf",
+      "sha256": "ca8302a050d5ba684969aeb30bd56730c2f2ce6ee644e968a4e3fd16b913f6cb"
     },
     {
-      "path": "devkit/seed/tempo/tempo.yaml",
-      "sha256": "596877009df88ae93a516a0918e88c886417799dfd5e95b02512496c3022551e"
+      "path": "devkit/seed/spire-server.conf",
+      "sha256": "9f9074afa99fd792082c147b291d9036ee7a4bd9df49cb66c2d0c80e58e0ffb4"
     },
     {
       "path": "devkit/state/.gitignore",
@@ -320,11 +247,11 @@
     },
     {
       "path": "docs/auth-model.md",
-      "sha256": "bab319b5fb5078c3fe05322bdaf4a8137e2af31fc57ac51b701b9927f64e30a8"
+      "sha256": "2d7dfceac3ca8756c5b83a37542b0adfbdd73ea74fe892f4be6693aa09e5b348"
     },
     {
       "path": "docs/developer-edition-positioning.md",
-      "sha256": "a47de2c3851f9e94395f9a88ec10bcc66a9b92f2811ec769a3a4ecc766dd9782"
+      "sha256": "66ae325af093b83924876e980780bf4d7956f50aa6d8e8f849e4d7e7fcaddcd4"
     },
     {
       "path": "examples/sdk-apache/.gitkeep",
@@ -895,44 +822,80 @@
       "sha256": "ee4842fb7b2b4c1e219633576434e6adc4315b63b910458162c841c4d2da9222"
     },
     {
-      "path": "reports/ep227/ep227-validation-report.json",
-      "sha256": "438fbee1acfa30ac48762bb5254a462049b2b83c861421fc6b6b163829170fdf"
-    },
-    {
       "path": "reports/ep227/export-sanctions-review.md",
-      "sha256": "be7e00a8cfbe866165759fc31c8f335d9107be604ffc54f2d9b4eab30d1effd4"
+      "sha256": "97c3198a79ff1a8d7fc2e0724e5bf5501550abf91a15272c0be746debc60c429"
     },
     {
       "path": "reports/ep227/images/README.md",
-      "sha256": "90c621930a9662de157dc9e2fe8824c5ea247bc6a5565d9c10c932f4abc4162c"
+      "sha256": "c4c6305861039f19a78daad44bdd47885e42b7122ebb095ad87981c37927630b"
+    },
+    {
+      "path": "reports/ep227/images/image-redistribution-rights-engineering-summary.md",
+      "sha256": "0a5f86aba462d07a555ba77b2df62ba272550984cd16e8be551d3617041e5d0b"
+    },
+    {
+      "path": "reports/ep227/images/image-sbom-engineering-summary.md",
+      "sha256": "884be018f42e05410192b9ad257b433a7e743a3a19809226323e72b7e3cba810"
+    },
+    {
+      "path": "reports/ep227/images/sbom-falkordb-latest.syft.json",
+      "sha256": "74eac21feb8fe7340102d5c3195826744eb1f442c806812e853b63e424f48a3c"
+    },
+    {
+      "path": "reports/ep227/images/sbom-keycloak-25.0.syft.json",
+      "sha256": "34d0a91df7c5cc1379d83fad339ddcbb1378e2ff963569ef85e1ef5f17e5e758"
+    },
+    {
+      "path": "reports/ep227/images/sbom-opa-1.15.1-envoy-static.syft.json",
+      "sha256": "406cacb3ba519b856f88490117f6ede3dd0d25a4529ad770ddcd5e92977aacd3"
+    },
+    {
+      "path": "reports/ep227/images/sbom-postgres-18.syft.json",
+      "sha256": "484f42f62d67b4221e047afb88f6264376ac1505f9c1ccf5beedca41be4f09e5"
+    },
+    {
+      "path": "reports/ep227/images/sbom-spire-agent-1.11.0.syft.json",
+      "sha256": "216815daf02ee1ea733e8b8f2ba6d7043864e0e77b54324134d2085b14524fe6"
+    },
+    {
+      "path": "reports/ep227/images/sbom-spire-server-1.11.0.syft.json",
+      "sha256": "4cb4cc09e29ce2fb33464b52235c4ada8a99a9c9f50b48e4d03f2ebe981ebabc"
+    },
+    {
+      "path": "reports/ep227/images/sbom-valkey-8.syft.json",
+      "sha256": "12b30e42c23ee73fd143452fa7482cc07f14496562d8efa8528012fa5437d1e0"
     },
     {
       "path": "reports/ep227/package-inspection.md",
-      "sha256": "ae6ea88055c500b0650f3c53279568461c7f82bf5746482c48d1d29878346ac5"
+      "sha256": "c6a9e148ce5caac53c801d54d18cea2f1d8be63e7e9e5e71776d211c8897ea0a"
     },
     {
       "path": "reports/ep227/privacy-data-flow-review.md",
-      "sha256": "49121c4f1960f2435d9515b33437af8372e4f7915c443ea5e5afc7f16a40aa07"
+      "sha256": "c14565459b826c8a6d634f5a753ac52de105c39bd6be1b94eb07666e309abb2b"
     },
     {
       "path": "reports/ep227/public-claims-matrix.md",
-      "sha256": "0643d81d7fac5f16832a5252bfd3917a5e1cf7646be6df64cb0132a06ffdc466"
+      "sha256": "0d9e19e8a825890ffd108fbe69a6765e2cc83fdfc6417f85d38d700b083dd98d"
     },
     {
       "path": "reports/ep227/release-evidence-index.md",
-      "sha256": "a3bb47b401262bf1cc32f3bb58691bfc202fb4eda50f9698c1debcbc7ce63adc"
+      "sha256": "47c0f0c77c3cf9561399250c5bb39be689cccad22e2a51e1f29bdfbc30a0825e"
     },
     {
       "path": "reports/ep227/sdk-ip-boundary.csv",
-      "sha256": "977be6d040353cd0782a96e22508332f818a249558caf97bd208b80368240f8f"
+      "sha256": "fce61230b252f7cd3bcf048dfdc1932ae0fb2281a1c9bd9c743c749b53df5c42"
     },
     {
       "path": "reports/ep227/sdk-ip-boundary.md",
-      "sha256": "44087d4cde15774f73f85ed4f3b6ac586349fe17a0dbb9a2d90bb9bc54ac65de"
+      "sha256": "5417729c1cdc62ae04433d0b8f07647af79546d819160ea8835e78ff72242dd2"
+    },
+    {
+      "path": "scripts/__pycache__/validate_ep227_release.cpython-314.pyc",
+      "sha256": "3e48d70df89fadbb735884d81afdf4a82d6da5fccb38d68d11be023a10522bb5"
     },
     {
       "path": "scripts/validate_ep227_release.py",
-      "sha256": "87ef3f8710b5de89a2f4974d701535e37c31d4689b2c4bd3664d51e5971e387a"
+      "sha256": "8f088b52defe124095c2e262648edcaba0b1af328caa7d1e682c0475eac5f3ae"
     },
     {
       "path": "typescript/LICENSE",

@@ -5,6 +5,11 @@
 **/.env.*.local
 keycloak/.env
 runtime/*.env
+gateway/**
+seed/grafana/**
+seed/otel/**
+seed/prometheus/**
+seed/tempo/**
 state/**
 licence/**
 trial-overlay/**

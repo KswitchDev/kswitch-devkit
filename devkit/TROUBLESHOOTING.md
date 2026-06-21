@@ -42,7 +42,7 @@ make up
 If it still fails:
 
 ```bash
-docker compose -f docker-compose.yml --profile identity --profile gateway logs --tail=200 app
+docker compose -f docker-compose.yml logs --tail=200 app
 ```
 
 Common causes are Postgres readiness, Keycloak realm import delay, or a stale
@@ -111,7 +111,7 @@ Do not include `./state/initial-admin.txt`; it contains a credential.
 Useful local debug bundle:
 
 ```bash
-docker compose -f docker-compose.yml --profile identity --profile gateway logs --tail=500 > kswitch-devkit-logs.txt
+docker compose -f docker-compose.yml logs --tail=500 > kswitch-devkit-logs.txt
 make doctor > kswitch-devkit-doctor.txt 2>&1
 make developer-limits > kswitch-devkit-limits.txt
 ```

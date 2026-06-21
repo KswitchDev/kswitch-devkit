@@ -21,7 +21,7 @@ Source:
 | `scripts/seed.sh` | `devkit/scripts/seed.sh` | Seed developer persona and examples. |
 | `scripts/smoke.sh` | `devkit/scripts/smoke.sh` | Keep no-browser API smoke. |
 | `scripts/doctor.sh` | `devkit/scripts/doctor.sh` | Remove licence-expiry checks; keep health hints. |
-| `gateway/` | `devkit/gateway/` | Keep Envoy/OPA gateway demo. |
+| `gateway/` | Omit from public devkit | Production gateway policy/configuration remains commercial-platform scope. |
 | `cli/pkce.py` | `devkit/cli/pkce.py` | Human/local auth helper. |
 | `seed/realm-export.json` | `devkit/seed/realm-export.json` | Keep local Keycloak realm, remove customer pilot values. |
 | `sdks/*` | Use repo root SDKs | Replace bundle-copied SDKs with references to `../python`, `../typescript`, `../go`. |
@@ -36,7 +36,7 @@ Source:
 | Auth docs | Lead with PKCE for humans and SPIFFE/WIMSE for services. Client credentials are fallback only. |
 | Runtime text | Say local/non-production explicitly. Avoid implying managed fleet enforcement. |
 | Observability | Optional profile only. Keep light, not enterprise SIEM. |
-| Vault | Optional profile only unless required for a specific secretless walkthrough. |
+| Vault | Omit from public devkit unless a future example is counsel/security approved. |
 
 ## Drop
 

@@ -18,7 +18,10 @@ image-digests.lock
 developer-edition/**
 cli/**
 scripts/**
-seed/**
+seed/initial-admin.tmpl
+seed/realm-export.json
+seed/spire-agent.conf
+seed/spire-server.conf
 tls/README.md
 tls/.gitignore
 tls/.gitkeep

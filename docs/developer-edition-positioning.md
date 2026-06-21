@@ -8,7 +8,7 @@ platform for production.
 
 ## Public Promise
 
-Approved baseline wording:
+Candidate baseline wording pending product/counsel approval:
 
 > KSwitch Developer Edition has no scheduled expiry for permitted local
 > non-commercial development, demos, SDK integration, and bounded
@@ -23,8 +23,8 @@ templates, or regulated-workload enforcement in the free repo.
 - Language SDKs.
 - Local control-plane container image.
 - Local Keycloak realm for PKCE.
-- Local SPIRE for workload identity.
-- Local MCP gateway with Envoy and OPA.
+- Optional local SPIRE for workload identity.
+- Local OPA-backed policy-decision path.
 - Starter policies and examples.
 - Audit and kill-switch walkthroughs.
 - Local smoke and doctor checks.
@@ -36,6 +36,7 @@ templates, or regulated-workload enforcement in the free repo.
 - Cloud/Kubernetes deployment packages.
 - HA, backup/restore, multi-region, and fleet operations.
 - Enterprise SSO and directory integration beyond local Keycloak.
+- Production MCP gateway, gateway policy packs, and managed gateway operations.
 - Desktop hard egress containment.
 - Host-level eBPF/Tetragon detection.
 - L2/L3 device assurance, TPM proof, WebAuthn step-up, and break-glass FIDO2.

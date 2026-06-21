@@ -37,9 +37,9 @@ import (
 	cedar "github.com/cedar-policy/cedar-go"
 	cedartypes "github.com/cedar-policy/cedar-go/types"
 
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/bundle"
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/kscontext"
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/revocation"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/bundle"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/kscontext"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/revocation"
 )
 
 // Sensitive data classifications that trigger mask_fields output policy.

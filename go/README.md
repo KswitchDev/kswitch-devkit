@@ -5,7 +5,7 @@ Official Go SDK for the [KSwitch.ai](https://kswitch.ai) agent governance platfo
 ## Installation
 
 ```bash
-go get github.com/KswitchDev/kswitch-sdks/go
+go get github.com/KswitchDev/kswitch-devkit/go
 ```
 
 Requires Go 1.22+. Zero external dependencies (standard library only).
@@ -20,7 +20,7 @@ import (
     "fmt"
     "log"
 
-    "github.com/KswitchDev/kswitch-sdks/go/kswitch"
+    "github.com/KswitchDev/kswitch-devkit/go/kswitch"
 )
 
 func main() {

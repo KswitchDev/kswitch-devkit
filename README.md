@@ -1,6 +1,6 @@
-# KSwitch SDKs + Developer Edition
+# KSwitch DevKit
 
-Official SDK packages and the Developer Edition landing for the KSwitch
+Official SDK packages, examples, and Developer Edition devkit for the KSwitch
 Agent Trust Control Plane.
 
 This repository has two jobs:
@@ -14,7 +14,8 @@ This repository has two jobs:
 Developer Edition has no scheduled expiry for permitted local non-commercial
 development, demos, SDK integration, and bounded non-production evaluation of
 the applicable release version. It is not the enterprise deployment package, a
-production support entitlement, a commercial-use licence, or a full source drop.
+production support entitlement, a commercial-use licence, or a right to
+enterprise deployment components.
 
 ## Start Here
 
@@ -29,11 +30,11 @@ production support entitlement, a commercial-use licence, or a full source drop.
 
 ## Developer Edition
 
-The local Developer Edition stack is built from the existing pilot bundle, but
-deliberately refactored for public developer use:
+The local Developer Edition stack is packaged for public developer use with a
+deliberately narrow, non-production boundary:
 
 - No time-boxed trial posture.
-- No customer-specific source drop.
+- No environment-specific artefacts.
 - No cloud deployment templates in the free path.
 - No production SLA, support entitlement, or managed deployment rights.
 - Cap enforcement in official unmodified artefacts instead of trial expiry.
@@ -48,9 +49,8 @@ cp .env.example .env
 make up
 ```
 
-Then use the SDK examples against `https://localhost:5001` and the local MCP
-API. The `devkit/` directory documents the target package shape while the pilot
-assets are being imported.
+Then use the SDK examples against `https://localhost:5001` and the local API.
+The `devkit/` directory documents the bundled local runtime and examples.
 
 ## Packages
 
@@ -58,7 +58,7 @@ assets are being imported.
 | --- | --- | --- |
 | Python | `python/` | `kswitch-sdk` |
 | TypeScript | `typescript/` | `@kswitch/sdk` |
-| Go | `go/` | `github.com/KswitchDev/kswitch-sdks/go` |
+| Go | `go/` | `github.com/KswitchDev/kswitch-devkit/go` |
 
 The current SDK release train is recorded in [`SDK_VERSION`](SDK_VERSION).
 
@@ -82,9 +82,9 @@ identity.
 
 ## Developer Hub
 
-- [Python SDK docs](https://kswitch.io/sdk/python.html)
-- [TypeScript SDK docs](https://kswitch.io/sdk/typescript.html)
-- [Go SDK docs](https://kswitch.io/sdk/go.html)
+- [Python SDK docs](https://hub.kswitch.io/sdk/python.html)
+- [TypeScript SDK docs](https://hub.kswitch.io/sdk/typescript.html)
+- [Go SDK docs](https://hub.kswitch.io/sdk/go.html)
 
 ## Local Checks
 

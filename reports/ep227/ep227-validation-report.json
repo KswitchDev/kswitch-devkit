@@ -75,7 +75,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "94112cefb7b53a61d2f29a7544f1459e083b6e81c06325a16a1d509c719f8062"
+      "sha256": "76bd26e8fa95ca0b336b99c8dc0a7eca7cbbe7b1f72bca35d801e32009f8b52a"
     },
     {
       "path": "RELEASE-LEGAL-CHECKLIST.md",
@@ -263,7 +263,7 @@
     },
     {
       "path": "go/README.md",
-      "sha256": "6ea146b1f040f06804bede11986820fe132c33786d61a79c72f030c9c55a9a96"
+      "sha256": "7a7eafaaf8803de7116a303c969122ac2699376bc8bd763306ce6c541103402c"
     },
     {
       "path": "go/backcompat_test.go",
@@ -271,23 +271,23 @@
     },
     {
       "path": "go/examples/evaluate/main.go",
-      "sha256": "b05a950fd64bf19b718e55e171a7e04cd1ce62e9bfcec3cabc62db0d33ac9212"
+      "sha256": "e70f54f0f3c6a40219e15c36ccf04b9ee1fe39cf1144b14057fb6a0726a87a07"
     },
     {
       "path": "go/examples/governed/main.go",
-      "sha256": "b79bc637d2d5a1fc5336745b7d4622c59e3929580c4866168db9b6a8a8db2a9e"
+      "sha256": "917a640ecc37a3ea8ce196b91a455e41a506febaa6f4d1e62aec6d1ec9854f90"
     },
     {
       "path": "go/examples/killswitch/main.go",
-      "sha256": "fea27c9da3e4a841613e161fff50266a14e3b502ca0100a5bb298656704df47c"
+      "sha256": "9f065830fed4cc6d1e9a53c9ad416746adc62cc321e39dc5b4a3be09834a62d8"
     },
     {
       "path": "go/examples/register/main.go",
-      "sha256": "14566ffd0bcb696a36433a60bdcf66e0583ad4e8cb89b1b106835afefd258760"
+      "sha256": "7f78e42c23fdbc11be847ff0bac27a0a8a5d61ebcd6837f1f9933ba409aee97f"
     },
     {
       "path": "go/go.mod",
-      "sha256": "dd92f7e61dd6d42a8101b29a3b4c8220ef777ba020da3b799e0ac51a1f576ab8"
+      "sha256": "6be6d40827385e1a05ca521e38273e99559a2fd04a9bf6c054afcd33bf967afc"
     },
     {
       "path": "go/go.sum",
@@ -299,7 +299,7 @@
     },
     {
       "path": "go/kswitch/audit/emitter_test.go",
-      "sha256": "6b440cee304134ac3af436d37e49b0e9a0df4bfb6c2720334ed93f32b031f6dc"
+      "sha256": "d31b20c3bdbf59b97f08250d73ec78bafaba4203ad5c418439d0b83f6211bea1"
     },
     {
       "path": "go/kswitch/audit/sender.go",
@@ -307,7 +307,7 @@
     },
     {
       "path": "go/kswitch/audit/sender_test.go",
-      "sha256": "f9dfd9d5a3e3e9070092b43cde598de5398705587bdf14d1ceb8ba5842a5f2ff"
+      "sha256": "870e26e52a9325ae4ff936a8674236b1b58f7c3ce6cb958d5eb9a4d7093c29f0"
     },
     {
       "path": "go/kswitch/auth.go",
@@ -323,7 +323,7 @@
     },
     {
       "path": "go/kswitch/bundle/local_cache_test.go",
-      "sha256": "3624f41950b9594bc58d46321bbaa8d0556eaf9024a060d1d7d6f3ea057cafbb"
+      "sha256": "d2af530becaa9dc3a2da2e1148a565477eb02ea9667a9ef8807b7684ceca7484"
     },
     {
       "path": "go/kswitch/catalog.go",
@@ -347,7 +347,7 @@
     },
     {
       "path": "go/kswitch/ep221_decision_types_test.go",
-      "sha256": "5d8f2fd6677b763257c7d71e7684cd5bab40dc3e0ddd64ba628e469c3c1bcc58"
+      "sha256": "d9c6083206ea31205cfb7c3ef8ba787ed87c8731de0501f0316a1ae0f0949660"
     },
     {
       "path": "go/kswitch/errors.go",
@@ -367,7 +367,7 @@
     },
     {
       "path": "go/kswitch/interceptor.go",
-      "sha256": "f95cf567460378c3c6d52128c0d9d6caf32f665d075f8423e0c2b77ae505fb1e"
+      "sha256": "3ed7e90acd81c4e047ab63df7df4a28bfb94f7933c40a441753dd95b317a64ec"
     },
     {
       "path": "go/kswitch/killswitch.go",
@@ -379,15 +379,15 @@
     },
     {
       "path": "go/kswitch/kscontext/local_cache_test.go",
-      "sha256": "1af02cd2fb7e9bc1d4fda05efd43477943da0ddbcf3c452e59bc9d4162f67d8f"
+      "sha256": "669ef6bc6416f313958dd98c025e8d216e7e0654c886ffd8a51aeb9174b1b48c"
     },
     {
       "path": "go/kswitch/localpdp/evaluator.go",
-      "sha256": "cd663ea08fd120be2e7d3256e59a492135016d1aa0947c0638badd0dd6ceefc9"
+      "sha256": "e3436c04c68f3772317a06bcea7e0c1be963514d89da4775a1137a41bc1db1e2"
     },
     {
       "path": "go/kswitch/localpdp/evaluator_test.go",
-      "sha256": "907f678a654f76522653fe4521f6f618562ec708c324449d0d2e47c339b98e96"
+      "sha256": "0f649a26b1e482d8e682218240df84ab991ba9b1bedd916d9008b96a28b0a550"
     },
     {
       "path": "go/kswitch/localpdp/types.go",
@@ -395,7 +395,7 @@
     },
     {
       "path": "go/kswitch/no_network_decision_test.go",
-      "sha256": "2cad48fcf523257c1b9e209a52b492c73ed06f23c802a20fbc909275d3153aaa"
+      "sha256": "5ef83bb1c94919ac57372931e03150f2e1e26a2f0d69def04972d48b0bdf047f"
     },
     {
       "path": "go/kswitch/options.go",
@@ -411,7 +411,7 @@
     },
     {
       "path": "go/kswitch/path_resolution_test.go",
-      "sha256": "5f5274783d8851c200ef5d594241b61469eed53d38fbef261340474e233eb2e3"
+      "sha256": "fac4022dcbe4af7ce61d895dfd1de942da7b6ee017f800f4f71abc1b52dcd89b"
     },
     {
       "path": "go/kswitch/policy.go",
@@ -423,7 +423,7 @@
     },
     {
       "path": "go/kswitch/revocation/cache_test.go",
-      "sha256": "4ccae3d0b9a0ff2ce0a3078fb4024d436779013287a438f998b96e3af9df4f79"
+      "sha256": "d0742d8d9ff723494e5e5e8f5314354b154e8f757f446b0dcc70619306d13b23"
     },
     {
       "path": "go/kswitch/revocation/sync.go",
@@ -431,7 +431,7 @@
     },
     {
       "path": "go/kswitch/revocation/sync_test.go",
-      "sha256": "5432ece1e9a9adbc6be0f683e093258bde051faf91f46740944e5893c17bd5b5"
+      "sha256": "2a8ad484e2ed17ae8e5a0b6ab299053faca0a0307e041ba2d852b3276310ec94"
     },
     {
       "path": "go/kswitch/service.go",
@@ -699,7 +699,7 @@
     },
     {
       "path": "python/pyproject.toml",
-      "sha256": "e7a2e4a519fdc9c44204c54616e73f9323313406c9301f31849837ab38a034c6"
+      "sha256": "50c2597760e6ce0dfe38ac71202dc8f72c94da4346fbeaa185327cf63b57ef7b"
     },
     {
       "path": "python/requirements-locked.txt",
@@ -883,7 +883,7 @@
     },
     {
       "path": "reports/ep227/sdk-ip-boundary.csv",
-      "sha256": "fce61230b252f7cd3bcf048dfdc1932ae0fb2281a1c9bd9c743c749b53df5c42"
+      "sha256": "d2601657feff5341ee28f3e1f2e7d445ae7bfab68b07e3f4735a1de012019821"
     },
     {
       "path": "reports/ep227/sdk-ip-boundary.md",

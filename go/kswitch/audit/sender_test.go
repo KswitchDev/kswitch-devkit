@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/audit"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/audit"
 )
 
 // ── helpers ───────────────────────────────────────────────────────────────────

@@ -1,6 +1,6 @@
 # KSwitch.ai Python SDK
 
-Python SDK for the [KSwitch.ai](https://kswitch.ai) agent governance platform. Provides typed access to agent lifecycle, Cedar/Rego policy management, SPIFFE identity, AuthZen authorization, compliance (toxic combos, boundary analysis), kill switch operations, and MCP enforcement.
+Python SDK for the [KSwitch.ai](https://hub.kswitch.io) agent governance platform. Provides typed access to agent lifecycle, Cedar/Rego policy management, SPIFFE identity, AuthZen authorization, compliance (toxic combos, boundary analysis), kill switch operations, and MCP enforcement.
 
 ## Installation
 

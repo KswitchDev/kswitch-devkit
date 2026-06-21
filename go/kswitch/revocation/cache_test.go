@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/revocation"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/revocation"
 )
 
 // ── helpers ───────────────────────────────────────────────────────────────────

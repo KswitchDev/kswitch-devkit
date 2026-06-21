@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/localpdp"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/localpdp"
 )
 
 func TestEP221EnforcementDecisionUnmarshalOldPayload(t *testing.T) {

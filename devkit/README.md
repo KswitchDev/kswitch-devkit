@@ -1,12 +1,17 @@
 # KSwitch Developer Edition
 
-KSwitch Developer Edition is the free forever local stack for developers who
-want to build against the SDKs without needing a commercial KSwitch deployment.
+KSwitch Developer Edition is the local stack for developers who want to build
+against the SDKs without needing a commercial KSwitch deployment.
+
+It has no scheduled expiry for permitted local non-commercial development,
+demos, SDK integration, and bounded non-production evaluation of the applicable
+release version. It does not grant production, customer-facing,
+managed-service, revenue-generating, internal business-operation, or commercial
+platform rights.
 
 It should be meaningful enough to prove the product:
 
 - Register an agent or MCP server.
-- Route a governed MCP call through the local gateway.
 - Evaluate policy through the local PDP path.
 - Emit an audit event.
 - Trigger and observe a kill-switch decision.
@@ -37,13 +42,15 @@ make up
 - KSwitch control plane image.
 - Postgres and Valkey.
 - Keycloak local realm for human PKCE login.
-- SPIRE server and SPIRE agent for workload identity.
-- OPA and Envoy MCP gateway.
-- A simple gateway upstream for end-to-end examples.
+- OPA for local policy decisioning.
 - Seed data, starter policies, and SDK walkthrough examples.
 
-Observability can be optional. Vault should be optional unless the example is
-explicitly demonstrating secretless integration.
+`make up-with-identity` also starts SPIRE server and SPIRE agent for
+workload-identity examples.
+
+The public devkit deliberately excludes production gateway, scanner,
+runtime-worker, Vault, observability, cloud, and fleet-operation internals.
+Those remain commercial-platform scope.
 
 ## Entitlement Model
 
@@ -54,10 +61,12 @@ Developer Edition uses a local entitlement overlay:
 
 - No licence file required for Developer Edition.
 - The server sees `edition=developer` when the devkit profile is selected.
-- Hard caps are enforced locally by the existing server-side cap decorators.
+- Caps are enforced in official unmodified artefacts by the existing
+  server-side cap decorators. The Developer Edition licence prohibits disabling,
+  bypassing, or removing those controls.
 - Enterprise-only features remain unavailable.
 
-Hard local caps:
+Developer Edition caps:
 
 | Resource | Cap |
 | --- | ---: |

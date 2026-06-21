@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch"
 )
 
 func main() {

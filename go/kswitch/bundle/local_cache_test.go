@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/bundle"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/bundle"
 )
 
 // ── helpers ───────────────────────────────────────────────────────────────────

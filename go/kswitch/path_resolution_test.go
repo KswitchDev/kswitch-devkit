@@ -13,10 +13,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/audit"
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/bundle"
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/kscontext"
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/revocation"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/audit"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/bundle"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/kscontext"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/revocation"
 )
 
 // ── KSWITCH_STATE_DIR overrides all packages ──────────────────────────────────

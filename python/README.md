@@ -158,6 +158,6 @@ mypy kswitch/
 ruff check kswitch/
 ```
 
-## License
+## Licence
 
-MIT
+Apache-2.0

@@ -1,7 +1,0 @@
-{
-  "config": {
-    "jwks_url": "https://app:5001/api/v1/jwks",
-    "expected_issuer": "kswitch",
-    "expected_audience": "kswitch-control-plane"
-  }
-}

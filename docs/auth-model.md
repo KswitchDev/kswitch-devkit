@@ -31,7 +31,8 @@ developers to distribute long-lived shared secrets:
 
 ## Developer Edition Default
 
-Developer Edition should run SPIRE locally and make this path easy:
+Developer Edition can run SPIRE locally with `make up-with-identity` and make
+this path easy:
 
 ```text
 agent process

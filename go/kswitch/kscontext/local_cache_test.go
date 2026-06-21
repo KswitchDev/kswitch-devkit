@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/kscontext"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/kscontext"
 )
 
 // ── helpers ───────────────────────────────────────────────────────────────────

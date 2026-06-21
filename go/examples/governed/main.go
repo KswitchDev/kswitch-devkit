@@ -21,8 +21,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch"
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/localpdp"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/localpdp"
 )
 
 // ── Simulated MCP tool implementations ────────────────────────────────────────

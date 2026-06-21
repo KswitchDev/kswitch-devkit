@@ -36,9 +36,9 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/audit"
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/localpdp"
-	"github.com/KswitchDev/kswitch-sdks/go/kswitch/tokens"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/audit"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/localpdp"
+	"github.com/KswitchDev/kswitch-devkit/go/kswitch/tokens"
 )
 
 // ── Execution token propagation ───────────────────────────────────────────────

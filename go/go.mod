@@ -1,4 +1,4 @@
-module github.com/KswitchDev/kswitch-sdks/go
+module github.com/KswitchDev/kswitch-devkit/go
 
 go 1.22.0
 

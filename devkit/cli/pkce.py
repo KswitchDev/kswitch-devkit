@@ -9,6 +9,7 @@ Dependencies: stdlib + requests + keyring (no heavy deps).
 """
 import base64
 import hashlib
+import argparse
 import http.server
 import json
 import os
@@ -32,7 +33,7 @@ except ImportError:
 # ---------------------------------------------------------------------------
 
 KEYCLOAK_BASE = os.environ.get(
-    "KSWITCH_IDP_URL", "https://keycloak.internal/realms/kswitch"
+    "KSWITCH_IDP_URL", "http://localhost:3001/realms/kswitch"
 )
 CLIENT_ID = "kswitch-cli"
 REDIRECT_URI = "http://localhost:9999/callback"  # default; overridden at runtime
@@ -79,13 +80,13 @@ def generate_device_id(user_agent: str, client_ip: str = "127.0.0.1") -> str:
     controls that provide session security in this model are:
       1. Refresh token family model (rotation + replay detection)
       2. Redis session store (session_id lifecycle + revocation)
-      3. ACR / auth_time checks (step-up assurance at the gateway)
-      4. Scope ceiling enforcement (gateway-independent of IdP)
+      3. ACR / auth_time checks (step-up assurance at the enforcement point)
+      4. Scope ceiling enforcement (independent of IdP-only policy)
 
     device_id is used as a secondary trip-wire: if it changes mid-session,
-    the gateway challenges the user to re-authenticate rather than silently
-    accepting the request. It does not prevent a determined attacker who
-    controls the user's network environment.
+    the enforcement point challenges the user to re-authenticate rather than
+    silently accepting the request. It does not prevent a determined attacker
+    who controls the user's network environment.
 
     Future strong binding options: mTLS client certificate (DPoP is
     defined in RFC 9449 -- adds client key material to token binding, works
@@ -319,3 +320,53 @@ def _device_code_flow(scope: str) -> dict:
             continue
         raise RuntimeError(f"Device code flow failed: {error}")
     raise RuntimeError("Device code flow timed out")
+
+
+def main() -> int:
+    global KEYCLOAK_BASE, CLIENT_ID
+
+    parser = argparse.ArgumentParser(description="KSwitch Developer Edition PKCE login")
+    parser.add_argument(
+        "--issuer",
+        default=os.environ.get("KSWITCH_IDP_URL", KEYCLOAK_BASE),
+        help="OIDC issuer URL, e.g. http://localhost:3001/realms/kswitch",
+    )
+    parser.add_argument(
+        "--client-id",
+        default=os.environ.get("KSWITCH_CLIENT_ID", CLIENT_ID),
+        help="Public OAuth client id configured in the local realm",
+    )
+    parser.add_argument("--scope", default=SCOPES, help="OAuth scopes to request")
+    parser.add_argument(
+        "--device-code",
+        action="store_true",
+        help="Use OAuth device-code flow instead of browser PKCE",
+    )
+    parser.add_argument(
+        "--store",
+        action="store_true",
+        help="Store returned tokens in the OS keychain or ~/.kswitch/tokens fallback",
+    )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Print the full token response JSON instead of only the access token",
+    )
+    args = parser.parse_args()
+
+    KEYCLOAK_BASE = args.issuer.rstrip("/")
+    CLIENT_ID = args.client_id
+
+    tokens = login_browser(scope=args.scope, device_code=args.device_code)
+    if args.store:
+        store_tokens(tokens, generate_device_id(f"kswitch-cli:{CLIENT_ID}"))
+
+    if args.json:
+        print(json.dumps(tokens, indent=2, sort_keys=True))
+    else:
+        print(tokens["access_token"])
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

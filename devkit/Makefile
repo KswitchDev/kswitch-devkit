@@ -4,7 +4,7 @@
 # directory. The bundle is a runnable artefact distributed as a GitHub
 # release tarball; the parent repository is not required at runtime.
 #
-# Free local Developer Edition — first-run + lifecycle targets.
+# Local Developer Edition — first-run + lifecycle targets.
 #
 # This Makefile is asserted in CI against:
 #   - `make up` healthy in <5 min warm cache, <15 min cold
@@ -33,19 +33,13 @@ DIGESTS_LOCK := $(BUNDLE_ROOT)/image-digests.lock
 
 # ─── Compose invocation ───────────────────────────────────────────────
 # Honour DOCKER_HOST / DOCKER_CONTEXT for developers running rootless or
-# remote daemons. The compose file enables the `identity` profile by
-# default — KSwitch ships SPIRE as a first-class platform feature
-# the bundle compose includes a self-bootstrapping spire-agent and the
-# spire-agent socket mount the JWT materializers require.
+# remote daemons. The public devkit keeps SPIRE optional but first-class:
+# the default lifecycle starts the minimal control plane, and
+# `make up-with-identity` adds SPIRE for workload-identity examples.
 COMPOSE      := docker compose
 COMPOSE_FILE := -f $(BUNDLE_ROOT)/docker-compose.yml
-# Default profiles (Tier B+ refined): identity brings up SPIRE + the
-# five JWT materializers; gateway brings up the MCP gateway stack
-# (envoy + gateway-opa + gateway-upstream). Observability lite
-# (otel-collector + prometheus + grafana + tempo) is OFF by default —
-# opt in with `make up-with-observability` or
-# `docker compose --profile observability up -d`.
-COMPOSE_PROFILES := --profile identity --profile gateway
+# No default profiles: `make up` is the smallest useful SDK validation stack.
+COMPOSE_PROFILES :=
 
 # ─── Health-wait deadlines (G9) ───────────────────────────────────────
 BOOT_DEADLINE_SECONDS := 300
@@ -68,7 +62,7 @@ SCRIPT_ENV := \
   COMPOSE_FILE_FLAG="$(COMPOSE_FILE)" \
   COMPOSE_PROFILES_FLAG="$(COMPOSE_PROFILES)"
 
-.PHONY: help up up-with-observability pull tls boot seed seed-reset smoke smoke-test next doctor down logs backup developer-limits clean-state preflight
+.PHONY: help up up-with-identity pull tls boot seed seed-reset smoke smoke-test next doctor down logs backup developer-limits clean-state preflight
 
 help: ## Show this help (the default target)
 	@echo "KSwitch Developer Edition"
@@ -78,7 +72,7 @@ help: ## Show this help (the default target)
 	@echo "  1. cp .env.example .env"
 	@echo "  2. make up"
 	@echo ""
-	@echo "Hard local caps: 10 agents, 10 MCP servers, 100 tools, 100 skills"
+	@echo "Developer Edition caps in official unmodified artefacts: 10 agents, 10 MCP servers, 100 tools, 100 skills"
 	@echo ""
 	@echo "Targets:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -87,8 +81,8 @@ help: ## Show this help (the default target)
 # ─── Composite entry point (G9, G10) ──────────────────────────────────
 up: preflight pull tls boot seed smoke next ## Composite: pull + tls + boot + seed + smoke + next
 
-up-with-observability: COMPOSE_PROFILES := --profile identity --profile gateway --profile observability
-up-with-observability: up ## Same as `make up` but also brings up otel-collector + prometheus + grafana + tempo. Grafana UI at http://localhost:3000 (default password GRAFANA_ADMIN_PASSWORD in .env).
+up-with-identity: COMPOSE_PROFILES := --profile identity
+up-with-identity: up ## Same as `make up` but also brings up SPIRE for workload-identity SDK examples.
 
 # ─── Pre-flight: catch missing prerequisites before any work starts ──
 preflight: ## Verify the host has docker compose, openssl, curl, jq
@@ -192,7 +186,7 @@ backup: ## pg_dump postgres to ./backups/<timestamp>.sql.gz
 	$(COMPOSE) $(COMPOSE_FILE) $(COMPOSE_PROFILES) exec -T postgres pg_dump -U postgres agent_register | gzip > $$out; \
 	echo "[backup] wrote $$out ($$(du -h $$out | cut -f1))"
 
-developer-limits: ## Print Developer Edition hard local caps
+developer-limits: ## Print Developer Edition caps for official unmodified artefacts
 	@echo "KSwitch Developer Edition caps"
 	@echo "  agents: 10"
 	@echo "  mcps:   10"

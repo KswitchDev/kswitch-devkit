@@ -20,14 +20,13 @@ Developer Edition image release tag and refreshed alongside the platform images.
 ```bash
 # From the workstation (NOT inside the bundle's docker network)
 python3 -m cli.pkce \
-    --issuer https://localhost:3001/realms/kswitch \
-    --client-id kswitch-ui \
-    --redirect-uri http://127.0.0.1:8765/callback
+    --issuer http://localhost:3001/realms/kswitch \
+    --client-id kswitch-cli
 ```
 
 The CLI opens a browser, completes the auth code + PKCE exchange,
 and prints the access token to stdout. The developer then uses that
-token with any of the bundled SDKs (`pip install ./sdks/python/`).
+token with any of the bundled SDKs.
 
 ## Pre-flight
 

@@ -1,12 +1,12 @@
 """Developer Edition entitlement overlay.
 
-This module is bind-mounted over ``app/licence/loader.py`` by the free local
+This module is bind-mounted over ``app/licence/loader.py`` by the local
 devkit compose file. It deliberately does not read a customer licence JWS.
 
 The production image still contains the normal fail-closed licence verifier.
 Only the Developer Edition compose path shadows the loader and returns a fixed,
-non-expiring local entitlement so the existing server-side capacity decorators
-continue to enforce hard caps.
+non-time-boxed local entitlement so the existing server-side capacity decorators
+continue to enforce Developer Edition caps in official unmodified artefacts.
 """
 
 from __future__ import annotations
@@ -57,7 +57,7 @@ class DeveloperEntitlement:
                 "edition": "developer",
                 "limits": dict(DEVELOPER_LIMITS),
                 "features": ["developer-edition", "local-only", "workload-identity"],
-                "support": {"renewal_contact": "community@kswitch.ai"},
+                "support": {"commercial_contact": "hello@kswitch.io"},
                 "fingerprint": {"algorithm": "none", "value": "developer-edition"},
             },
         )

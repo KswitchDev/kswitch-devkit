@@ -8,8 +8,7 @@ platform first.
 KSwitch DevKit gives developers the language SDKs, local runtime, and examples
 needed to try real agent-control flows on a laptop: register an agent, evaluate
 policy, emit audit events, trigger a kill switch, and test workload identity
-without turning `client_id` + `client_secret` into the default service-auth
-story.
+as the default service-to-service authentication model.
 
 If this helps you build or explain safer agent systems, star the repo. Stars help
 us see which SDKs, examples, and integrations to invest in next.
@@ -93,11 +92,13 @@ Preferred order:
 4. Compatibility fallback: OAuth2 client credentials when workload identity is
    not available.
 
-Client credentials remain supported because many environments still need them.
-They are not the flagship example because shared secrets create storage,
-rotation, distribution, and revocation work that workload-bound identities avoid.
+WLID is the KSwitch service-auth path: the workload receives a short-lived,
+workload-bound assertion, while key custody and rotation stay with the identity
+provider. OAuth2 client credentials remain a compatibility bridge for
+environments that cannot issue workload-bound tokens yet.
 
-Read more in [docs/auth-model.md](docs/auth-model.md).
+Read more in [docs/auth-model.md](docs/auth-model.md) and
+[docs/governed-invocation.md](docs/governed-invocation.md).
 
 ## Free Developer Edition Boundary
 

@@ -74,10 +74,10 @@ The public examples should show this order:
 2. Workload/service: SPIFFE JWT-SVID or WIMSE from SPIRE.
 3. Compatibility fallback: OAuth2 client credentials.
 
-Client credentials are still useful for legacy IdP integration, but they should
-not be the flagship service-to-service path for KSwitch. They create shared
-secret distribution, rotation, and storage obligations that workload identity is
-meant to remove.
+WLID is the intended service-to-service path for KSwitch: short-lived,
+workload-bound assertions, with key custody and rotation handled by the identity
+provider. Client credentials remain a compatibility bridge for legacy IdP
+deployments until the runtime can issue workload-bound tokens.
 
 ## Import Source
 

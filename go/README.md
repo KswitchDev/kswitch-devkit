@@ -55,11 +55,13 @@ client := kswitch.NewClient(
 
 ### Workload Identity
 
-For service-to-service calls, prefer workload identity (SPIFFE JWT-SVID or
-WIMSE) when the runtime has access to a SPIRE Workload API socket. Use the
-Developer Edition stack to exercise this locally.
+For service-to-service calls, use workload identity first: SPIFFE JWT-SVID,
+WIMSE assertion, cloud workload identity, or another workload-bound token source
+configured by your organisation. The SDK sends that assertion as a bearer token;
+key custody and rotation stay with the identity provider. Use the Developer
+Edition stack to exercise this locally.
 
-### Keycloak M2M (Client Credentials Fallback)
+### Client Credentials (compatibility fallback)
 
 ```go
 secret := os.Getenv("KSWITCH_CLIENT_SECRET")
@@ -74,9 +76,8 @@ client := kswitch.NewClient(
 )
 ```
 
-Tokens are cached in memory and automatically refreshed before expiry. Use
-client credentials only where the deployment cannot issue workload-bound
-identity.
+Tokens are cached in memory and automatically refreshed before expiry. Use this
+fallback only where the deployment cannot issue workload-bound identity.
 
 ## Services
 

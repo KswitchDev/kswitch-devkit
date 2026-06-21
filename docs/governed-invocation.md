@@ -1,10 +1,10 @@
-# KSwitch SDK — Bypass Hardening & Platform Discipline
+# KSwitch SDK Governed Invocation Model
 
 **Version:** v2 | **Applies to:** Python SDK, TypeScript SDK, Go SDK
 
-This document defines the KSwitch SDK discipline model: which invocation paths are
-supported, which are non-compliant, what the escape hatch policy is, and how CI
-enforces these rules.
+This document defines the supported SDK invocation model for production code:
+which paths run the full governance pipeline, which paths are test/migration
+exceptions, and how KSwitch repository CI reviews unsafe SDK-internal usage.
 
 ---
 
@@ -23,7 +23,7 @@ developer
   → audit emit
 ```
 
-This pipeline is **mandatory**. Bypassing it means:
+This pipeline is the supported production path. Bypassing it means:
 - No enforcement (allow/deny) — tool runs regardless of policy
 - No output filtering — PII/PHI/MNPI returned unmasked
 - No obligation blocking — credential risk / anomaly obligations not enforced
@@ -81,7 +81,9 @@ The following paths are **non-compliant** and must NOT be used in production cod
 | `applyOutputPolicy()` standalone | TypeScript | Partial pipeline — no enforcement |
 | `deriveOutputPolicy()` standalone | TypeScript | Internal helper — not a public API |
 
-CI will flag all of these. See **CI Rules** below.
+KSwitch repository CI flags these patterns. Consumers embedding the SDK should
+add the same checks to their own release pipeline when they need hard assurance
+that application code uses governed invocation.
 
 ---
 
@@ -124,6 +126,9 @@ The marker must appear on the **same line** or the **immediately preceding line*
 
 - Without marker → CI **fails** the build
 - With marker → CI **logs** the approved usage but does not fail
+
+The marker is CI review metadata only. It does not disable runtime enforcement,
+grant permission, or make an unsafe invocation production-compliant.
 
 ---
 

@@ -56,14 +56,15 @@ const result = await client.enforcement.enforceMCPCall({
 
 ## Service Authentication
 
-For service-to-service calls, prefer workload identity (SPIFFE JWT-SVID or
-WIMSE) when the runtime has access to a SPIRE Workload API socket. The SDK
-contains SPIFFE/WIMSE helpers; the Developer Edition stack is the local path for
-exercising that model.
+For service-to-service calls, use workload identity first: SPIFFE JWT-SVID,
+WIMSE assertion, cloud workload identity, or another workload-bound token source
+configured by your organisation. The SDK sends that assertion as a bearer token;
+key custody and rotation stay with the identity provider.
 
-OAuth2 client credentials remain supported for compatibility with legacy IdP
-deployments. Treat `clientSecret` as a fallback, not the default public posture.
-Read it from the environment or a secret manager and scope the client narrowly.
+OAuth2 client credentials remain supported as a compatibility fallback for
+legacy IdP deployments that cannot issue workload-bound tokens. Read
+`clientSecret` from the environment or a secret manager and scope the client
+narrowly.
 
 ## API Namespaces
 

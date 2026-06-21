@@ -1,12 +1,12 @@
 # SDK Authentication Model
 
-KSwitch SDK examples should not present `client_id` + `client_secret` as the
-preferred service-to-service posture.
+KSwitch ships workload identity support so service workloads can authenticate
+without distributing long-lived shared application secrets.
 
-Client credentials work, but they create a shared secret that must be provisioned,
-stored, rotated, revoked, and protected in every workload environment. That is a
-reasonable compatibility option for legacy IdPs. It is not the identity model
-KSwitch should lead with.
+Public SDK examples should lead with workload-bound identity for
+service-to-service calls. OAuth2 client credentials remain available as a
+compatibility bridge for environments that cannot issue workload-bound tokens
+yet.
 
 ## Preferred Order
 
@@ -19,8 +19,8 @@ KSwitch should lead with.
 
 ## Why Workload Identity
 
-Workload identity gives the platform a concrete identity binding without asking
-developers to distribute long-lived shared secrets:
+Workload identity gives KSwitch a concrete, cryptographically bound service
+identity without asking developers to distribute long-lived shared secrets:
 
 - The workload obtains a short-lived identity document from the local trust
   fabric.
@@ -45,9 +45,9 @@ copy-paste local examples when clearly labelled as local/dev only.
 
 ## Client Credentials Fallback
 
-Client credentials may remain in each SDK because customers will have existing
-Keycloak, Logto, Entra, or Okta client-credentials flows. The docs should frame
-them like this:
+Client credentials remain in each SDK for existing Keycloak, Logto, Entra,
+Okta, or other OAuth2 client-credentials deployments. The docs should frame them
+like this:
 
 ```text
 Use this only when your deployment cannot issue SPIFFE/WIMSE or another
@@ -65,7 +65,6 @@ Required handling:
 ## Current SDK Gap
 
 The SDKs already contain SPIFFE/WIMSE helper code in the language packages, but
-the public `KSwitchClient` auth examples still lead with static bearer tokens
-and client credentials. Before the docs promise one-line workload auth, add a
-first-class token provider or refresh hook in each SDK so JWT-SVID/WIMSE tokens
-can be refreshed automatically.
+the public `KSwitchClient` auth examples still need a first-class token provider
+or refresh hook in each SDK so JWT-SVID/WIMSE tokens can be refreshed
+automatically.

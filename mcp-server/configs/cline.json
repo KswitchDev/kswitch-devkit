@@ -1,0 +1,16 @@
+{
+  "cline.mcp.servers": {
+    "kswitch": {
+      "command": "kswitch-mcp",
+      "env": {
+        "KSWITCH_URL": "https://localhost:5001",
+        "KSWITCH_TOKEN": "",
+        "KSWITCH_CLIENT_ID": "kswitch-m2m",
+        "KSWITCH_CLIENT_SECRET": "",
+        "KSWITCH_KEYCLOAK_URL": "http://localhost:3001",
+        "KSWITCH_KEYCLOAK_REALM": "kswitch",
+        "KSWITCH_VERIFY_SSL": "true"
+      }
+    }
+  }
+}

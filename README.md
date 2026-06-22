@@ -8,7 +8,9 @@ platform first.
 KSwitch DevKit gives developers the language SDKs, local runtime, and examples
 needed to try real agent-control flows on a laptop: register an agent, evaluate
 policy, emit audit events, trigger a kill switch, and test workload identity
-as the default service-to-service authentication model.
+as the default service-to-service authentication model. It also includes the
+KSwitch MCP server and governing proxy commands for MCP-compatible developer
+tools.
 
 If this helps you build or explain safer agent systems, star the repo. Stars help
 us see which SDKs, examples, and integrations to invest in next.
@@ -20,6 +22,8 @@ With this repo you can:
 - Add KSwitch governance calls to Python, TypeScript, or Go applications.
 - Run a local Developer Edition control plane for SDK integration.
 - Exercise policy decisions, audit events, and kill-switch flows end to end.
+- Connect Claude Code, Cursor, Windsurf, Cline, OpenCode, or OpenClaw through
+  `kswitch-mcp` or wrap existing upstream MCP servers with `kswitch-proxy`.
 - Try SPIFFE/WIMSE workload identity locally with optional SPIRE services.
 - Learn the production auth posture before wiring an enterprise deployment.
 
@@ -58,6 +62,18 @@ For workload-identity examples, use the SPIRE profile:
 make up-with-identity
 ```
 
+Install the MCP commands for local MCP-compatible tools:
+
+```sh
+cd devkit
+make mcp-install
+```
+
+That installs `kswitch-mcp`, `kswitch-proxy`, `kswitch-brain-mcp`, and
+`kswitch-service-mcp` from the bundled `../mcp-server` package. The Docker
+gateway remains the network proxy path; the MCP commands are stdio servers used
+by local developer tools.
+
 ## SDKs
 
 | Language | Package | Path | Docs |
@@ -65,6 +81,7 @@ make up-with-identity
 | Python | `kswitch-sdk` | `python/` | [Python SDK](https://hub.kswitch.io/sdk/python.html) |
 | TypeScript | `@kswitch/sdk` | `typescript/` | [TypeScript SDK](https://hub.kswitch.io/sdk/typescript.html) |
 | Go | `github.com/KswitchDev/kswitch-devkit/go` | `go/` | [Go SDK](https://hub.kswitch.io/sdk/go.html) |
+| MCP | `kswitch-mcp` | `mcp-server/` | [MCP package](mcp-server/README.md) |
 
 For local development from source:
 
@@ -102,8 +119,8 @@ Read more in [docs/auth-model.md](docs/auth-model.md) and
 
 ## Free Developer Edition Boundary
 
-Developer Edition is meant to be useful, not decorative. Official unmodified
-artefacts enforce these local caps:
+Developer Edition is meant for real local testing while keeping the free path
+bounded. Official unmodified artefacts enforce these local caps:
 
 | Resource | Cap |
 | --- | ---: |
@@ -118,6 +135,7 @@ What is included:
 - Local Keycloak realm for PKCE.
 - Optional local SPIRE for workload identity examples.
 - OPA-backed policy-decision path.
+- Local MCP server and governing proxy commands for developer tools.
 - Starter policies, examples, smoke checks, and doctor checks.
 
 What is not included:
@@ -140,6 +158,7 @@ Commercial use requires a separate written agreement with KSwitch. See
 | `typescript/` | TypeScript SDK, tests, package metadata |
 | `go/` | Go SDK, tests, examples |
 | `devkit/` | Local Developer Edition runtime and lifecycle scripts |
+| `mcp-server/` | KSwitch MCP server, governing proxy, service MCP, and client configs |
 | `docs/` | Auth and Developer Edition positioning notes |
 | `reports/ep227/` | Release-gate evidence for the public devkit boundary |
 

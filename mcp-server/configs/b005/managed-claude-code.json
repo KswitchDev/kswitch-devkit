@@ -1,0 +1,98 @@
+{
+  "kswitchProfile": {
+    "id": "b005-managed-claude-code",
+    "mode": "managed",
+    "status": "tenant_config_required",
+    "advisory": false,
+    "service": "kswitch_service",
+    "toolSurface": [
+      "fetch",
+      "search",
+      "policy_check",
+      "get_policy",
+      "health"
+    ],
+    "nativeToolPolicy": {
+      "fetch": "deny",
+      "search": "deny",
+      "unmanagedMcpRegistration": "deny"
+    },
+    "identity": {
+      "workloadIdentity": "spiffe_jwt_svid",
+      "delegationChain": "wimse_required_for_multihop",
+      "acceptedHumanIdps": [
+        "microsoft_entra",
+        "ping_identity",
+        "okta",
+        "forgerock",
+        "slashid",
+        "active_directory_federation",
+        "generic_oidc"
+      ],
+      "requiredEnv": [
+        "OIDC_ISSUER",
+        "OIDC_AUDIENCE",
+        "ROLE_CLAIM_PATH",
+        "GROUP_CLAIM_PATH",
+        "SPIFFE_JWT_ENABLED",
+        "SPIFFE_JWKS_URI",
+        "SPIFFE_ALLOWED_TRUST_DOMAINS",
+        "B005_TENANT_ID",
+        "B005_CUSTOMER_ID",
+        "B005_SERVICE_REGISTRY_ID",
+        "B005_SERVICE_REGISTRY_VERSION",
+        "B005_CONTEXT_SERVICE_ID",
+        "B005_GOVERNANCE_PROFILE_ID",
+        "B005_POLICY_SCOPE",
+        "B005_POLICY_BUNDLE",
+        "B005_DEVICE_TRUST_LEVEL",
+        "B005_AGENT_RUNTIME",
+        "B005_AGENT_SESSION_ID",
+        "B005_WORKSPACE_ID"
+      ]
+    },
+    "notes": [
+      "Managed mode exposes only kswitch-service-mcp for governed fetch/search.",
+      "Native fetch/search denial must be enforced by commercial managed runtime controls.",
+      "This profile is provider-agnostic; tenant-specific OIDC values are supplied by deployment, not this file."
+    ]
+  },
+  "mcpServers": {
+    "kswitch_service": {
+      "command": "kswitch-service-mcp",
+      "env": {
+        "KSWITCH_SERVICE_PROFILE": "b005-managed",
+        "KSWITCH_SERVICE_MODE": "managed",
+        "KSWITCH_URL": "https://localhost:5001",
+        "KSWITCH_VERIFY_SSL": "true",
+        "KSWITCH_NATIVE_FETCH": "deny",
+        "KSWITCH_NATIVE_SEARCH": "deny",
+        "KSWITCH_UNMANAGED_MCP_REGISTRATION": "deny",
+        "OIDC_ISSUER": "",
+        "OIDC_AUDIENCE": "",
+        "ROLE_CLAIM_PATH": "roles,realm_access.roles,groups",
+        "GROUP_CLAIM_PATH": "groups",
+        "SPIFFE_JWT_ENABLED": "true",
+        "SPIFFE_JWKS_URI": "",
+        "SPIFFE_ALLOWED_TRUST_DOMAINS": "",
+        "B005_TENANT_ID": "",
+        "B005_CUSTOMER_ID": "",
+        "B005_SERVICE_REGISTRY_ID": "",
+        "B005_SERVICE_REGISTRY_VERSION": "",
+        "B005_CONTEXT_SERVICE_ID": "",
+        "B005_GOVERNANCE_PROFILE_ID": "",
+        "B005_POLICY_SCOPE": "",
+        "B005_POLICY_BUNDLE": "",
+        "B005_DEVICE_TRUST_LEVEL": "",
+        "B005_DEVICE_ID": "",
+        "B005_AGENT_RUNTIME": "",
+        "B005_AGENT_SESSION_ID": "",
+        "B005_WORKSPACE_ID": "",
+        "B005_COMPLIANCE_FRAMEWORKS": "",
+        "B005_FETCH_ALLOWED_HOSTS": "",
+        "B005_SEARCH_PROVIDER_REGISTRY_JSON": "",
+        "B005_SEARCH_POLICY_JSON": ""
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "command": "python3",
+  "args": ["-m", "kswitch_brain_mcp.server"],
+  "env": {
+    "PYTHONPATH": "/Users/Max1/agent-registration-config-pg/mcp-server:/Users/Max1/agent-registration-config-pg",
+    "KSWITCH_DEV_MEMORY_URL": "http://127.0.0.1:8765",
+    "KSWITCH_DEV_MEMORY_ACCESS_KEY": "dev-local-memory-key"
+  }
+}

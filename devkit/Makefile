@@ -68,7 +68,7 @@ SCRIPT_ENV := \
   COMPOSE_FILE_FLAG="$(COMPOSE_FILE)" \
   COMPOSE_PROFILES_FLAG="$(COMPOSE_PROFILES)"
 
-.PHONY: help up up-with-observability pull tls boot seed seed-reset smoke smoke-test next doctor down logs backup developer-limits clean-state preflight
+.PHONY: help up up-with-observability mcp-install mcp-configs pull tls boot seed seed-reset smoke smoke-test next doctor down logs backup developer-limits clean-state preflight
 
 help: ## Show this help (the default target)
 	@echo "KSwitch Developer Edition"
@@ -89,6 +89,16 @@ up: preflight pull tls boot seed smoke next ## Composite: pull + tls + boot + se
 
 up-with-observability: COMPOSE_PROFILES := --profile identity --profile gateway --profile observability
 up-with-observability: up ## Same as `make up` but also brings up otel-collector + prometheus + grafana + tempo. Grafana UI at http://localhost:3000 (default password GRAFANA_ADMIN_PASSWORD in .env).
+
+mcp-install: ## Install bundled MCP commands for local developer tools
+	@test -d $(BUNDLE_ROOT)/../mcp-server || { echo "FATAL: ../mcp-server not found"; exit 1; }
+	python3 -m pip install -e $(BUNDLE_ROOT)/../mcp-server
+	@echo "[mcp] installed kswitch-mcp, kswitch-proxy, kswitch-brain-mcp, kswitch-service-mcp"
+
+mcp-configs: ## Show bundled MCP client config snippets
+	@test -d $(BUNDLE_ROOT)/../mcp-server/configs || { echo "FATAL: ../mcp-server/configs not found"; exit 1; }
+	@echo "Bundled config snippets:"
+	@find $(BUNDLE_ROOT)/../mcp-server/configs -maxdepth 2 -type f | sort
 
 # ─── Pre-flight: catch missing prerequisites before any work starts ──
 preflight: ## Verify the host has docker compose, openssl, curl, jq

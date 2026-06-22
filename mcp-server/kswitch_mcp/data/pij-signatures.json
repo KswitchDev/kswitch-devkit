@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-04-23",
+  "description": "KSwitch indirect prompt injection (PIJ) signature catalogue. Canonical source — both app/content_inspection.py (EP-069) and kswitch_mcp/local_inspection.py (EP-072) compile from this file. Do not edit patterns in either module directly; edit here and run scripts/audit-pij-drift.py to verify sync.",
+  "signatures": [
+    {
+      "id": "PIJ-001",
+      "label": "Ignore previous instructions",
+      "severity": "critical",
+      "pattern": "ignore\\s+(all\\s+)?previous\\s+instructions?",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-002",
+      "label": "System override",
+      "severity": "critical",
+      "pattern": "\\[?SYSTEM[\\s:]+(?:override|instruction)",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-003",
+      "label": "New objective injection",
+      "severity": "critical",
+      "pattern": "your\\s+new\\s+(primary\\s+)?objective",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-004",
+      "label": "Role confusion — you are now",
+      "severity": "high",
+      "pattern": "you\\s+are\\s+now\\s+(?:a|an|the)\\s+",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-005",
+      "label": "Disregard safety guidelines",
+      "severity": "critical",
+      "pattern": "disregard\\s+(all\\s+)?safety\\s+(guidelines|rules|policies)",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-006",
+      "label": "Jailbreak DAN-style",
+      "severity": "high",
+      "pattern": "do\\s+anything\\s+now",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-007",
+      "label": "Exfil URL pattern",
+      "severity": "high",
+      "pattern": "(send|post|upload|exfil(?:trate)?)\\s+.{0,50}https?://",
+      "flags": "IGNORECASE|DOTALL"
+    },
+    {
+      "id": "PIJ-008",
+      "label": "Prompt delimiter injection",
+      "severity": "high",
+      "pattern": "(?:<<<|>>>|###SYSTEM###|<\\|im_start\\|>)",
+      "flags": ""
+    },
+    {
+      "id": "PIJ-009",
+      "label": "Assistant role impersonation",
+      "severity": "high",
+      "pattern": "as\\s+(?:the\\s+)?(?:assistant|ai|llm)\\s*[,:]\\s",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-010",
+      "label": "Forget everything",
+      "severity": "critical",
+      "pattern": "forget\\s+(?:everything|all)\\s+(?:you\\s+know|prior|previous)",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-011",
+      "label": "Hidden instruction (Unicode zero-width)",
+      "severity": "critical",
+      "pattern": "[\\u200b\\u200c\\u200d\\ufeff]",
+      "flags": ""
+    },
+    {
+      "id": "PIJ-012",
+      "label": "Base64 encoded instruction block",
+      "severity": "medium",
+      "pattern": "(?:decode\\s+this\\s+base64|base64:)\\s*[A-Za-z0-9+/=]{20,}",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-013",
+      "label": "Credential harvest",
+      "severity": "critical",
+      "pattern": "(send|give|provide|reveal)\\s+(me\\s+)?(?:your\\s+)?(api\\s+key|password|token|secret)",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-014",
+      "label": "Sudo / privilege escalation language",
+      "severity": "high",
+      "pattern": "(?:run\\s+as\\s+root|sudo\\s+mode|admin\\s+override|elevated\\s+privileges?)",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-015",
+      "label": "Transfer funds instruction",
+      "severity": "critical",
+      "pattern": "transfer\\s+(?:\\$?[\\d,]+\\s+)?(?:to\\s+)?(?:account|wallet|address)",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-016",
+      "label": "Alt instruction via markdown comment",
+      "severity": "medium",
+      "pattern": "<!--\\s*(?:instruction|system|override)[^>]{0,200}-->",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-017",
+      "label": "Direct address to model by name",
+      "severity": "medium",
+      "pattern": "(?:gpt|claude|gemini|llama|mistral)[- ,]*(?:you must|please|override)",
+      "flags": "IGNORECASE"
+    },
+    {
+      "id": "PIJ-018",
+      "label": "Naïve context terminator (control chars)",
+      "severity": "high",
+      "pattern": "\\x00|\\x01|\\x02|\\x03|\\\\u0000|\\\\u0001|\\\\u0002|\\\\u0003",
+      "flags": ""
+    },
+    {
+      "id": "PIJ-019",
+      "label": "YAML/JSON front-matter injection",
+      "severity": "medium",
+      "pattern": "^(?:---|\\{)\\s*(?:system|role|instruction)\\s*:",
+      "flags": "IGNORECASE|MULTILINE"
+    },
+    {
+      "id": "PIJ-020",
+      "label": "Repeated delimiter flooding",
+      "severity": "medium",
+      "pattern": "(?:[^\\w\\s]{5,})\\s{0,3}(?:system|instruction|override)",
+      "flags": "IGNORECASE"
+    }
+  ]
+}

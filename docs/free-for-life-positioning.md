@@ -24,6 +24,8 @@ templates, or regulated-workload enforcement in the free repo.
 - Local Keycloak realm for PKCE.
 - Local SPIRE for workload identity.
 - Local MCP gateway with Envoy and OPA.
+- Local KSwitch MCP commands for developer tools.
+- Governing proxy for wrapping existing upstream MCP servers.
 - Starter policies and examples.
 - Audit and kill-switch walkthroughs.
 - Local smoke and doctor checks.

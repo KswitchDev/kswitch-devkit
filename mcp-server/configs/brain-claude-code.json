@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "kswitch-brain": {
+      "command": "kswitch-brain-mcp",
+      "env": {
+        "KSWITCH_DEV_MEMORY_URL": "http://127.0.0.1:8765",
+        "KSWITCH_DEV_MEMORY_ACCESS_KEY": "dev-local-memory-key"
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kswitch-mcp"
+version = "1.39.0"
+description = "KSwitch.ai MCP Server — Trust enforcement for autonomous systems"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [{ name = "KSwitch.ai", email = "eng@kswitch.ai" }]
+keywords = ["mcp", "ai-agents", "trust", "governance", "kswitch"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries",
+]
+# Direct deps pinned with PEP 440 compatible-release (~=) per Gate G5 decision —
+# EP-031 evidence-integrity reproducibility + security patch-stream safety.
+# Vendor docs: https://pip-tools.readthedocs.io/en/stable/ (retrieval 2026-04-24);
+# https://peps.python.org/pep-0440/#compatible-release (retrieval 2026-04-24).
+dependencies = [
+    # Safety advisory review on 2026-04-26 recommends 1.27.0. This clears:
+    # - GHSA-3qhf-m339-9g5v (fixed in 1.9.4)
+    # - GHSA-j975-95f5-7wqh (fixed in 1.10.0)
+    # - GHSA-9h52-p55h-vw2f (fixed in 1.23.0)
+    "mcp~=1.27.0",
+    "httpx~=0.28.1",   # Latest within original >=0.27.0 band
+    # EP-072: Ed25519 bundle signature verification.
+    # Verified NOT in mcp's direct requires (mcp==1.27.0, checked 2026-04-23).
+    # Installed in this environment at 46.0.7 via another package, but
+    # declared here as a direct dep so pip does not prune it.
+    # Pinned to the root requirements.txt security floor.
+    "cryptography~=48.0.1",
+    # Direct floor for mcp's multipart parser transitive dependency.
+    # python-multipart<0.0.27 is vulnerable to multipart header CPU exhaustion
+    # (GHSA-pp6c-gr5w-3c5g / CVE-2026-42561) and follow-on parser advisories.
+    "python-multipart~=0.0.31",
+    # Direct floor for mcp's Starlette transitive dependency. Starlette 1.0.1 is
+    # affected by GHSA-82w8-qh3p-5jfq and GHSA-wqp7-x3pw-xc5r.
+    "starlette~=1.3.1",
+    # Direct floor for mcp's JWT transitive dependency.
+    "PyJWT~=2.13.0",
+]
+
+[project.scripts]
+kswitch-mcp = "kswitch_mcp.server:main"
+kswitch-proxy = "kswitch_mcp.proxy:main"
+kswitch-brain-mcp = "kswitch_brain_mcp.server:main"
+kswitch-service-mcp = "kswitch_mcp.service_server:main"
+
+[project.urls]
+Homepage = "https://kswitch.ai"
+Documentation = "https://hub.kswitch.io/"
+Repository = "https://github.com/KswitchDev/kswitch-devkit"
+
+[tool.hatch.build.targets.wheel]
+# Include the PIJ signature catalogue and the Ed25519 public key placeholder
+# so they are present in the installed package as well as the source tree.
+packages = ["kswitch_mcp", "kswitch_brain_mcp"]
+include = [
+    "kswitch_mcp/data/pij-signatures.json",
+    "kswitch_mcp/keys/bundle-signing-pubkey.pem",
+]

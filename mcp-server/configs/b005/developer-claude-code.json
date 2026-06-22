@@ -1,0 +1,64 @@
+{
+  "kswitchProfile": {
+    "id": "b005-developer-claude-code",
+    "mode": "developer",
+    "status": "local_development_only",
+    "advisory": true,
+    "service": "kswitch_service",
+    "toolSurface": [
+      "fetch",
+      "search",
+      "policy_check",
+      "get_policy",
+      "health"
+    ],
+    "nativeToolPolicy": {
+      "fetch": "advisory",
+      "search": "advisory",
+      "unmanagedMcpRegistration": "advisory"
+    },
+    "identity": {
+      "workloadIdentity": "optional_local_test_context",
+      "delegationChain": "optional_local_test_context",
+      "acceptedHumanIdps": [
+        "microsoft_entra",
+        "ping_identity",
+        "okta",
+        "forgerock",
+        "slashid",
+        "active_directory_federation",
+        "generic_oidc",
+        "keycloak_local_test"
+      ],
+      "requiredEnv": [
+        "OIDC_ISSUER",
+        "OIDC_AUDIENCE",
+        "ROLE_CLAIM_PATH",
+        "GROUP_CLAIM_PATH"
+      ]
+    },
+    "notes": [
+      "Developer mode is bypassable and must not be used as managed-mode enforcement evidence.",
+      "Native fetch/search controls are advisory only in this profile.",
+      "Use the managed profile for production or customer assurance testing."
+    ]
+  },
+  "mcpServers": {
+    "kswitch_service": {
+      "command": "kswitch-service-mcp",
+      "env": {
+        "KSWITCH_SERVICE_PROFILE": "b005-developer",
+        "KSWITCH_SERVICE_MODE": "developer",
+        "KSWITCH_URL": "https://localhost:5001",
+        "KSWITCH_VERIFY_SSL": "true",
+        "KSWITCH_NATIVE_FETCH": "advisory",
+        "KSWITCH_NATIVE_SEARCH": "advisory",
+        "KSWITCH_UNMANAGED_MCP_REGISTRATION": "advisory",
+        "OIDC_ISSUER": "http://localhost:3001/realms/kswitch",
+        "OIDC_AUDIENCE": "",
+        "ROLE_CLAIM_PATH": "realm_access.roles",
+        "GROUP_CLAIM_PATH": "groups"
+      }
+    }
+  }
+}

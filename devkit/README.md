@@ -7,6 +7,7 @@ It should be meaningful enough to prove the product:
 
 - Register an agent or MCP server.
 - Route a governed MCP call through the local gateway.
+- Install `kswitch-mcp` and `kswitch-proxy` for MCP-compatible developer tools.
 - Evaluate policy through the local PDP path.
 - Emit an audit event.
 - Trigger and observe a kill-switch decision.
@@ -39,11 +40,20 @@ make up
 - Keycloak local realm for human PKCE login.
 - SPIRE server and SPIRE agent for workload identity.
 - OPA and Envoy MCP gateway.
+- KSwitch MCP package (`kswitch-mcp`, `kswitch-proxy`,
+  `kswitch-brain-mcp`, `kswitch-service-mcp`) installable from
+  `../mcp-server`.
 - A simple gateway upstream for end-to-end examples.
 - Seed data, starter policies, and SDK walkthrough examples.
 
 Observability can be optional. Vault should be optional unless the example is
 explicitly demonstrating secretless integration.
+
+The gateway and the MCP package are different surfaces. The gateway is an
+Envoy/OPA network proxy. The MCP package installs stdio commands for local tools
+such as Claude Code, Cursor, Windsurf, OpenCode, OpenClaw, and Cline. The
+bundled gateway upstream remains an echo container by default; point Envoy at a
+real upstream MCP service when testing network-path enforcement.
 
 ## Entitlement Model
 

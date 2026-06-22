@@ -25,6 +25,7 @@ Source:
 | `cli/pkce.py` | `devkit/cli/pkce.py` | Human/local auth helper. |
 | `seed/realm-export.json` | `devkit/seed/realm-export.json` | Keep local Keycloak realm, remove customer pilot values. |
 | `sdks/*` | Use repo root SDKs | Replace bundle-copied SDKs with references to `../python`, `../typescript`, `../go`. |
+| `mcp-server/` | `mcp-server/` | Keep the MCP server/proxy package as a repo-root package. Do not run it as a default compose service; local MCP clients launch the stdio commands. |
 
 ## Change
 

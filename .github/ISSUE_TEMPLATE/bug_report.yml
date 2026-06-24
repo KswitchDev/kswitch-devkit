@@ -1,0 +1,75 @@
+name: Bug report
+description: Report something that is broken in DevKit, an SDK, the MCP package, or local docs.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve KSwitch DevKit. Do not include secrets, customer data, production logs, bearer tokens, private URLs, or sensitive environment details in public issues.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of the repo is affected?
+      options:
+        - DevKit local runtime
+        - Python SDK
+        - TypeScript SDK
+        - Go SDK
+        - MCP server or governing proxy
+        - Docs or examples
+        - CI, packaging, or release assets
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version, commit, or package
+      description: Include the DevKit release, git commit SHA, SDK package version, or MCP package version when available.
+      placeholder: "v1.37.1, commit SHA, kswitch-sdk 0.0.0, @kswitch/sdk 0.0.0"
+    validations:
+      required: false
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the unexpected behaviour and what you expected instead.
+      placeholder: "When I run ..., I see ..., but I expected ..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide the smallest set of commands or actions that reproduces the issue.
+      placeholder: |
+        1. cd devkit
+        2. make up
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Share non-sensitive environment details.
+      placeholder: "OS, Docker version, Node/Python/Go version, browser, shell, architecture"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs or output
+      description: Paste only sanitized output. Remove tokens, passwords, hostnames, customer names, trace payloads, and private URLs.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public issue safety check
+      options:
+        - label: I have removed secrets, tokens, customer data, private URLs, and sensitive logs from this issue.
+          required: true

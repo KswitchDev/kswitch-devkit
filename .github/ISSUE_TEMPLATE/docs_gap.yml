@@ -1,0 +1,51 @@
+name: Docs gap
+description: Report confusing, missing, stale, or incorrect documentation.
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for public documentation feedback. Do not paste private environment details or sensitive evidence into the issue.
+  - type: input
+    id: location
+    attributes:
+      label: Docs location
+      description: Link to the page or name the repo path where the issue appears.
+      placeholder: "https://hub.kswitch.io/pages/devkit.html or README.md"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or missing?
+      description: Describe the confusing, stale, incorrect, or missing part.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should the docs say?
+      description: Suggest the clarification, example, command, or warning that would help.
+    validations:
+      required: false
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Who is blocked?
+      options:
+        - First-time DevKit user
+        - SDK integrator
+        - MCP integrator
+        - Platform administrator
+        - Security or compliance reviewer
+        - Not sure
+    validations:
+      required: false
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public issue safety check
+      options:
+        - label: I have removed secrets, tokens, customer data, private URLs, and sensitive logs from this issue.
+          required: true

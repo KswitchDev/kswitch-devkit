@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security issue or vulnerability
+    url: https://hub.kswitch.io/support.html
+    about: Do not open a public issue for vulnerabilities, secrets, customer data, or production incident details.
+  - name: Private developer support
+    url: https://hub.kswitch.io/support.html
+    about: Use the support form when you need to share private environment details or non-public evidence.
+  - name: KSwitch Developer Hub
+    url: https://hub.kswitch.io/pages/devkit.html
+    about: Read the DevKit quick start, SDK links, and local Developer Edition boundaries.

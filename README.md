@@ -195,7 +195,8 @@ make validate-ep227-release
 
 ## Community And Security
 
-Open issues for bugs, docs gaps, and SDK examples you want to see. Do not put
+Use the [issue chooser](https://github.com/KswitchDev/kswitch-devkit/issues/new/choose)
+for bugs, usage help, docs gaps, and SDK or example requests. Do not put
 secrets, customer data, production logs, or sensitive environment details in
 public issues.
 

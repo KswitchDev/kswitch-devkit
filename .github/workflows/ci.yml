@@ -51,3 +51,24 @@ jobs:
           go-version-file: go/go.mod
           cache-dependency-path: go/go.sum
       - run: go test ./...
+
+  devkit:
+    name: Developer Edition Devkit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: devkit
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/verify-developer-edition.py
+      - run: cp .env.example .env
+      - run: perl -0pi -e 's/KEYCLOAK_ADMIN_PASSWORD=CHANGE-ME-developer-keycloak/KEYCLOAK_ADMIN_PASSWORD=DeveloperLocalSecret2026/g' .env
+      - run: make developer-limits
+      - run: docker compose -f docker-compose.yml --profile identity --profile gateway config
+      - name: Verify public runtime images are pullable
+        run: |
+          set -euo pipefail
+          image="$(awk -F= '/^KSWITCH_IMAGE=/{print $2}' .env)"
+          spire_image="$(awk -F= '/^KSWITCH_SPIRE_AGENT_WRAPPER_IMAGE=/{print $2}' .env)"
+          docker manifest inspect "${image}" >/dev/null
+          docker manifest inspect "${spire_image}" >/dev/null

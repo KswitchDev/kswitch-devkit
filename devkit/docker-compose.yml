@@ -92,7 +92,7 @@ x-worker-env: &worker-env
 # materializer-app pattern (see kswitch-ep094-jwt-materializer below);
 # the parent compose uses the unscoped `local` namespace.
 x-ep094-materializer: &ep094-materializer
-  image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+  image: ${KSWITCH_IMAGE:?KSWITCH_IMAGE required — set in .env}
   profiles: ["identity"]
   restart: unless-stopped
   user: "0:0"
@@ -177,7 +177,7 @@ services:
   # that exits 0 once bootstrap completes; the app `depends_on:
   # app-init: service_completed_successfully` gates startup behind it.
   app-init:
-    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    image: ${KSWITCH_IMAGE:?KSWITCH_IMAGE required — set in .env}
     container_name: kswitch-app-init
     restart: "no"
     depends_on:
@@ -202,7 +202,7 @@ services:
 
   # ── KSwitch app (the control plane) ──────────────────────────────
   app:
-    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    image: ${KSWITCH_IMAGE:?KSWITCH_IMAGE required — set in .env}
     container_name: kswitch-app
     restart: unless-stopped
     depends_on:
@@ -219,11 +219,6 @@ services:
     ports:
       - "127.0.0.1:5001:5001"
     volumes:
-      # Developer Edition entitlement overlay. This shadows the licence
-      # loader only for the local free stack and returns a non-expiring
-      # developer entitlement with hard caps:
-      # agents=10, mcps=10, tools=100, skills=100.
-      - ./developer-edition/licence_loader.py:/app/app/licence/loader.py:ro
       # State — bundle-script audit markers (seed.sh / seed-reset.sh
       # write JSON marker files here; the app's audit-marker drain
       # consumes them on a 60s poll — see app/licence/audit_markers.py).
@@ -253,7 +248,7 @@ services:
   # Runs the platform agent, identity rotation scheduler, daily
   # cleanup. Single replica; fail-closed singleton lock via Valkey.
   runtime-ops:
-    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    image: ${KSWITCH_IMAGE:?KSWITCH_IMAGE required — set in .env}
     container_name: kswitch-runtime-ops
     restart: unless-stopped
     depends_on:
@@ -295,7 +290,7 @@ services:
   # INGEST_KUBERNETES_SA_ENABLED=true, etc.). Discovered NHIs land as
   # status='declared', never 'active'.
   inventory-ingest:
-    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    image: ${KSWITCH_IMAGE:?KSWITCH_IMAGE required — set in .env}
     container_name: kswitch-inventory-ingest
     restart: unless-stopped
     depends_on:
@@ -344,7 +339,7 @@ services:
   # the app-layer backstop; perimeter is the AWS Network Firewall SNI
   # allowlist in cloud installs.
   scanner-sync-egress:
-    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    image: ${KSWITCH_IMAGE:?KSWITCH_IMAGE required — set in .env}
     container_name: kswitch-scanner-sync-egress
     restart: unless-stopped
     depends_on:
@@ -483,7 +478,7 @@ services:
     # Per §G EP094 fix — the wrapper image ships the spire-agent
     # socket on /var/run/spire so the JWT materializers can attest
     # without a host-side bootstrap.
-    image: ghcr.io/maxcope-alt/kswitch-spire-agent-wrapper:1.10
+    image: ${KSWITCH_SPIRE_AGENT_WRAPPER_IMAGE:?KSWITCH_SPIRE_AGENT_WRAPPER_IMAGE required — set in .env}
     container_name: kswitch-spire-agent
     profiles: ["identity"]
     restart: unless-stopped

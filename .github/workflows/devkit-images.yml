@@ -1,0 +1,85 @@
+name: Devkit Images
+
+on:
+  workflow_dispatch:
+    inputs:
+      kswitch_tag:
+        description: Public Developer Edition image tag
+        required: true
+        default: v1.36-pg
+      private_base_image:
+        description: Private full platform image to copy runtime artefacts from
+        required: true
+        default: ghcr.io/maxcope-alt/kswitch:v1.36-pg
+      spire_version:
+        description: SPIRE upstream version for the local wrapper image
+        required: true
+        default: 1.10.0
+      spire_wrapper_tag:
+        description: Public SPIRE wrapper image tag
+        required: true
+        default: "1.10"
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  PUBLIC_IMAGE_NAMESPACE: ghcr.io/kswitchdev
+
+jobs:
+  build:
+    name: Build Public Devkit Images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        env:
+          GHCR_TOKEN: ${{ secrets.GHCR_DEVKIT_IMAGE_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "${GHCR_TOKEN}" || {
+            echo "GHCR_DEVKIT_IMAGE_TOKEN is required. It must read the private base image and write KswitchDev packages." >&2
+            exit 1
+          }
+          echo "${GHCR_TOKEN}" | docker login ghcr.io -u "${GITHUB_ACTOR}" --password-stdin
+
+      - name: Build and push Developer Edition runtime
+        run: |
+          set -euo pipefail
+          docker buildx build \
+            --push \
+            --build-arg KSWITCH_BASE_IMAGE='${{ inputs.private_base_image }}' \
+            --build-arg KSWITCH_VERSION='${{ inputs.kswitch_tag }}' \
+            --build-arg GIT_SHA='${{ github.sha }}' \
+            --tag "${PUBLIC_IMAGE_NAMESPACE}/kswitch-developer:${{ inputs.kswitch_tag }}" \
+            --file devkit/images/kswitch-developer/Dockerfile \
+            .
+
+      - name: Build and push SPIRE agent wrapper
+        run: |
+          set -euo pipefail
+          docker buildx build \
+            --push \
+            --build-arg SPIRE_VERSION='${{ inputs.spire_version }}' \
+            --tag "${PUBLIC_IMAGE_NAMESPACE}/kswitch-spire-agent-wrapper:${{ inputs.spire_wrapper_tag }}" \
+            --file devkit/images/spire-agent-wrapper/Dockerfile \
+            .
+
+      - name: Mark GHCR packages public
+        env:
+          GH_TOKEN: ${{ secrets.GHCR_DEVKIT_IMAGE_TOKEN }}
+        run: |
+          set -euo pipefail
+          gh api -X PATCH /orgs/KswitchDev/packages/container/kswitch-developer/visibility -f visibility=public
+          gh api -X PATCH /orgs/KswitchDev/packages/container/kswitch-spire-agent-wrapper/visibility -f visibility=public
+
+      - name: Verify anonymous public manifests
+        run: |
+          set -euo pipefail
+          docker logout ghcr.io || true
+          docker manifest inspect "${PUBLIC_IMAGE_NAMESPACE}/kswitch-developer:${{ inputs.kswitch_tag }}" >/dev/null
+          docker manifest inspect "${PUBLIC_IMAGE_NAMESPACE}/kswitch-spire-agent-wrapper:${{ inputs.spire_wrapper_tag }}" >/dev/null

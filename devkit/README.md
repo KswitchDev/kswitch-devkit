@@ -60,10 +60,10 @@ real upstream MCP service when testing network-path enforcement.
 The public developer path does not use the pilot renewal flow and does not ship
 a customer licence file.
 
-Developer Edition uses a local entitlement overlay:
+Developer Edition uses a baked local entitlement in the public devkit image:
 
 - No licence file required for Developer Edition.
-- The server sees `edition=developer` when the devkit profile is selected.
+- The server sees `edition=developer` from the Developer Edition image.
 - Hard caps are enforced locally by the existing server-side cap decorators.
 - Enterprise-only features remain unavailable.
 

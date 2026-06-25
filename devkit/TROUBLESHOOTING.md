@@ -30,7 +30,19 @@ Then set `KEYCLOAK_ADMIN_PASSWORD` to a strong non-placeholder value.
 KEYCLOAK_ADMIN_PASSWORD=<strong-local-password>
 ```
 
-## 4. `make boot` — App Health Timeout
+## 4. `make pull` — GHCR Image Denied
+
+Developer Edition expects its runtime images to be publicly pullable. If Docker
+reports `denied` for `ghcr.io/kswitchdev/kswitch-developer` or
+`ghcr.io/kswitchdev/kswitch-spire-agent-wrapper`, the referenced image has not
+been published for public Developer Edition use yet.
+
+Do not work around this with personal registry credentials for a public devkit
+release. Publish the intended Developer Edition images, update
+`docker-compose.yml` if the image namespace changes, and rerun `make up` from a
+clean clone.
+
+## 5. `make boot` — App Health Timeout
 
 Cold starts can exceed five minutes on slow networks or first image pulls.
 Retry once:
@@ -48,7 +60,7 @@ docker compose -f docker-compose.yml --profile identity --profile gateway logs -
 Common causes are Postgres readiness, Keycloak realm import delay, or a stale
 Docker volume from a previous run.
 
-## 5. Browser Shows A Local TLS Warning
+## 6. Browser Shows A Local TLS Warning
 
 Expected. `make tls` generates a self-signed localhost certificate and does not
 install a local CA into the OS trust store.
@@ -61,7 +73,7 @@ own local cert/key at:
 ./tls/key.pem
 ```
 
-## 6. `make doctor` — Bundled Password Warning
+## 7. `make doctor` — Bundled Password Warning
 
 The initial admin password is close to its 24-hour expiry. Sign in as the admin
 user shown by `make next`; Keycloak forces a password change and the bundled
@@ -73,13 +85,13 @@ If the bundled password expired before first login:
 make seed-reset KSWITCH_CONFIRM_SEED_RESET=yes
 ```
 
-## 7. `make seed` — Admin User Already Exists
+## 8. `make seed` — Admin User Already Exists
 
 That is idempotent behaviour. The seed step does not rotate an existing admin
 password. Use `make seed-reset KSWITCH_CONFIRM_SEED_RESET=yes` only when you
 intentionally want to destroy and recreate the local admin user.
 
-## 8. `make smoke` Fails
+## 9. `make smoke` Fails
 
 Run `make doctor` again. If services are healthy but smoke still fails, inspect
 the probe list:
@@ -90,7 +102,7 @@ the probe list:
 
 Then compare against the running docs at `https://localhost:5001/docs/`.
 
-## 9. Capacity Cap Reached
+## 10. Capacity Cap Reached
 
 Developer Edition is hard-capped locally:
 
@@ -104,7 +116,7 @@ skills: 100
 When a cap is reached, new registrations for that resource are refused. Remove
 unused local records or move to the commercial platform for larger environments.
 
-## 10. Gathering Debug Output
+## 11. Gathering Debug Output
 
 Do not include `./state/initial-admin.txt`; it contains a credential.
 

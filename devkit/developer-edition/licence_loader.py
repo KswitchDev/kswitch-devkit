@@ -57,7 +57,7 @@ class DeveloperEntitlement:
                 "edition": "developer",
                 "limits": dict(DEVELOPER_LIMITS),
                 "features": ["developer-edition", "local-only", "workload-identity"],
-                "support": {"renewal_contact": "community@kswitch.ai"},
+                "support": {"community_contact": "community@kswitch.ai"},
                 "fingerprint": {"algorithm": "none", "value": "developer-edition"},
             },
         )

@@ -10,16 +10,19 @@ platform for production.
 
 Suggested wording:
 
-> KSwitch Developer Edition is free forever for local development, demos,
-> evaluation, and non-production agent governance.
+> KSwitch Developer Edition is source-available for permitted non-commercial
+> local development, demos, SDK integration, education, and non-commercial
+> evaluation.
 
 Avoid calling it production-ready. Avoid calling local proxy routing hard desktop
 containment. Avoid promising support, uptime, managed deployment, cloud
-templates, or regulated-workload enforcement in the free repo.
+templates, or regulated-workload enforcement in the free repo. Avoid calling it
+open source; the Developer Edition runtime/devkit is source-available under
+non-commercial terms.
 
 ## What Is Free
 
-- Language SDKs.
+- Language SDKs under Apache-2.0.
 - Local control-plane container image.
 - Local Keycloak realm for PKCE.
 - Local SPIRE for workload identity.
@@ -30,9 +33,13 @@ templates, or regulated-workload enforcement in the free repo.
 - Audit and kill-switch walkthroughs.
 - Local smoke and doctor checks.
 
+SDK-only package use is separate from Developer Edition runtime use.
+
 ## What Stays Commercial
 
 - Production deployment rights.
+- Commercial use, including internal business operations and customer-facing
+  usage.
 - Enterprise support and SLA.
 - Cloud/Kubernetes deployment packages.
 - HA, backup/restore, multi-region, and fleet operations.

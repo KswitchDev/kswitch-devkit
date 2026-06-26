@@ -68,7 +68,7 @@ SCRIPT_ENV := \
   COMPOSE_FILE_FLAG="$(COMPOSE_FILE)" \
   COMPOSE_PROFILES_FLAG="$(COMPOSE_PROFILES)"
 
-.PHONY: help up up-with-observability mcp-install mcp-configs pull tls boot seed seed-reset smoke smoke-test next doctor down logs backup developer-limits clean-state preflight
+.PHONY: help up up-with-observability mcp-install mcp-configs pull tls boot seed seed-reset smoke smoke-test next doctor down logs backup developer-limits licence-terms clean-state preflight
 
 help: ## Show this help (the default target)
 	@echo "KSwitch Developer Edition"
@@ -79,6 +79,7 @@ help: ## Show this help (the default target)
 	@echo "  2. make up"
 	@echo ""
 	@echo "Hard local caps: 10 agents, 10 MCP servers, 100 tools, 100 skills"
+	@echo "Licence: source-available, non-commercial; run 'make licence-terms'"
 	@echo ""
 	@echo "Targets:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -108,6 +109,12 @@ preflight: ## Verify the host has docker compose, openssl, curl, jq
 	@command -v curl >/dev/null 2>&1     || { echo "FATAL: curl not on PATH (needed for make smoke / make doctor)"; exit 1; }
 	@command -v jq >/dev/null 2>&1       || { echo "FATAL: jq not on PATH (needed for scripts/seed.sh)"; exit 1; }
 	@test -f $(BUNDLE_ROOT)/.env || { echo "FATAL: $(BUNDLE_ROOT)/.env not found. cp .env.example .env"; exit 1; }
+	@grep -qE '^KSWITCH_ACCEPT_DEVELOPER_EDITION_LICENSE=1$$' $(BUNDLE_ROOT)/.env || \
+	  { echo "FATAL: Developer Edition Licence not accepted."; \
+	    echo "       Read ../LICENSE.md, ../LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md, and ../COMMERCIAL-USE.md."; \
+	    echo "       Then set KSWITCH_ACCEPT_DEVELOPER_EDITION_LICENSE=1 in $(BUNDLE_ROOT)/.env."; \
+	    exit 1; \
+	  }
 	@grep -qE '^KSWITCH_CUSTOMER_ID=[a-z0-9-]+$$' $(BUNDLE_ROOT)/.env || \
 	  { echo "FATAL: KSWITCH_CUSTOMER_ID missing or invalid in .env (lowercase letters / digits / hyphens)"; exit 1; }
 	@grep -qE '^KEYCLOAK_ADMIN_PASSWORD=' $(BUNDLE_ROOT)/.env || \
@@ -208,6 +215,17 @@ developer-limits: ## Print Developer Edition hard local caps
 	@echo "  mcps:   10"
 	@echo "  tools:  100"
 	@echo "  skills: 100"
+
+licence-terms: ## Print Developer Edition licence summary and file paths
+	@echo "KSwitch Developer Edition licence"
+	@echo "  source-available: yes"
+	@echo "  open source:      no"
+	@echo "  Commercial use:   prohibited without a separate written KSwitch agreement"
+	@echo "  permitted use:    non-commercial local development, testing, education, demos, SDK integration, and non-commercial evaluation"
+	@echo "  terms:"
+	@echo "    ../LICENSE.md"
+	@echo "    ../LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md"
+	@echo "    ../COMMERCIAL-USE.md"
 
 # ─── Internal helper used by integration tests (NOT public UX) ───────
 clean-state: ## (test-only) Remove ./state/initial-admin.txt without going through Keycloak

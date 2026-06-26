@@ -27,9 +27,12 @@ With this repo you can:
 - Try SPIFFE/WIMSE workload identity locally with optional SPIRE services.
 - Learn the production auth posture before wiring an enterprise deployment.
 
-The Developer Edition path is free for permitted local, non-commercial
-development, education, demos, SDK integration, and bounded non-production
-evaluation. It has no scheduled expiry for the applicable release version.
+The Developer Edition path is source-available for permitted local,
+non-commercial development, education, demos, SDK integration, and bounded
+non-commercial evaluation. It has no scheduled expiry for the applicable release
+version, but it is not open source and it is not licensed for commercial,
+production, customer-facing, internal business, managed-service, hosted, resale,
+or revenue-generating use.
 
 ## Quick Start
 
@@ -47,6 +50,8 @@ Start the local Developer Edition stack:
 cd devkit
 cp .env.example .env
 # Set KEYCLOAK_ADMIN_PASSWORD in .env to a strong local password.
+# Read the Developer Edition Licence and set:
+# KSWITCH_ACCEPT_DEVELOPER_EDITION_LICENSE=1
 make up
 ```
 
@@ -120,7 +125,8 @@ Read more in [docs/auth-model.md](docs/auth-model.md) and
 ## Free Developer Edition Boundary
 
 Developer Edition is meant for real local testing while keeping the free path
-bounded. Official unmodified artefacts enforce these local caps:
+bounded. It is source-available, non-commercial, local-only software. Official
+unmodified artefacts enforce these local caps:
 
 | Resource | Cap |
 | --- | ---: |
@@ -141,14 +147,16 @@ What is included:
 What is not included:
 
 - Production deployment rights.
-- Customer-facing, managed-service, revenue-generating, or internal
-  business-operation use.
+- Commercial, customer-facing, managed-service, hosted, resale,
+  revenue-generating, or internal business-operation use.
 - Commercial support, SLA, cloud deployment packages, HA, SIEM, fleet
   operations, desktop hard-containment, or enterprise enforcement add-ons.
 - Rights to bypass, disable, or remove Developer Edition caps.
 
-Commercial use requires a separate written agreement with KSwitch. See
-[LICENSE.md](LICENSE.md) and [COMMERCIAL-USE.md](COMMERCIAL-USE.md).
+Commercial use requires a separate written agreement with KSwitch. Developer
+Edition is not open source. See [LICENSE.md](LICENSE.md),
+[LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md](LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md),
+and [COMMERCIAL-USE.md](COMMERCIAL-USE.md).
 
 ## Repository Map
 
@@ -190,7 +198,7 @@ go test ./...
 Release gate:
 
 ```sh
-make validate-ep227-release
+python3 scripts/validate_legal_boundary.py
 ```
 
 ## Community And Security

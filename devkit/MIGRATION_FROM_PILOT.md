@@ -47,10 +47,10 @@ Source:
 | `deploy/azure/` | Same. |
 | `deploy/gcp/` | Same. |
 | `deploy/kubernetes/` | Same unless later published as paid/eval material. |
-| `RENEWAL.md` | Time-boxed trial posture conflicts with free forever. |
+| `RENEWAL.md` | Time-boxed trial posture conflicts with non-expiring permitted non-commercial use. |
 | Customer-specific `licence/licence.jws` | Do not ship customer artefacts or expiring trial claims. |
 | `scripts/licence_info.py` | No licence file exists in Developer Edition. Use `make developer-limits`. |
-| Support-contact language | Free Developer Edition should route to docs/community channels, not customer support promises. |
+| Support-contact language | Developer Edition should route to docs/community channels, not customer support promises. |
 
 ## Preserve As Commercial Boundary
 

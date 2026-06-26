@@ -1,7 +1,12 @@
 # KSwitch Developer Edition
 
-KSwitch Developer Edition is the free forever local stack for developers who
-want to build against the SDKs without needing a commercial KSwitch deployment.
+KSwitch Developer Edition is the source-available, non-commercial local stack
+for developers who want to build against the SDKs without needing a commercial
+KSwitch deployment.
+
+It is not open source. Commercial, production, customer-facing, internal
+business, managed-service, hosted, resale, or revenue-generating use requires a
+separate written KSwitch agreement.
 
 It should be meaningful enough to prove the product:
 
@@ -30,6 +35,7 @@ It should not dilute the enterprise product:
 ```sh
 cd devkit
 cp .env.example .env
+# Set KEYCLOAK_ADMIN_PASSWORD and KSWITCH_ACCEPT_DEVELOPER_EDITION_LICENSE=1.
 make up
 ```
 
@@ -63,6 +69,7 @@ a customer licence file.
 Developer Edition uses a local entitlement overlay:
 
 - No licence file required for Developer Edition.
+- The Developer Edition Licence must be accepted explicitly before `make up`.
 - The server sees `edition=developer` when the devkit profile is selected.
 - Hard caps are enforced locally by the existing server-side cap decorators.
 - Enterprise-only features remain unavailable.
@@ -75,6 +82,12 @@ Hard local caps:
 | MCP servers | 10 |
 | Tools | 100 |
 | Skills | 100 |
+
+See:
+
+- [`../LICENSE.md`](../LICENSE.md)
+- [`../LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md`](../LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md)
+- [`../COMMERCIAL-USE.md`](../COMMERCIAL-USE.md)
 
 ## Authentication Contract
 

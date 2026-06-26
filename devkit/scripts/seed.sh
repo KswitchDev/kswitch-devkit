@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-# KSwitch Developer Edition — seed script
+# KSwitch DevKit — seed script
 # ─────────────────────────────────────────────────────────────────────────────
 #
-# Developer Edition — first-run seed (Keycloak realm + admin user).
+# DevKit — first-run seed (Keycloak realm + admin user).
 # Implements the locked password lifecycle: random 32-char generation,
 # Keycloak UPDATE_PASSWORD required action, valid_until +24h time-bomb.
 #

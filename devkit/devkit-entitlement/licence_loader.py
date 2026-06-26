@@ -1,10 +1,10 @@
-"""Developer Edition entitlement overlay.
+"""DevKit entitlement overlay.
 
 This module is bind-mounted over ``app/licence/loader.py`` by the free local
 devkit compose file. It deliberately does not read a customer licence JWS.
 
 The production image still contains the normal fail-closed licence verifier.
-Only the Developer Edition compose path shadows the loader and returns a fixed,
+Only the DevKit compose path shadows the loader and returns a fixed,
 non-expiring local entitlement so the existing server-side capacity decorators
 continue to enforce hard caps.
 """
@@ -23,7 +23,7 @@ from app.licence.verifier import (
 )
 
 
-DEVELOPER_LIMITS: dict[str, int] = {
+DEVKIT_LIMITS: dict[str, int] = {
     "agents": 10,
     "mcps": 10,
     "tools": 100,
@@ -32,14 +32,14 @@ DEVELOPER_LIMITS: dict[str, int] = {
 
 
 @dataclass(frozen=True)
-class DeveloperEntitlement:
+class DevKitEntitlement:
     """Small compatibility object matching the licence consumers' needs."""
 
     claims: dict[str, Any] = field(default_factory=dict)
-    kid: str = "kswitch-developer-edition-local"
+    kid: str = "kswitch-devkit-local"
     fingerprint_match: bool = True
     clock_rollback_detected: bool = False
-    raw_token: str = field(default="developer-edition-no-jws", repr=False)
+    raw_token: str = field(default="devkit-no-jws", repr=False)
 
     def __post_init__(self) -> None:
         if self.claims:
@@ -50,15 +50,15 @@ class DeveloperEntitlement:
             "claims",
             {
                 "iss": "kswitch.ai",
-                "sub": "developer-local",
+                "sub": "devkit-local",
                 "iat": now,
                 "nbf": now,
                 "exp": 4_102_444_800,  # 2100-01-01T00:00:00Z
                 "edition": "developer",
-                "limits": dict(DEVELOPER_LIMITS),
-                "features": ["developer-edition", "local-only", "workload-identity"],
-                "support": {"renewal_contact": "community@kswitch.ai"},
-                "fingerprint": {"algorithm": "none", "value": "developer-edition"},
+                "limits": dict(DEVKIT_LIMITS),
+                "features": ["devkit", "local-only", "workload-identity"],
+                "support": {"poc_contact": "https://kswitch.io/"},
+                "fingerprint": {"algorithm": "none", "value": "devkit"},
             },
         )
 
@@ -112,10 +112,10 @@ class DeveloperEntitlement:
         return self.exp - self.effective_now
 
 
-_ENTITLEMENT = DeveloperEntitlement()
+_ENTITLEMENT = DevKitEntitlement()
 
 
-def current_licence() -> DeveloperEntitlement:
+def current_licence() -> DevKitEntitlement:
     return _ENTITLEMENT
 
 
@@ -128,8 +128,8 @@ def reload_now(reset_path: bool = False) -> None:
 
 
 __all__ = [
-    "DEVELOPER_LIMITS",
-    "DeveloperEntitlement",
+    "DEVKIT_LIMITS",
+    "DevKitEntitlement",
     "LicenceError",
     "LicenceState",
     "VerifiedLicence",

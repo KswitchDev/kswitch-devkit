@@ -1,0 +1,16 @@
+# Apache License 2.0
+
+The SDK client surfaces listed in `LICENSE.md` are licensed under the Apache
+License, Version 2.0.
+
+Canonical text:
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Local package copies:
+
+- `python/LICENSE`
+- `typescript/LICENSE`
+- `go/LICENSE`
+- `mcp-server/LICENSE`
+

@@ -1,6 +1,6 @@
 # Free Forever Developer Positioning
 
-KSwitch Developer Edition should be generous enough that developers can build,
+KSwitch DevKit should be generous enough that developers can build,
 test, and demo real governed agent flows without speaking to sales.
 
 It should also be bounded enough that enterprise buyers still need the commercial
@@ -10,16 +10,19 @@ platform for production.
 
 Suggested wording:
 
-> KSwitch Developer Edition is free forever for local development, demos,
-> evaluation, and non-production agent governance.
+> KSwitch DevKit is source-available for permitted non-commercial
+> local development, demos, SDK integration, education, and non-commercial
+> evaluation.
 
 Avoid calling it production-ready. Avoid calling local proxy routing hard desktop
 containment. Avoid promising support, uptime, managed deployment, cloud
-templates, or regulated-workload enforcement in the free repo.
+templates, or regulated-workload enforcement in the free repo. Avoid calling it
+open source; the DevKit runtime/devkit is source-available under
+non-commercial terms.
 
 ## What Is Free
 
-- Language SDKs.
+- Language SDKs under Apache-2.0.
 - Local control-plane container image.
 - Local Keycloak realm for PKCE.
 - Local SPIRE for workload identity.
@@ -30,9 +33,13 @@ templates, or regulated-workload enforcement in the free repo.
 - Audit and kill-switch walkthroughs.
 - Local smoke and doctor checks.
 
-## What Stays Commercial
+SDK-only package use is separate from DevKit runtime use.
 
-- Production deployment rights.
+## What Moves To A POC Engagement
+
+- Commercial evaluation, production deployment rights, and any company,
+  customer, internal business, managed-service, hosted, resale, or
+  revenue-generating usage.
 - Enterprise support and SLA.
 - Cloud/Kubernetes deployment packages.
 - HA, backup/restore, multi-region, and fleet operations.
@@ -48,7 +55,7 @@ templates, or regulated-workload enforcement in the free repo.
 
 Use hard caps rather than expiry:
 
-| Resource | Free Developer Edition |
+| Resource | Free DevKit |
 | --- | ---: |
 | Tenants | 1 local tenant |
 | Agents | 10 |
@@ -57,5 +64,6 @@ Use hard caps rather than expiry:
 | Skills | 100 |
 | Deployment target | Local/laptop only |
 
-That gives developers enough room to feel the product, while preventing the free
-edition from becoming an undeclared production tier.
+That gives developers enough room to feel the product, while preventing DevKit
+from becoming an undeclared production tier. The next step after DevKit should
+be a scoped KSwitch POC engagement.

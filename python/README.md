@@ -171,4 +171,4 @@ ruff check kswitch/
 
 ## License
 
-MIT
+Apache-2.0

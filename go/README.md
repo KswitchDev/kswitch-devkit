@@ -58,8 +58,8 @@ client := kswitch.NewClient(
 For service-to-service calls, use workload identity first: SPIFFE JWT-SVID,
 WIMSE assertion, cloud workload identity, or another workload-bound token source
 configured by your organisation. The SDK sends that assertion as a bearer token;
-key custody and rotation stay with the identity provider. Use the Developer
-Edition stack to exercise this locally.
+key custody and rotation stay with the identity provider. Use the DevKit stack
+to exercise this locally.
 
 ### Client Credentials (compatibility fallback)
 

@@ -1,6 +1,6 @@
-# Tempo configuration — Developer Edition observability lite.
+# Tempo configuration — DevKit observability lite.
 # OTLP receiver on :4317 (gRPC). Single-tenant, local-disk storage.
-# Retention: 24h (Developer Edition defaults). Developers can raise retention by
+# Retention: 24h (DevKit defaults). Developers can raise retention by
 # editing `storage.trace.wal.path` retention parameters.
 
 stream_over_http_enabled: true

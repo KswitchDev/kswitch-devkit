@@ -1,7 +1,7 @@
 # Troubleshooting
 
 Run `make doctor` first. It reports PASS/WARN/FAIL per check with a remediation
-hint and prints the Developer Edition caps:
+hint and prints the DevKit caps:
 
 ```text
 agents=10 mcps=10 tools=100 skills=100
@@ -92,7 +92,7 @@ Then compare against the running docs at `https://localhost:5001/docs/`.
 
 ## 9. Capacity Cap Reached
 
-Developer Edition is hard-capped locally:
+DevKit is hard-capped locally:
 
 ```text
 agents: 10
@@ -113,5 +113,5 @@ Useful local debug bundle:
 ```bash
 docker compose -f docker-compose.yml --profile identity --profile gateway logs --tail=500 > kswitch-devkit-logs.txt
 make doctor > kswitch-devkit-doctor.txt 2>&1
-make developer-limits > kswitch-devkit-limits.txt
+make devkit-limits > kswitch-devkit-limits.txt
 ```

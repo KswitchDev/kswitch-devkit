@@ -1,4 +1,4 @@
-# KSwitch Developer Edition — local docker-compose
+# KSwitch DevKit — local docker-compose
 # ─────────────────────────────────────────────────────────────────────────
 # This compose defines the runnable free local stack. It proves KSwitch
 # governance over a developer's local
@@ -11,7 +11,7 @@
 #   - No n8n (workflow automation is commercial-platform scope).
 #   - No fleet specialist agents / Redpanda / Elasticsearch / Wazuh /
 #     Kibana / Tetragon (Tier D parity — deferred, see README "What the
-#     Developer Edition does NOT demonstrate").
+#     DevKit does NOT demonstrate").
 #   - Vault dev-mode replaced by file-backed Vault.
 #   - Log rotation on every service (max-size 50m, max-file 5).
 #   - Memory caps on every container.
@@ -24,12 +24,12 @@
 #     (§G EP094 fix per parent docker-compose.yml:699-700).
 #   - MCP gateway stack ported from gateway/docker/docker-compose.yml
 #     and unified onto kswitch-net (the parent uses a separate
-#     gateway-net; Developer Edition is a single-network simplification).
+#     gateway-net; DevKit is a single-network simplification).
 #   - Observability lite (otel-collector, prometheus, grafana, tempo)
 #     ported from parent docker-compose.yml:1639-1733 — opt-in via the
 #     `observability` profile (`make up-with-observability`).
 #
-# Developer Edition scope. Compose declares 26 named services across
+# DevKit scope. Compose declares 26 named services across
 # four profiles; `make up` brings up 21 of them by default. Developers
 # add observability with `make up-with-observability` (+4) and mTLS
 # downstream auth on the gateway with `--profile gateway-mtls` (+1).
@@ -82,12 +82,12 @@ x-worker-env: &worker-env
   ENABLE_BACKGROUND_WORKERS: "false"
   REDIS_URL: redis://valkey:6379/0
   OPA_URL: http://opa:8181
-  # Cloud connectors default to OFF in Developer Edition — opt in via .env per
+  # Cloud connectors default to OFF in DevKit — opt in via .env per
   # parent docker-compose.yml:418 (INGEST_AWS_IAM_ENABLED) etc.
   VAULT_ENABLED: ${VAULT_ENABLED:-false}
   VAULT_FALLBACK_ALLOWED: ${VAULT_FALLBACK_ALLOWED:-true}
 
-# Shared block for the five EP094 JWT materializers. Developer Edition
+# Shared block for the five EP094 JWT materializers. DevKit
 # uses the local-id-scoped SPIFFE namespace per the existing
 # materializer-app pattern (see kswitch-ep094-jwt-materializer below);
 # the parent compose uses the unscoped `local` namespace.
@@ -219,11 +219,11 @@ services:
     ports:
       - "127.0.0.1:5001:5001"
     volumes:
-      # Developer Edition entitlement overlay. This shadows the licence
+      # DevKit entitlement overlay. This shadows the licence
       # loader only for the local free stack and returns a non-expiring
-      # developer entitlement with hard caps:
+      # local DevKit entitlement with hard caps:
       # agents=10, mcps=10, tools=100, skills=100.
-      - ./developer-edition/licence_loader.py:/app/app/licence/loader.py:ro
+      - ./devkit-entitlement/licence_loader.py:/app/app/licence/loader.py:ro
       # State — bundle-script audit markers (seed.sh / seed-reset.sh
       # write JSON marker files here; the app's audit-marker drain
       # consumes them on a 60s poll — see app/licence/audit_markers.py).
@@ -514,7 +514,7 @@ services:
   # Five materializers, each issuing a SPIFFE JWT-SVID for its paired
   # consumer service. Ports parent docker-compose.yml:682-1045
   # (ep094-jwt-materializer-{app-init,app,runtime-ops,inventory-ingest,
-  # scanner-sync-egress}). Developer Edition deliberately keeps the per-service
+  # scanner-sync-egress}). DevKit deliberately keeps the per-service
   # materializer pattern (rather than the single-instance simplification
   # Wave 2 used) so developers see the same identity-isolation model
   # they'd run in production.

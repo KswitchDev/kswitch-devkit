@@ -20,16 +20,19 @@ us see which SDKs, examples, and integrations to invest in next.
 With this repo you can:
 
 - Add KSwitch governance calls to Python, TypeScript, or Go applications.
-- Run a local Developer Edition control plane for SDK integration.
+- Run a local DevKit control plane for SDK integration.
 - Exercise policy decisions, audit events, and kill-switch flows end to end.
 - Connect Claude Code, Cursor, Windsurf, Cline, OpenCode, or OpenClaw through
   `kswitch-mcp` or wrap existing upstream MCP servers with `kswitch-proxy`.
 - Try SPIFFE/WIMSE workload identity locally with optional SPIRE services.
 - Learn the production auth posture before wiring an enterprise deployment.
 
-The Developer Edition path is free for permitted local, non-commercial
-development, education, demos, SDK integration, and bounded non-production
-evaluation. It has no scheduled expiry for the applicable release version.
+The DevKit path is source-available for permitted local,
+non-commercial development, education, demos, SDK integration, and bounded
+non-commercial evaluation. It has no scheduled expiry for the applicable release
+version, but it is not open source and it is not licensed for commercial,
+production, customer-facing, internal business, managed-service, hosted, resale,
+or revenue-generating use.
 
 ## Quick Start
 
@@ -41,12 +44,14 @@ Prerequisites:
 - `curl`
 - `jq`
 
-Start the local Developer Edition stack:
+Start the local DevKit stack:
 
 ```sh
 cd devkit
 cp .env.example .env
 # Set KEYCLOAK_ADMIN_PASSWORD in .env to a strong local password.
+# Read the DevKit Licence and set:
+# KSWITCH_ACCEPT_DEVKIT_LICENSE=1
 make up
 ```
 
@@ -56,11 +61,8 @@ Then open:
 - Local docs: `https://localhost:5001/docs/`
 - Health and hints: `make doctor`
 
-For workload-identity examples, use the SPIRE profile:
-
-```sh
-make up-with-identity
-```
+Workload identity is enabled by default: `make up` starts the local SPIRE
+server, agent, and JWT materializers used by the examples.
 
 Install the MCP commands for local MCP-compatible tools:
 
@@ -102,7 +104,7 @@ KSwitch leads with workload identity for service-to-service calls.
 
 Preferred order:
 
-1. Local human development: OAuth2 PKCE using the bundled Developer Edition CLI.
+1. Local human development: OAuth2 PKCE using the bundled DevKit CLI.
 2. Service workloads: SPIFFE JWT-SVID or WIMSE assertions from SPIRE.
 3. Transport identity: mTLS where client certificates are the deployment
    identity.
@@ -117,10 +119,11 @@ environments that cannot issue workload-bound tokens yet.
 Read more in [docs/auth-model.md](docs/auth-model.md) and
 [docs/governed-invocation.md](docs/governed-invocation.md).
 
-## Free Developer Edition Boundary
+## Free DevKit Boundary
 
-Developer Edition is meant for real local testing while keeping the free path
-bounded. Official unmodified artefacts enforce these local caps:
+DevKit is meant for real local testing while keeping the free path
+bounded. It is source-available, non-commercial, local-only software. Official
+unmodified artefacts enforce these local caps:
 
 | Resource | Cap |
 | --- | ---: |
@@ -141,14 +144,18 @@ What is included:
 What is not included:
 
 - Production deployment rights.
-- Customer-facing, managed-service, revenue-generating, or internal
-  business-operation use.
+- Commercial, customer-facing, managed-service, hosted, resale,
+  revenue-generating, or internal business-operation use.
 - Commercial support, SLA, cloud deployment packages, HA, SIEM, fleet
   operations, desktop hard-containment, or enterprise enforcement add-ons.
-- Rights to bypass, disable, or remove Developer Edition caps.
+- Rights to bypass, disable, or remove DevKit caps.
 
-Commercial use requires a separate written agreement with KSwitch. See
-[LICENSE.md](LICENSE.md) and [COMMERCIAL-USE.md](COMMERCIAL-USE.md).
+DevKit is not open source. Commercial evaluation and commercial, production,
+customer-facing, internal business, managed-service, hosted, resale, or
+revenue-generating use are outside DevKit and require a scoped KSwitch POC
+engagement or separate written agreement before use. See [LICENSE.md](LICENSE.md),
+[LICENSES/KSWITCH-DEVKIT-LICENSE.md](LICENSES/KSWITCH-DEVKIT-LICENSE.md), and
+[COMMERCIAL-USE.md](COMMERCIAL-USE.md).
 
 ## Repository Map
 
@@ -157,9 +164,9 @@ Commercial use requires a separate written agreement with KSwitch. See
 | `python/` | Python SDK, tests, examples, framework adapters |
 | `typescript/` | TypeScript SDK, tests, package metadata |
 | `go/` | Go SDK, tests, examples |
-| `devkit/` | Local Developer Edition runtime and lifecycle scripts |
+| `devkit/` | Local DevKit runtime and lifecycle scripts |
 | `mcp-server/` | KSwitch MCP server, governing proxy, service MCP, and client configs |
-| `docs/` | Auth and Developer Edition positioning notes |
+| `docs/` | Auth and DevKit positioning notes |
 | `reports/ep227/` | Release-gate evidence for the public devkit boundary |
 
 ## Local Checks
@@ -190,7 +197,7 @@ go test ./...
 Release gate:
 
 ```sh
-make validate-ep227-release
+python3 scripts/validate_legal_boundary.py
 ```
 
 ## Community And Security

@@ -1,4 +1,4 @@
-# Prometheus configuration — Developer Edition observability lite.
+# Prometheus configuration — DevKit observability lite.
 # Scrapes:
 #   - The KSwitch app directly at /api/v1/metrics. Metrics emitted by
 #     the live app include the kswitch_pdp_decision_duration_seconds
@@ -9,7 +9,7 @@
 #   - The OTEL collector's exposition endpoint on :8889 (for telemetry
 #     received over OTLP and re-exported as Prometheus).
 #
-# The app endpoint is auth-gated; Developer Edition uses
+# The app endpoint is auth-gated; DevKit uses
 # `PROMETHEUS_SCRAPE_TOKEN` as a Bearer credential. Set the token in
 # .env and Prometheus picks it up via the file referenced below.
 
@@ -17,7 +17,7 @@ global:
   scrape_interval: 15s
   evaluation_interval: 15s
   external_labels:
-    deployment: kswitch-developer
+    deployment: kswitch-devkit
 
 scrape_configs:
   - job_name: kswitch-app

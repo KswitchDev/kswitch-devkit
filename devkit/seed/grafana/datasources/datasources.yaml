@@ -1,4 +1,4 @@
-# Grafana datasource provisioning — Developer Edition observability lite.
+# Grafana datasource provisioning — DevKit observability lite.
 # Auto-loaded at Grafana startup; no UI clicks required.
 
 apiVersion: 1
@@ -6,7 +6,7 @@ apiVersion: 1
 datasources:
   - name: Prometheus
     type: prometheus
-    uid: prometheus-developer
+    uid: prometheus-devkit
     access: proxy
     url: http://prometheus:9090
     isDefault: true
@@ -14,10 +14,10 @@ datasources:
 
   - name: Tempo
     type: tempo
-    uid: tempo-developer
+    uid: tempo-devkit
     access: proxy
     url: http://tempo:3200
     editable: false
     jsonData:
       tracesToLogsV2:
-        datasourceUid: prometheus-developer
+        datasourceUid: prometheus-devkit

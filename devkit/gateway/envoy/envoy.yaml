@@ -1,4 +1,4 @@
-# KSwitch Gateway — Envoy configuration (Developer Edition)
+# KSwitch Gateway — Envoy configuration (DevKit)
 # ---------------------------------------------------------
 # Ported from gateway/envoy/envoy.yaml in the source repo
 # (lines 1-175). Two differences for the devkit:

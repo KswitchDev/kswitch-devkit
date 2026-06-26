@@ -1,4 +1,4 @@
-# KSwitch CLI — Developer Edition
+# KSwitch CLI — DevKit
 
 The KSwitch developer-workstation CLI auth helper. Implements
 OAuth 2.1 + PKCE (browser + device-code flow) so a developer can
@@ -6,7 +6,7 @@ acquire a KSwitch session token from a workstation without copying
 secrets out of the Keycloak console.
 
 Source: `kswitch_platform/cli/auth/` in the platform repo. Pinned to the
-Developer Edition image release tag and refreshed alongside the platform images.
+DevKit image release tag and refreshed alongside the platform images.
 
 ## Files
 

@@ -6,7 +6,7 @@
 apiVersion: 1
 
 providers:
-  - name: kswitch-developer
+  - name: kswitch-devkit
     type: file
     disableDeletion: false
     updateIntervalSeconds: 30

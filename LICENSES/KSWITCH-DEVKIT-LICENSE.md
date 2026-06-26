@@ -1,9 +1,9 @@
-# KSwitch Developer Edition Licence
+# KSwitch DevKit Licence
 
 Version: 2026-06-26
 
-This licence applies to the Developer Edition surfaces identified in
-`LICENSE.md`, including `devkit/` and the local Developer Edition runtime
+This licence applies to the DevKit surfaces identified in
+`LICENSE.md`, including `devkit/` and the local DevKit runtime
 materials. It does not apply to SDK-only client packages that are separately
 licensed under Apache-2.0.
 
@@ -14,7 +14,7 @@ licence.
 
 Subject to this licence, KSwitch grants you a limited, revocable,
 non-exclusive, non-transferable, non-sublicensable right to view, copy, modify,
-and run the Developer Edition materials only for:
+and run the DevKit materials only for:
 
 - personal learning;
 - non-commercial local development;
@@ -24,7 +24,7 @@ and run the Developer Edition materials only for:
 - SDK integration work;
 - bounded non-commercial evaluation using synthetic, demo, or throwaway data.
 
-The official unmodified Developer Edition artefacts are capped at:
+The official unmodified DevKit artefacts are capped at:
 
 | Resource | Cap |
 | --- | ---: |
@@ -35,7 +35,7 @@ The official unmodified Developer Edition artefacts are capped at:
 
 ## 2. Prohibited Use
 
-You may not use Developer Edition for commercial purposes. Prohibited use
+You may not use DevKit for commercial purposes. Prohibited use
 includes:
 
 - production deployment;
@@ -44,14 +44,14 @@ includes:
   service customer;
 - customer-facing use;
 - managed-service use;
-- resale, sublicensing, hosting, or offering Developer Edition as a service;
+- resale, sublicensing, hosting, or offering DevKit as a service;
 - revenue-generating use;
 - protecting, monitoring, governing, approving, denying, auditing, reporting on,
   automating, or operating real employees, contractors, customers, services,
   systems, security incidents, policies, approvals, transactions, data, or
   business processes;
 - using customer, regulated, confidential, or production data;
-- disabling, bypassing, removing, or circumventing Developer Edition caps,
+- disabling, bypassing, removing, or circumventing DevKit caps,
   entitlement checks, notices, or assent checks;
 - removing licence notices or attribution;
 - using KSwitch names, marks, logos, product names, screenshots, or trade dress
@@ -65,12 +65,12 @@ includes:
 
 ## 3. Redistribution
 
-You may share unmodified source copies of the Developer Edition materials for
+You may share unmodified source copies of the DevKit materials for
 the permitted non-commercial purposes above if you keep all licence, copyright,
 trademark, commercial-use, and notice files intact.
 
 You may not redistribute container images, object code, hosted services,
-modified Developer Edition distributions, or derivative runtime packages without
+modified DevKit distributions, or derivative runtime packages without
 written KSwitch permission.
 
 ## 4. No Production Or Commercial Rights
@@ -88,7 +88,7 @@ software is governed by `TRADEMARKS.md`.
 
 ## 6. Patents
 
-No patent licence is granted for Developer Edition except to the extent required
+No patent licence is granted for DevKit except to the extent required
 for you to exercise the limited permitted rights in Section 1. Any such patent
 permission terminates if you assert a patent claim against KSwitch, its
 affiliates, customers, users, distributors, or contributors alleging that
@@ -99,19 +99,19 @@ KSwitch software or services infringe a patent.
 Your rights under this licence terminate automatically if you breach the
 licence, including by commercial misuse, cap bypass, customer-data use,
 prohibited hosted-service use, or removal of notices. On termination you must
-stop using Developer Edition and delete Developer Edition runtime copies under
+stop using DevKit and delete DevKit runtime copies under
 your control.
 
 ## 8. No Support Or SLA
 
-Developer Edition is provided without support, maintenance, updates, uptime,
+DevKit is provided without support, maintenance, updates, uptime,
 service levels, incident response, migration help, data recovery, indemnity,
 compliance obligations, certification obligations, or regulated-deployment
 obligations unless KSwitch agrees otherwise in writing.
 
 ## 9. Warranty Disclaimer
 
-Developer Edition is provided "AS IS" and "AS AVAILABLE". To the maximum extent
+DevKit is provided "AS IS" and "AS AVAILABLE". To the maximum extent
 permitted by law, KSwitch disclaims all express, implied, statutory, and other
 warranties, including merchantability, fitness for a particular purpose, title,
 non-infringement, security, uninterrupted operation, accuracy, and error-free
@@ -122,23 +122,24 @@ operation.
 To the maximum extent permitted by law, KSwitch will not be liable for indirect,
 consequential, special, exemplary, punitive, lost-profit, lost-revenue,
 lost-data, business-interruption, security-incident, or similar damages arising
-from Developer Edition. KSwitch's total liability for Developer Edition is
-limited to the greater of 100 USD or the amount you paid KSwitch for Developer
-Edition in the 12 months before the claim.
+from DevKit. KSwitch's total liability for DevKit is
+limited to the greater of 100 USD or the amount you paid KSwitch for DevKit in
+the 12 months before the claim.
 
 ## 11. Export And Sanctions
 
 You must comply with applicable export-control, sanctions, and prohibited-end
-user rules. You may not use Developer Edition where prohibited by law.
+user rules. You may not use DevKit where prohibited by law.
 
 ## 12. Reservation Of Rights
 
 KSwitch reserves all rights not expressly granted. KSwitch may change, stop
-offering, or stop maintaining Developer Edition or any feature/version.
+offering, or stop maintaining DevKit or any feature/version.
 
-## 13. Commercial Upgrade
+## 13. POC And Commercial Engagement
 
-Commercial, production, internal business, customer-facing, managed-service,
-hosted, or revenue-generating use requires a separate written KSwitch agreement.
-Contact `commercial@kswitch.io`.
-
+DevKit itself is not a commercial evaluation licence. Commercial, production,
+internal business, customer-facing, managed-service, hosted, resale, or
+revenue-generating use is outside DevKit and requires a scoped KSwitch POC
+engagement or separate written KSwitch agreement before use. Contact KSwitch
+through `kswitch.io` to scope a POC engagement.

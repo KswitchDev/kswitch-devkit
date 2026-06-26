@@ -12,30 +12,33 @@ file in that path says otherwise:
 - `typescript/`
 - `go/`
 - `mcp-server/`
-- SDK-only examples and documentation that do not require the local Developer
-  Edition runtime
+- SDK-only examples and documentation that do not require the local DevKit
+  runtime
 
 The canonical Apache-2.0 notice is in
 [`LICENSES/Apache-2.0.txt`](LICENSES/Apache-2.0.txt).
 
-## KSwitch Developer Edition Surfaces
+## KSwitch DevKit Surfaces
 
-The following paths are source-available under the KSwitch Developer Edition
+The following paths are source-available under the KSwitch DevKit
 Licence:
 
 - `devkit/`
-- Developer Edition compose files, runtime configuration, seed material,
+- DevKit compose files, runtime configuration, seed material,
   entitlement overlays, local lifecycle scripts, dashboards, policy bundles, and
-  generated Developer Edition release artefacts
-- Developer Edition documentation and examples that require the local runtime
+  generated DevKit release artefacts
+- DevKit documentation and examples that require the local runtime
 
-The KSwitch Developer Edition Licence is in
-[`LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md`](LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md).
+The KSwitch DevKit Licence is in
+[`LICENSES/KSWITCH-DEVKIT-LICENSE.md`](LICENSES/KSWITCH-DEVKIT-LICENSE.md).
 
-Developer Edition is not open source. It is free only for permitted
+DevKit is not open source. It is free only for permitted
 non-commercial local development, testing, education, demos, SDK integration,
-and non-commercial evaluation. Commercial use requires a separate agreement
-with KSwitch. See [`COMMERCIAL-USE.md`](COMMERCIAL-USE.md).
+and non-commercial evaluation. Commercial evaluation and commercial,
+production, customer-facing, internal business, managed-service, hosted,
+resale, or revenue-generating use are outside DevKit and require a scoped
+KSwitch POC engagement or separate written agreement before use. See
+[`COMMERCIAL-USE.md`](COMMERCIAL-USE.md).
 
 ## Trademarks
 

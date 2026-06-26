@@ -1,4 +1,4 @@
-# KSwitch Developer Edition — image digest lock
+# KSwitch DevKit — image digest lock
 # ─────────────────────────────────────────
 # Auto-populated by `make pull`. Records the sha256 digest of every image
 # the customer is currently running, snapshotted from the floating MINOR

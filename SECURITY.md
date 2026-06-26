@@ -11,7 +11,7 @@ details.
 KSwitch accepts security reports for the current public DevKit repository and
 published SDK packages.
 
-Developer Edition is local, non-commercial, non-production software. It does not
+DevKit is local, non-commercial, non-production software. It does not
 include a support SLA, incident-response SLA, uptime commitment, or production
 security assurance unless separately agreed in writing.
 

@@ -27,7 +27,7 @@ artefacts.
 ## Blocked Without Written Approval
 
 - no-licence third-party code;
-- dependencies that require relicensing KSwitch SDKs, Developer Edition, or
+- dependencies that require relicensing KSwitch SDKs, DevKit, or
   runtime materials;
 - dependencies whose terms permit only non-commercial use in Apache-2.0 SDK
   packages;

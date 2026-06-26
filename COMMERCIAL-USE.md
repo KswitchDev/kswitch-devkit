@@ -1,11 +1,11 @@
 # Commercial Use
 
-KSwitch Developer Edition is source-available for permitted non-commercial local
+KSwitch DevKit is source-available for permitted non-commercial local
 use only.
 
 ## Permitted Without A Commercial Agreement
 
-You may use the Developer Edition runtime and `devkit/` materials for:
+You may use the DevKit runtime and `devkit/` materials for:
 
 - personal learning;
 - non-commercial local development;
@@ -16,9 +16,15 @@ You may use the Developer Edition runtime and `devkit/` materials for:
   production workflows;
 - SDK integration work against synthetic, demo, or throwaway data.
 
-## Requires A Separate KSwitch Agreement
+## POC / Commercial Engagement Required
 
-You need a separate written KSwitch agreement for any commercial use, including:
+DevKit itself is not licensed for commercial use. To evaluate KSwitch for a
+company, client, customer, production workflow, internal business process,
+managed service, hosted service, resale, or revenue-generating outcome, start a
+scoped KSwitch POC engagement or enter a separate written KSwitch agreement
+before use.
+
+Commercial use includes:
 
 - production deployment;
 - internal business operations;
@@ -27,18 +33,17 @@ You need a separate written KSwitch agreement for any commercial use, including:
 - customer-facing use;
 - managed-service use;
 - revenue-generating use;
-- resale, sublicensing, hosting, or offering KSwitch Developer Edition as a
+- resale, sublicensing, hosting, or offering KSwitch DevKit as a
   service;
-- using Developer Edition to protect, govern, approve, deny, audit, report on,
+- using DevKit to protect, govern, approve, deny, audit, report on,
   automate, or monitor real employees, contractors, customers, services,
   transactions, incidents, policies, approvals, data, or business processes;
-- disabling, bypassing, or removing Developer Edition caps or assent checks;
+- disabling, bypassing, or removing DevKit caps or assent checks;
 - publishing benchmarks, comparative claims, or marketing claims about KSwitch
   without written permission.
 
-Apache-2.0 SDK-only use is separate from the Developer Edition runtime licence.
-Installing or using an SDK package alone does not grant Developer Edition
-runtime rights and does not require accepting the Developer Edition Licence.
+Apache-2.0 SDK-only use is separate from the DevKit runtime licence.
+Installing or using an SDK package alone does not grant DevKit
+runtime rights and does not require accepting the DevKit Licence.
 
-For commercial licensing, contact `commercial@kswitch.io`.
-
+To start a POC engagement, contact KSwitch through `kswitch.io`.

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-# KSwitch Developer Edition — smoke probe
+# KSwitch DevKit — smoke probe
 # ─────────────────────────────────────────────────────────────────────────────
 #
 # Spec: §F `make smoke` row.
@@ -41,7 +41,7 @@ probe() {
   fi
 }
 
-echo "KSwitch Developer Edition — smoke probe"
+echo "KSwitch DevKit — smoke probe"
 echo "=================================="
 
 # 1. App liveness — public, must return 2xx.
@@ -52,8 +52,8 @@ probe "app /api/v1/health/live"          "$APP_URL/api/v1/health/live"          
 #    targets /api/v1/health/ready directly, which the parent repo's
 #    app/routes/health.py:104 owns.
 probe "app /api/v1/health/ready"         "$APP_URL/api/v1/health/ready"           "2.."
-# 3. Developer portal — public, must render (G15).
-probe "developer portal /docs/"          "$APP_URL/docs/"                         "2.."
+# 3. Docs portal — public, must render (G15).
+probe "docs portal /docs/"               "$APP_URL/docs/"                         "2.."
 # 4. Keycloak realm well-known — public.
 probe "keycloak well-known"              "$KEYCLOAK_URL/realms/kswitch/.well-known/openid-configuration" "2.."
 # 5. App index — public, returns the SPA shell.

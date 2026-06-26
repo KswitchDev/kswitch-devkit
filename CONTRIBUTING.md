@@ -13,7 +13,7 @@ example requests. Do not submit:
 - vulnerability details that should go to `security@kswitch.io`.
 
 If KSwitch enables external contributions later, SDK-client contributions must
-be compatible with Apache-2.0 and Developer Edition/runtime contributions must
+be compatible with Apache-2.0 and DevKit/runtime contributions must
 include an inbound grant that permits KSwitch to use, modify, commercialise,
 sublicense, and relicense the contribution.
 

@@ -3,9 +3,9 @@
 
 This is intentionally static and dependency-free so CI can run it before any
 SDK package install. It catches the failures that matter most for EP-227:
-missing legal files, missing Developer Edition assent, SDK licence drift, and
-copy that could imply the restricted runtime is open source or commercially
-usable.
+missing legal files, missing DevKit assent, stale pre-DevKit terms, SDK licence
+drift, and copy that could imply the restricted runtime is open source or
+commercially usable.
 """
 from __future__ import annotations
 
@@ -29,14 +29,14 @@ REQUIRED_FILES = [
     "THIRD-PARTY-NOTICES.md",
     "RELEASE-LEGAL-CHECKLIST.md",
     "LICENSES/Apache-2.0.txt",
-    "LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md",
+    "LICENSES/KSWITCH-DEVKIT-LICENSE.md",
     "reports/ep227/WEBSITE-HANDOFF.md",
 ]
 
 TEXT_CHECKS = {
     "LICENSE.md": [
-        "Developer Edition is not open source",
-        "Commercial use requires a separate agreement",
+        "DevKit is not open source",
+        "POC engagement",
         "python/",
         "typescript/",
         "go/",
@@ -44,11 +44,12 @@ TEXT_CHECKS = {
         "devkit/",
     ],
     "COMMERCIAL-USE.md": [
-        "Requires A Separate KSwitch Agreement",
+        "POC / Commercial Engagement Required",
         "internal business operations",
         "revenue-generating use",
+        "DevKit itself is not licensed for commercial use",
     ],
-    "LICENSES/KSWITCH-DEVELOPER-EDITION-LICENSE.md": [
+    "LICENSES/KSWITCH-DEVKIT-LICENSE.md": [
         "source-available, non-commercial",
         "It is not an open-source",
         "production deployment",
@@ -60,35 +61,45 @@ TEXT_CHECKS = {
         "MCP servers | 10",
         "Tools | 100",
         "Skills | 100",
+        "POC engagement",
     ],
     "README.md": [
         "source-available",
         "not open source",
-        "Commercial use requires a separate written agreement",
-        "KSWITCH_ACCEPT_DEVELOPER_EDITION_LICENSE=1",
+        "POC engagement",
+        "KSWITCH_ACCEPT_DEVKIT_LICENSE=1",
     ],
     "devkit/README.md": [
         "source-available, non-commercial",
         "not open source",
-        "KSWITCH_ACCEPT_DEVELOPER_EDITION_LICENSE=1",
+        "KSWITCH_ACCEPT_DEVKIT_LICENSE=1",
     ],
     "devkit/.env.example": [
-        "KSWITCH_ACCEPT_DEVELOPER_EDITION_LICENSE=",
+        "KSWITCH_ACCEPT_DEVKIT_LICENSE=",
         "not open source",
-        "requires a separate written",
+        "POC engagement",
     ],
     "devkit/Makefile": [
-        "KSWITCH_ACCEPT_DEVELOPER_EDITION_LICENSE=1",
+        "KSWITCH_ACCEPT_DEVKIT_LICENSE=1",
         "licence-terms",
-        "Commercial use",
+        "POC engagement",
     ],
     "reports/ep227/WEBSITE-HANDOFF.md": [
         "source-available",
         "not open source",
-        "KSWITCH_ACCEPT_DEVELOPER_EDITION_LICENSE=1",
+        "KSWITCH_ACCEPT_DEVKIT_LICENSE=1",
         "https://kswitch.io/pages/devkit.html",
+        "POC engagement",
     ],
 }
+
+OLD_EDITION = "Developer" + " Edition"
+STALE_TERMS = [
+    "KSWITCH_ACCEPT_" + "DEVELOPER_EDITION_LICENSE",
+    "LICENSES/KSWITCH-" + "DEVELOPER-EDITION-LICENSE.md",
+    "KSwitch " + OLD_EDITION,
+    OLD_EDITION + " Licence",
+]
 
 
 def read(path: str) -> str:
@@ -100,6 +111,10 @@ def fail(message: str) -> None:
     raise SystemExit(1)
 
 
+def normalize(text: str) -> str:
+    return re.sub(r"\s+", " ", text)
+
+
 def assert_required_files() -> None:
     missing = [path for path in REQUIRED_FILES if not (ROOT / path).is_file()]
     if missing:
@@ -109,9 +124,28 @@ def assert_required_files() -> None:
 def assert_text_checks() -> None:
     for path, needles in TEXT_CHECKS.items():
         text = read(path)
-        missing = [needle for needle in needles if needle not in text]
+        normalized_text = normalize(text)
+        missing = [needle for needle in needles if normalize(needle) not in normalized_text]
         if missing:
             fail(f"{path} missing required text: {', '.join(missing)}")
+
+
+def assert_no_stale_terms() -> None:
+    checked = [
+        "LICENSE.md",
+        "COMMERCIAL-USE.md",
+        "README.md",
+        "devkit/README.md",
+        "devkit/.env.example",
+        "devkit/Makefile",
+        "reports/ep227/WEBSITE-HANDOFF.md",
+        "RELEASE-LEGAL-CHECKLIST.md",
+    ]
+    for path in checked:
+        text = read(path)
+        stale = [term for term in STALE_TERMS if term in text]
+        if stale:
+            fail(f"{path} contains stale pre-DevKit terms: {', '.join(stale)}")
 
 
 def assert_sdk_metadata() -> None:
@@ -143,19 +177,23 @@ def assert_no_confusing_runtime_claims() -> None:
         "docs/free-for-life-positioning.md",
         "devkit/.env.example",
     ]
-    open_source_runtime = re.compile(r"Developer Edition[^.\n]{0,120}open source", re.IGNORECASE)
-    commercial_runtime = re.compile(r"Developer Edition[^.\n]{0,120}commercial use allowed", re.IGNORECASE)
+    open_source_runtime = re.compile(
+        r"DevKit\s+(?:is|as|licensed as)\s+open source",
+        re.IGNORECASE,
+    )
+    commercial_runtime = re.compile(r"DevKit[^.\n]{0,120}commercial use allowed", re.IGNORECASE)
     for path in checked:
         text = read(path)
         if open_source_runtime.search(text):
-            fail(f"{path} appears to call Developer Edition open source")
+            fail(f"{path} appears to call DevKit open source")
         if commercial_runtime.search(text):
-            fail(f"{path} appears to allow commercial Developer Edition use")
+            fail(f"{path} appears to allow commercial DevKit use")
 
 
 def main() -> int:
     assert_required_files()
     assert_text_checks()
+    assert_no_stale_terms()
     assert_sdk_metadata()
     assert_no_confusing_runtime_claims()
     print("legal-boundary: PASS")

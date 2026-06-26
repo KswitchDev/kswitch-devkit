@@ -10,7 +10,7 @@ yet.
 
 ## Preferred Order
 
-1. **Human/local development:** OAuth2 PKCE using the Developer Edition CLI.
+1. **Human/local development:** OAuth2 PKCE using the DevKit CLI.
 2. **Service-to-service:** workload identity using SPIFFE JWT-SVID or WIMSE.
 3. **Transport identity:** mTLS where deployment policy binds clients by
    certificate identity.
@@ -29,9 +29,9 @@ identity without asking developers to distribute long-lived shared secrets:
 - Revocation and trust-domain policy can be centralized.
 - The SDK sends a bearer JWT-SVID or WIMSE-derived assertion to KSwitch.
 
-## Developer Edition Default
+## DevKit Default
 
-Developer Edition should run SPIRE locally and make this path easy:
+DevKit should run SPIRE locally and make this path easy:
 
 ```text
 agent process

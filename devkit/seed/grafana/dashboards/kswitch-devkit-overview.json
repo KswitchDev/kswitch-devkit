@@ -3,10 +3,10 @@
   "editable": false,
   "graphTooltip": 0,
   "id": null,
-  "uid": "kswitch-developer-overview",
-  "title": "KSwitch Developer Edition — Governance Overview",
-  "description": "Developer Edition dashboard. Metric names verified against the live emitters in the KSwitch app. Developers can extend this dashboard with the full observability bundle in the production-shape tier.",
-  "tags": ["kswitch", "developer"],
+  "uid": "kswitch-devkit-overview",
+  "title": "KSwitch DevKit — Governance Overview",
+  "description": "DevKit dashboard. Metric names verified against the live emitters in the KSwitch app. Developers can extend this dashboard with the full observability bundle in the production-shape tier.",
+  "tags": ["kswitch", "devkit"],
   "timezone": "browser",
   "schemaVersion": 39,
   "version": 1,
@@ -18,7 +18,7 @@
       "title": "Enforcement decisions (last 5m)",
       "id": 1,
       "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4},
-      "datasource": {"type": "prometheus", "uid": "prometheus-developer"},
+      "datasource": {"type": "prometheus", "uid": "prometheus-devkit"},
       "targets": [
         {
           "expr": "sum(increase(kswitch_enforcement_decisions_total[5m]))",
@@ -32,7 +32,7 @@
       "title": "Active kill switches",
       "id": 2,
       "gridPos": {"x": 6, "y": 0, "w": 6, "h": 4},
-      "datasource": {"type": "prometheus", "uid": "prometheus-developer"},
+      "datasource": {"type": "prometheus", "uid": "prometheus-devkit"},
       "targets": [
         {
           "expr": "sum(kswitch_kill_switches_active)",
@@ -57,7 +57,7 @@
       "title": "Auth failures (last 5m)",
       "id": 3,
       "gridPos": {"x": 12, "y": 0, "w": 6, "h": 4},
-      "datasource": {"type": "prometheus", "uid": "prometheus-developer"},
+      "datasource": {"type": "prometheus", "uid": "prometheus-devkit"},
       "targets": [
         {
           "expr": "sum(increase(kswitch_auth_failures_total[5m]))",
@@ -71,7 +71,7 @@
       "title": "JTI replays (last 5m)",
       "id": 4,
       "gridPos": {"x": 18, "y": 0, "w": 6, "h": 4},
-      "datasource": {"type": "prometheus", "uid": "prometheus-developer"},
+      "datasource": {"type": "prometheus", "uid": "prometheus-devkit"},
       "targets": [
         {
           "expr": "sum(increase(kswitch_jti_replays_total[5m]))",
@@ -86,7 +86,7 @@
       "description": "Source metric: kswitch_pdp_decision_duration_seconds (labeled by outcome, reason_class) — the live histogram emitted by the enforcement pipeline.",
       "id": 5,
       "gridPos": {"x": 0, "y": 4, "w": 24, "h": 8},
-      "datasource": {"type": "prometheus", "uid": "prometheus-developer"},
+      "datasource": {"type": "prometheus", "uid": "prometheus-devkit"},
       "targets": [
         {
           "expr": "histogram_quantile(0.50, sum(rate(kswitch_pdp_decision_duration_seconds_bucket[5m])) by (le))",
@@ -115,7 +115,7 @@
       "title": "Enforcement decisions per second",
       "id": 6,
       "gridPos": {"x": 0, "y": 12, "w": 12, "h": 8},
-      "datasource": {"type": "prometheus", "uid": "prometheus-developer"},
+      "datasource": {"type": "prometheus", "uid": "prometheus-devkit"},
       "targets": [
         {
           "expr": "sum(rate(kswitch_enforcement_decisions_total[1m]))",
@@ -129,7 +129,7 @@
       "title": "SIEM dispatch — dispatched vs dropped",
       "id": 7,
       "gridPos": {"x": 12, "y": 12, "w": 12, "h": 8},
-      "datasource": {"type": "prometheus", "uid": "prometheus-developer"},
+      "datasource": {"type": "prometheus", "uid": "prometheus-devkit"},
       "targets": [
         {
           "expr": "sum(rate(kswitch_siem_dispatched_total[1m]))",

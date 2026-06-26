@@ -1,6 +1,6 @@
 # KSwitch Trademark Guidelines
 
-KSwitch, KSwitch DevKit, KSwitch Developer Edition, KSwitch logos, badges,
+KSwitch, KSwitch DevKit, KSwitch logos, badges,
 screenshots, product names, and trade dress are KSwitch marks.
 
 ## Permitted Nominative Use
@@ -12,7 +12,7 @@ Examples:
 
 - "uses the KSwitch Python SDK"
 - "example policy for KSwitch DevKit"
-- "compatible with KSwitch Developer Edition"
+- "compatible with KSwitch DevKit"
 
 ## Not Permitted Without Written Approval
 
@@ -29,4 +29,3 @@ You may not:
 - remove trademark notices from redistributed source copies.
 
 For permission, contact `trademarks@kswitch.io`.
-

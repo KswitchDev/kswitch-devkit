@@ -1,6 +1,6 @@
 # Migration From Pilot Bundle
 
-The pilot bundle is the right source material for Developer Edition. `ATCPDev`
+The pilot bundle is the right source material for DevKit. `ATCPDev`
 is not: it is a full source/trial drop and should not become the public free
 developer surface.
 
@@ -12,9 +12,9 @@ Source:
 
 ## Keep
 
-| Pilot asset | Developer Edition destination | Notes |
+| Pilot asset | DevKit destination | Notes |
 | --- | --- | --- |
-| `Makefile` | `devkit/Makefile` | Rename product text from pilot to Developer Edition. |
+| `Makefile` | `devkit/Makefile` | Rename product text from pilot to DevKit. |
 | `docker-compose.yml` | `devkit/docker-compose.yml` | Keep local-only profiles. Remove cloud/customer pilot language. |
 | `.env.example` | `devkit/.env.example` | Make `KSWITCH_CUSTOMER_ID` default to `developer-local` or similar. |
 | `scripts/tls.sh` | `devkit/scripts/tls.sh` | Keep local self-signed TLS path. |
@@ -31,8 +31,8 @@ Source:
 
 | Area | Required change |
 | --- | --- |
-| Branding | Replace `pilot bundle` with `Developer Edition`. |
-| Entitlement | Remove the time-boxed renewal flow. Use the Developer Edition loader overlay and no customer licence file. |
+| Branding | Replace `pilot bundle` with `DevKit`. |
+| Entitlement | Remove the time-boxed renewal flow. Use the DevKit loader overlay and no customer licence file. |
 | Caps | Lower from pilot-sized limits to developer caps. |
 | Auth docs | Lead with PKCE for humans and SPIFFE/WIMSE for services. Client credentials are fallback only. |
 | Runtime text | Say local/non-production explicitly. Avoid implying managed fleet enforcement. |
@@ -49,13 +49,12 @@ Source:
 | `deploy/kubernetes/` | Same unless later published as paid/eval material. |
 | `RENEWAL.md` | Time-boxed trial posture conflicts with non-expiring permitted non-commercial use. |
 | Customer-specific `licence/licence.jws` | Do not ship customer artefacts or expiring trial claims. |
-| `scripts/licence_info.py` | No licence file exists in Developer Edition. Use `make developer-limits`. |
-| Support-contact language | Developer Edition should route to docs/community channels, not customer support promises. |
+| `scripts/licence_info.py` | No licence file exists in DevKit. Use `make devkit-limits`. |
+| Support-contact language | DevKit should route to docs/community channels, not customer support promises. |
 
 ## Preserve As Commercial Boundary
 
-Keep the pilot's "does not demonstrate" boundary, rewritten for Developer
-Edition:
+Keep the pilot's "does not demonstrate" boundary, rewritten for DevKit:
 
 - Desktop hard egress containment.
 - Tetragon/eBPF ungoverned execution detection.

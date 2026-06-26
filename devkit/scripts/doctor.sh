@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-# KSwitch Developer Edition — doctor (health + bundled-password time-bomb)
+# KSwitch DevKit — doctor (health + bundled-password time-bomb)
 # ─────────────────────────────────────────────────────────────────────────────
 #
 # Spec: §F `make doctor` row, gates G11 + G20b.
@@ -61,18 +61,18 @@ check_url() {
   fi
 }
 
-echo "KSwitch Developer Edition — doctor"
+echo "KSwitch DevKit — doctor"
 echo "=================================="
 echo "  customer-id:        $CUSTOMER_ID"
 echo "  deployment-target:  $DEPLOYMENT_TARGET"
-echo "  developer caps:     agents=10 mcps=10 tools=100 skills=100"
+echo "  DevKit caps:        agents=10 mcps=10 tools=100 skills=100"
 echo ""
 
 # ─── Service checks (G11) ───────────────────────────────────────────
 check_url "app /api/v1/health/live"  "$APP_URL/api/v1/health/live"           "docker compose logs app"
 check_url "app /api/v1/health/ready" "$APP_URL/api/v1/health/ready"          "docker compose logs app — readiness probe failing"
 check_url "keycloak /realms/kswitch" "$KEYCLOAK_URL/realms/kswitch/.well-known/openid-configuration" "docker compose logs keycloak — was the realm imported?"
-check_url "developer portal /docs/"  "$APP_URL/docs/"                        "make bundle-docs in upstream — local docs missing from app image"
+check_url "docs portal /docs/"       "$APP_URL/docs/"                        "make bundle-docs in upstream — local docs missing from app image"
 
 # ─── Bundled-password time-bomb (G20b) ──────────────────────────────
 read_valid_until() {

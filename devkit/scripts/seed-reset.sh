@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-# KSwitch Developer Edition — seed-reset script (destructive recovery)
+# KSwitch DevKit — seed-reset script (destructive recovery)
 # ─────────────────────────────────────────────────────────────────────────────
 #
 # Spec: §F `make seed-reset` row, gates G21a + R9b.

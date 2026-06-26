@@ -15,7 +15,7 @@ cd mcp-server
 pip install -e .
 ```
 
-From the local Developer Edition runtime directory:
+From the local DevKit runtime directory:
 
 ```bash
 cd devkit
@@ -42,7 +42,7 @@ The package installs four local commands:
 
 The DevKit repo includes ready-to-edit config snippets under `configs/`.
 Install the package, copy the snippet for your tool, then set the local
-Developer Edition URL and authentication values.
+DevKit URL and authentication values.
 
 ## Configuration by Tool
 
@@ -187,7 +187,7 @@ Source-tree development can use
 [`configs/brain-local-python.json`](configs/brain-local-python.json), which
 runs `python3 -m kswitch_brain_mcp.server` with `PYTHONPATH` set. The Brain MCP
 bridge is included for local development, but the managed Brain runtime is not
-part of the free Developer Edition stack.
+part of the free DevKit stack.
 
 ## Environment Variables
 

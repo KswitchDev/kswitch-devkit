@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-# KSwitch Developer Edition — self-signed TLS generation (G22)
+# KSwitch DevKit — self-signed TLS generation (G22)
 # ─────────────────────────────────────────────────────────────────────────────
 #
 # Spec: §F `make tls` row + "TLS choice rationale".
@@ -62,7 +62,7 @@ prompt = no
 req_extensions = v3_req
 [dn]
 CN = localhost
-O  = KSwitch Developer Edition
+O  = KSwitch DevKit
 [v3_req]
 basicConstraints = CA:FALSE
 keyUsage = digitalSignature, keyEncipherment

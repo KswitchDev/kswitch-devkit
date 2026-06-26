@@ -53,6 +53,14 @@ export function sanitizePathParam(value: string): string {
   return encodeURIComponent(value);
 }
 
+function trimTrailingSlashes(value: string): string {
+  let end = value.length;
+  while (end > 0 && value.charCodeAt(end - 1) === 47) {
+    end -= 1;
+  }
+  return value.slice(0, end);
+}
+
 /**
  * Main entry point for the KSwitch.ai SDK.
  *
@@ -90,7 +98,7 @@ export class KSwitchClient {
   private readonly tokenManager: TokenManager | null;
 
   constructor(config: KSwitchConfig) {
-    this.baseUrl = config.baseUrl.replace(/\/+$/, "");
+    this.baseUrl = trimTrailingSlashes(config.baseUrl);
     this.timeout = config.timeout ?? 30_000;
     this.retries = config.retries ?? 3;
     this.backoffMs = config.backoffMs ?? 1_000;

@@ -4,6 +4,8 @@ KSwitch DevKit is the source-available, non-commercial local stack
 for developers who want to build against the SDKs without needing a commercial
 KSwitch deployment.
 
+Current DevKit runtime image tag: `v1.39-pg`.
+
 It is not open source. Commercial evaluation and commercial, production,
 customer-facing, internal business, managed-service, hosted, resale, or
 revenue-generating use are outside DevKit and require a scoped KSwitch POC

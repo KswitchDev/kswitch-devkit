@@ -92,7 +92,7 @@ x-worker-env: &worker-env
 # materializer-app pattern (see kswitch-ep094-jwt-materializer below);
 # the parent compose uses the unscoped `local` namespace.
 x-ep094-materializer: &ep094-materializer
-  image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+  image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.39-pg}
   profiles: ["identity"]
   restart: unless-stopped
   user: "0:0"
@@ -177,7 +177,7 @@ services:
   # that exits 0 once bootstrap completes; the app `depends_on:
   # app-init: service_completed_successfully` gates startup behind it.
   app-init:
-    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.39-pg}
     container_name: kswitch-app-init
     restart: "no"
     depends_on:
@@ -202,7 +202,7 @@ services:
 
   # ── KSwitch app (the control plane) ──────────────────────────────
   app:
-    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.39-pg}
     container_name: kswitch-app
     restart: unless-stopped
     depends_on:
@@ -253,7 +253,7 @@ services:
   # Runs the platform agent, identity rotation scheduler, daily
   # cleanup. Single replica; fail-closed singleton lock via Valkey.
   runtime-ops:
-    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.39-pg}
     container_name: kswitch-runtime-ops
     restart: unless-stopped
     depends_on:
@@ -295,7 +295,7 @@ services:
   # INGEST_KUBERNETES_SA_ENABLED=true, etc.). Discovered NHIs land as
   # status='declared', never 'active'.
   inventory-ingest:
-    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.39-pg}
     container_name: kswitch-inventory-ingest
     restart: unless-stopped
     depends_on:
@@ -344,7 +344,7 @@ services:
   # the app-layer backstop; perimeter is the AWS Network Firewall SNI
   # allowlist in cloud installs.
   scanner-sync-egress:
-    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.36-pg}
+    image: ghcr.io/maxcope-alt/kswitch:${KSWITCH_IMAGE_TAG:-v1.39-pg}
     container_name: kswitch-scanner-sync-egress
     restart: unless-stopped
     depends_on:
@@ -744,7 +744,7 @@ services:
     command: ["--config=/etc/otel/config.yaml"]
     environment:
       KSWITCH_ENV: production
-      KSWITCH_VERSION: ${KSWITCH_IMAGE_TAG:-v1.36-pg}
+      KSWITCH_VERSION: ${KSWITCH_IMAGE_TAG:-v1.39-pg}
     volumes:
       - ./seed/otel/collector.yaml:/etc/otel/config.yaml:ro
     ports:

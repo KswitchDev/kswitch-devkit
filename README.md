@@ -34,6 +34,8 @@ version, but it is not open source and it is not licensed for commercial,
 production, customer-facing, internal business, managed-service, hosted, resale,
 or revenue-generating use.
 
+Current DevKit runtime image tag: `v1.39-pg`.
+
 ## Quick Start
 
 Prerequisites:
